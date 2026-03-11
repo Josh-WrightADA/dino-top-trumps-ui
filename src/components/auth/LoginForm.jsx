@@ -24,7 +24,7 @@ export default function LoginForm() {
     setLoading(true);
     try {
       const res = await loginApi(username, password);
-      login(res.data.token);
+      login(res.data.accessToken);
       navigate('/lobby');
     } catch (err) {
       const message = err.response?.data?.message || 'Login failed. Please try again.';
