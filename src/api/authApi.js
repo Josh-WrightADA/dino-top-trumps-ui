@@ -9,11 +9,11 @@ export function login(username, password) {
 }
 
 export function getProfile() {
-  return axiosClient.get('/api/v1/auth/profile');
+  return axiosClient.get('/api/v1/auth/me');
 }
 
 export function updateProfile(data) {
-  return axiosClient.put('/api/v1/auth/profile', data);
+  return axiosClient.put('/api/v1/auth/me', data);
 }
 
 export function forgotPassword(email) {
