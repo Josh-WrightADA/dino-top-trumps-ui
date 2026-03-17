@@ -1,11 +1,13 @@
-// TODO: Build out leaderboard display in Phase 2
-
 import { useState, useEffect } from 'react';
 import { getLeaderboard } from '../../api/gameApi';
+import useAuth from '../../hooks/useAuth';
+import '../game/Game.css';
 
 export default function Leaderboard() {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     async function fetch() {
@@ -13,7 +15,7 @@ export default function Leaderboard() {
         const res = await getLeaderboard();
         setPlayers(res.data);
       } catch {
-        // TODO: handle error
+        setError('Failed to load leaderboard.');
       } finally {
         setLoading(false);
       }
@@ -22,27 +24,35 @@ export default function Leaderboard() {
   }, []);
 
   if (loading) return <p>Loading leaderboard...</p>;
+  if (error) return <p style={{ color: '#c62828' }}>{error}</p>;
 
   return (
     <div>
-      <h2>Leaderboard</h2>
+      <h2 style={{ marginBottom: '1rem' }}>Leaderboard</h2>
       {players.length === 0 ? (
         <p>No players ranked yet.</p>
       ) : (
-        <table>
+        <table className="leaderboard-table">
           <thead>
             <tr>
               <th>Rank</th>
               <th>Player</th>
               <th>ELO</th>
+              <th>Played</th>
+              <th>Won</th>
             </tr>
           </thead>
           <tbody>
             {players.map((player, index) => (
-              <tr key={player.id || index}>
+              <tr
+                key={player.userId}
+                className={player.userId === user?.id ? 'leaderboard-table__current-user' : ''}
+              >
                 <td>{index + 1}</td>
-                <td>{player.username}</td>
-                <td>{player.elo}</td>
+                <td>{player.displayName || player.username}</td>
+                <td>{player.eloRating}</td>
+                <td>{player.gamesPlayed}</td>
+                <td>{player.gamesWon}</td>
               </tr>
             ))}
           </tbody>

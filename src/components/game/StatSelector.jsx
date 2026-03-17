@@ -1,19 +1,34 @@
-// TODO: Build out stat selector UI in Phase 2
+import './Game.css';
 
-export default function StatSelector({ stats, onSelect }) {
+const STATS = ['HEIGHT', 'WEIGHT', 'INTELLIGENCE', 'SPEED', 'STRENGTH'];
+
+export default function StatSelector({ card, onSelect, disabled }) {
+  if (!card) return null;
+
+  const statValues = {
+    HEIGHT: card.height,
+    WEIGHT: card.weight,
+    INTELLIGENCE: card.intelligence,
+    SPEED: card.speed,
+    STRENGTH: card.strength,
+  };
+
   return (
-    <div>
-      <h3>Pick a Stat</h3>
-      {/* TODO: Render stat buttons from the current card */}
-      {stats ? (
-        Object.entries(stats).map(([key, value]) => (
-          <button key={key} onClick={() => onSelect(key)}>
-            {key}: {value}
+    <div className="stat-selector">
+      <div className="stat-selector__title">Choose a stat to compare</div>
+      <div className="stat-selector__grid">
+        {STATS.map((stat) => (
+          <button
+            key={stat}
+            className="stat-selector__btn"
+            onClick={() => onSelect(stat)}
+            disabled={disabled}
+          >
+            <span className="stat-selector__btn-label">{stat}</span>
+            <span className="stat-selector__btn-value">{statValues[stat]}</span>
           </button>
-        ))
-      ) : (
-        <p>No stats available.</p>
-      )}
+        ))}
+      </div>
     </div>
   );
 }
