@@ -1,0 +1,42 @@
+import { Component } from 'react';
+
+export default class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error('[ErrorBoundary] Caught render error:', error, info);
+  }
+
+  handleRetry = () => {
+    this.setState({ hasError: false });
+  };
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '50vh',
+          gap: '1rem',
+          padding: '2rem',
+          textAlign: 'center',
+        }}>
+          <h2>Something went wrong. Please refresh the page.</h2>
+          <button onClick={this.handleRetry}>Retry</button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}

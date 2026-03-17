@@ -20,6 +20,10 @@ export default function ResetPasswordForm() {
       setError('Both fields are required.');
       return;
     }
+    if (newPassword.length < 6) {
+      setError('Password must be at least 6 characters.');
+      return;
+    }
     if (newPassword !== confirmPassword) {
       setError('Passwords do not match.');
       return;
@@ -46,6 +50,7 @@ export default function ResetPasswordForm() {
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
+          autoComplete="new-password"
         />
       </label>
       <label>
@@ -54,6 +59,7 @@ export default function ResetPasswordForm() {
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          autoComplete="new-password"
         />
       </label>
       <button type="submit" disabled={loading}>

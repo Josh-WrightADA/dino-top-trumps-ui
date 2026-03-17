@@ -30,8 +30,15 @@ export default function GameLobby() {
     try {
       await joinGame(joinGameId.trim());
       navigate(`/game/${joinGameId.trim()}`);
-    } catch {
-      setError('Failed to join game. Check the game ID.');
+    } catch (err) {
+      const status = err?.response?.status;
+      if (status === 400) {
+        setError('You cannot join your own game. Share this ID with a friend.');
+      } else if (status === 404) {
+        setError('Game not found. Check the game ID and try again.');
+      } else {
+        setError('Failed to join game. Check the game ID.');
+      }
     } finally {
       setLoading(false);
     }

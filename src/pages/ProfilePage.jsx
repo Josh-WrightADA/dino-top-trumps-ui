@@ -41,6 +41,7 @@ export default function ProfilePage() {
   }
 
   if (loading) return <div className="page"><p>Loading profile...</p></div>;
+  if (error && !profile) return <div className="page"><p style={{ color: '#c62828' }}>{error}</p></div>;
 
   return (
     <div className="page">

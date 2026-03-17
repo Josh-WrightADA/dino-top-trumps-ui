@@ -23,8 +23,8 @@ export default function ForgotPasswordForm() {
     try {
       await forgotPassword(email);
       setMessage('If that email exists, a reset link has been sent.');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong.');
+    } catch {
+      setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -41,6 +41,7 @@ export default function ForgotPasswordForm() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
         />
       </label>
       <button type="submit" disabled={loading}>

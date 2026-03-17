@@ -12,6 +12,12 @@ function decodeToken(token) {
   }
 }
 
+function isTokenExpired(decoded) {
+  if (!decoded || !decoded.exp) return true;
+  // exp is in seconds; Date.now() is in milliseconds
+  return decoded.exp * 1000 < Date.now();
+}
+
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
@@ -20,7 +26,7 @@ export function AuthProvider({ children }) {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       const decoded = decodeToken(storedToken);
-      if (decoded) {
+      if (decoded && !isTokenExpired(decoded)) {
         setToken(storedToken);
         setUser({ id: decoded.sub || decoded.id, username: decoded.username || decoded.sub });
       } else {
