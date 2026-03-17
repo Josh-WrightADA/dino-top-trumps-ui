@@ -65,6 +65,14 @@ export default function ProfilePage() {
                   <div className="profile__stat-label">Games Won</div>
                   <div className="profile__stat-value">{profile.gamesWon}</div>
                 </div>
+                <div>
+                  <div className="profile__stat-label">Win Rate</div>
+                  <div className="profile__stat-value">
+                    {profile.gamesPlayed > 0
+                      ? `${Math.round((profile.gamesWon / profile.gamesPlayed) * 100)}%`
+                      : 'N/A'}
+                  </div>
+                </div>
               </div>
             </div>
 
