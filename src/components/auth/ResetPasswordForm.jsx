@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { resetPassword } from '../../api/authApi';
+import useAuth from '../../hooks/useAuth';
 import './AuthForms.css';
 
 export default function ResetPasswordForm() {
@@ -9,8 +10,10 @@ export default function ResetPasswordForm() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { logout, isAuthenticated } = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,12 +35,27 @@ export default function ResetPasswordForm() {
     setLoading(true);
     try {
       await resetPassword(token, newPassword);
-      navigate('/login');
+      if (isAuthenticated) {
+        logout();
+      }
+      setSuccess(true);
+      setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
       setError(err.response?.data?.message || 'Reset failed.');
     } finally {
       setLoading(false);
     }
+  }
+
+  if (success) {
+    return (
+      <div className="auth-form">
+        <h2>Password Reset</h2>
+        <p style={{ color: '#2d6a4f', textAlign: 'center' }}>
+          Your password has been reset successfully. Redirecting to login...
+        </p>
+      </div>
+    );
   }
 
   return (
