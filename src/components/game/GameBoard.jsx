@@ -15,6 +15,7 @@ export default function GameBoard() {
 
   const [turnResult, setTurnResult] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [turnError, setTurnError] = useState('');
   const [cardCache, setCardCache] = useState({});
   const [topCard, setTopCard] = useState(null);
 
@@ -59,11 +60,12 @@ export default function GameBoard() {
   const handleStatSelect = useCallback(async (stat) => {
     if (submitting || !isYourTurn) return;
     setSubmitting(true);
+    setTurnError('');
     try {
       const res = await playTurn(id, stat);
       setTurnResult(res.data);
     } catch {
-      // Error handled by polling refresh
+      setTurnError('Failed to play turn. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -124,6 +126,7 @@ export default function GameBoard() {
         <TurnResult
           result={turnResult}
           isPlayer1={isPlayer1}
+          userId={user?.id}
           onDismiss={handleDismissResult}
         />
       ) : (
@@ -131,6 +134,12 @@ export default function GameBoard() {
           <div className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}>
             {isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}
           </div>
+
+          {turnError && (
+            <p style={{ color: '#c62828', background: '#fdecea', padding: '0.5rem', borderRadius: '4px', margin: '0.5rem 0' }}>
+              {turnError}
+            </p>
+          )}
 
           {topCard && <DinoCard card={topCard} />}
 
