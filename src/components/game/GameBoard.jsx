@@ -129,7 +129,7 @@ export default function GameBoard() {
       ) : (
         <>
           <div className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}>
-            {isYourTurn ? '🎯 Your turn — pick a stat!' : '⏳ Waiting for opponent...'}
+            {isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}
           </div>
 
           {topCard && <DinoCard card={topCard} />}

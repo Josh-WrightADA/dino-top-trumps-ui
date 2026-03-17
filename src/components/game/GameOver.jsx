@@ -10,7 +10,7 @@ export default function GameOver({ game, userId }) {
 
   return (
     <div className="game-over">
-      <div className="game-over__trophy">{youWon ? '🏆' : '💀'}</div>
+      <div className="game-over__trophy">{youWon ? 'VICTORY' : 'DEFEAT'}</div>
       <h2 className={`game-over__title ${youWon ? 'game-over__title--won' : 'game-over__title--lost'}`}>
         {youWon ? 'Victory!' : 'Defeat'}
       </h2>

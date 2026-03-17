@@ -1,11 +1,5 @@
 import './Game.css';
 
-const DIET_EMOJI = {
-  Carnivore: '🥩',
-  Herbivore: '🌿',
-  Omnivore: '🍽️',
-};
-
 const STAT_ORDER = ['height', 'weight', 'intelligence', 'speed', 'strength'];
 
 export default function DinoCard({ card, highlightStat }) {
@@ -23,13 +17,13 @@ export default function DinoCard({ card, highlightStat }) {
       {card.imageUrl ? (
         <img className="dino-card__image" src={card.imageUrl} alt={card.name} />
       ) : (
-        <div className="dino-card__image-placeholder">🦕</div>
+        <div className="dino-card__image-placeholder">DINO</div>
       )}
 
       <div className="dino-card__meta">
         {card.diet && (
           <span className={`dino-card__tag dino-card__tag--${dietClass}`}>
-            {DIET_EMOJI[card.diet] || ''} {card.diet}
+            {card.diet}
           </span>
         )}
         {card.era && <span className="dino-card__tag">{card.era}</span>}
