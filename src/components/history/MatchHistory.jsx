@@ -1,11 +1,13 @@
-// TODO: Build out match history list in Phase 2
-
 import { useState, useEffect } from 'react';
 import { getMatchHistory } from '../../api/gameApi';
+import useAuth from '../../hooks/useAuth';
+import '../game/Game.css';
 
 export default function MatchHistory() {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     async function fetch() {
@@ -13,7 +15,7 @@ export default function MatchHistory() {
         const res = await getMatchHistory();
         setMatches(res.data);
       } catch {
-        // TODO: handle error
+        setError('Failed to load match history.');
       } finally {
         setLoading(false);
       }
@@ -22,19 +24,31 @@ export default function MatchHistory() {
   }, []);
 
   if (loading) return <p>Loading history...</p>;
+  if (error) return <p style={{ color: '#c62828' }}>{error}</p>;
 
   return (
     <div>
-      <h2>Match History</h2>
+      <h2 style={{ marginBottom: '1rem' }}>Match History</h2>
       {matches.length === 0 ? (
         <p>No matches played yet.</p>
       ) : (
-        <ul>
-          {matches.map((match) => (
-            <li key={match.id}>
-              Game #{match.id} - {match.result || match.status}
-            </li>
-          ))}
+        <ul className="match-list">
+          {matches.map((match) => {
+            const won = match.winnerId === user?.id;
+            return (
+              <li key={match.gameId} className="match-item">
+                <span className="match-item__opponent">
+                  vs {match.opponentId?.substring(0, 8)}...
+                </span>
+                <span className="match-item__date">
+                  {new Date(match.createdAt).toLocaleDateString()}
+                </span>
+                <span className={`match-item__result ${won ? 'match-item__result--won' : 'match-item__result--lost'}`}>
+                  {won ? 'WIN' : 'LOSS'}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
