@@ -40,6 +40,7 @@ export default function Leaderboard() {
               <th>ELO</th>
               <th>Played</th>
               <th>Won</th>
+              <th>Win %</th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +54,11 @@ export default function Leaderboard() {
                 <td>{player.eloRating}</td>
                 <td>{player.gamesPlayed}</td>
                 <td>{player.gamesWon}</td>
+                <td>
+                  {player.gamesPlayed > 0
+                    ? `${Math.round((player.gamesWon / player.gamesPlayed) * 100)}%`
+                    : 'N/A'}
+                </td>
               </tr>
             ))}
           </tbody>

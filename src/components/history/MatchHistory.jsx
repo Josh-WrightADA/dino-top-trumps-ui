@@ -38,7 +38,7 @@ export default function MatchHistory() {
             return (
               <li key={match.gameId} className="match-item">
                 <span className="match-item__opponent">
-                  vs {match.opponentId?.substring(0, 8)}...
+                  vs {match.opponentName ?? `${match.opponentId?.substring(0, 8)}...`}
                 </span>
                 <span className="match-item__date">
                   {new Date(match.createdAt).toLocaleDateString()}
