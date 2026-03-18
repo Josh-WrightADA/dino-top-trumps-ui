@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getMatchHistory } from '../../api/gameApi';
 import useAuth from '../../hooks/useAuth';
 import '../game/Game.css';
@@ -37,9 +38,9 @@ export default function MatchHistory() {
             const won = match.winnerId === user?.id;
             return (
               <li key={match.gameId} className="match-item">
-                <span className="match-item__opponent">
+                <Link to={`/player/${match.opponentId}`} className="match-item__opponent">
                   vs {match.opponentName ?? `${match.opponentId?.substring(0, 8)}...`}
-                </span>
+                </Link>
                 <span className="match-item__date">
                   {new Date(match.createdAt).toLocaleDateString()}
                 </span>
