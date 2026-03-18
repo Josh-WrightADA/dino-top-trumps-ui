@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import usePolling from '../../hooks/usePolling';
-import { getGameState, playTurn, getCards } from '../../api/gameApi';
+import { getGameState, playTurn, forfeitGame, getCards } from '../../api/gameApi';
 import DinoCard from './DinoCard';
 import StatSelector from './StatSelector';
 import TurnResult from './TurnResult';
@@ -75,6 +75,15 @@ export default function GameBoard() {
     setTurnResult(null);
   }, []);
 
+  const handleForfeit = useCallback(async () => {
+    if (!window.confirm('Are you sure you want to forfeit? This counts as a loss.')) return;
+    try {
+      await forfeitGame(id);
+    } catch {
+      setTurnError('Failed to forfeit.');
+    }
+  }, [id]);
+
   if (loading && !game) return <div className="game-board"><p>Loading game...</p></div>;
   if (error) return <div className="game-board"><p>Error loading game.</p></div>;
   if (!game) return null;
@@ -111,8 +120,8 @@ export default function GameBoard() {
           <div className="game-board__status-value">{game.yourHand?.length || 0}</div>
         </div>
         <div>
-          <div className="game-board__status-label">Status</div>
-          <div className="game-board__status-value">{game.status}</div>
+          <div className="game-board__status-label">Draw Pile</div>
+          <div className="game-board__status-value">{game.drawPileSize || 0}</div>
         </div>
         <div>
           <div className="game-board__status-label">Opponent Cards</div>
@@ -120,6 +129,10 @@ export default function GameBoard() {
             {isPlayer1 ? game.player2HandSize : game.player1HandSize}
           </div>
         </div>
+      </div>
+
+      <div style={{ textAlign: 'right', marginBottom: '0.5rem' }}>
+        <button onClick={handleForfeit} style={{ background: '#c62828', fontSize: '0.8rem', padding: '0.3rem 0.75rem' }}>Forfeit</button>
       </div>
 
       {turnResult ? (

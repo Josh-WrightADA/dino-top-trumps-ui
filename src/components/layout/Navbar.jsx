@@ -19,6 +19,7 @@ export default function Navbar() {
         {isAuthenticated ? (
           <>
             <Link to="/lobby">Lobby</Link>
+            <Link to="/my-games">My Games</Link>
             <Link to="/cards">Cards</Link>
             <Link to="/history">History</Link>
             <Link to="/leaderboard">Leaderboard</Link>

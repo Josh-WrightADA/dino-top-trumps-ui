@@ -1,7 +1,16 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getLeaderboard } from '../../api/gameApi';
 import useAuth from '../../hooks/useAuth';
 import '../game/Game.css';
+
+const RANK_LABELS = {
+  HATCHLING: 'Hatchling',
+  HERBIVORE: 'Herbivore',
+  CARNIVORE: 'Carnivore',
+  APEX: 'Apex',
+  METEOR: 'Meteor',
+};
 
 export default function Leaderboard() {
   const [players, setPlayers] = useState([]);
@@ -37,6 +46,7 @@ export default function Leaderboard() {
             <tr>
               <th>Rank</th>
               <th>Player</th>
+              <th>Tier</th>
               <th>ELO</th>
               <th>Played</th>
               <th>Won</th>
@@ -50,7 +60,8 @@ export default function Leaderboard() {
                 className={player.userId === user?.id ? 'leaderboard-table__current-user' : ''}
               >
                 <td>{index + 1}</td>
-                <td>{player.displayName || player.username}</td>
+                <td><Link to={`/player/${player.userId}`}>{player.displayName || player.username}</Link></td>
+                <td>{RANK_LABELS[player.rankTier] || player.rankTier}</td>
                 <td>{player.eloRating}</td>
                 <td>{player.gamesPlayed}</td>
                 <td>{player.gamesWon}</td>

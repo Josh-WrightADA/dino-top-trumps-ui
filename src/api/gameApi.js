@@ -8,6 +8,10 @@ export function getAvailableGames() {
   return axiosClient.get('/api/v1/games/available');
 }
 
+export function getActiveGames() {
+  return axiosClient.get('/api/v1/games/active');
+}
+
 export function joinGame(gameId) {
   return axiosClient.post(`/api/v1/games/${gameId}/join`);
 }
@@ -20,8 +24,8 @@ export function playTurn(gameId, stat) {
   return axiosClient.post(`/api/v1/games/${gameId}/turns`, { stat });
 }
 
-export function getTurnHistory(gameId) {
-  return axiosClient.get(`/api/v1/games/${gameId}/turns`);
+export function forfeitGame(gameId) {
+  return axiosClient.post(`/api/v1/games/${gameId}/forfeit`);
 }
 
 export function getMatchHistory() {

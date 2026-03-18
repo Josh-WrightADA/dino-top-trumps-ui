@@ -13,6 +13,8 @@ import GamePage from './pages/GamePage';
 import HistoryPage from './pages/HistoryPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import ProfilePage from './pages/ProfilePage';
+import PlayerProfilePage from './pages/PlayerProfilePage';
+import MyGamesPage from './pages/MyGamesPage';
 import AboutPage from './pages/AboutPage';
 import CardsPage from './pages/CardsPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -35,6 +37,8 @@ export default function App() {
           <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
           <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+          <Route path="/player/:id" element={<ProtectedRoute><PlayerProfilePage /></ProtectedRoute>} />
+          <Route path="/my-games" element={<ProtectedRoute><MyGamesPage /></ProtectedRoute>} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/cards" element={<ProtectedRoute><CardsPage /></ProtectedRoute>} />
           <Route path="*" element={<NotFoundPage />} />

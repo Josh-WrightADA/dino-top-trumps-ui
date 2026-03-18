@@ -16,6 +16,18 @@ export function updateProfile(data) {
   return axiosClient.put('/api/v1/auth/me', data);
 }
 
+export function changePassword(currentPassword, newPassword) {
+  return axiosClient.put('/api/v1/auth/change-password', { currentPassword, newPassword });
+}
+
+export function deleteAccount() {
+  return axiosClient.delete('/api/v1/auth/me');
+}
+
+export function getPublicProfile(userId) {
+  return axiosClient.get(`/api/v1/players/${userId}`);
+}
+
 export function forgotPassword(email) {
   return axiosClient.post('/api/v1/auth/forgot-password', { email });
 }
