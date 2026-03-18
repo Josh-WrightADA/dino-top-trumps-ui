@@ -19,8 +19,8 @@ export default function GameBoard() {
   const [cardCache, setCardCache] = useState({});
   const [topCard, setTopCard] = useState(null);
 
-  // Poll game state — pause while showing turn result
-  const shouldPoll = !turnResult;
+  // Poll game state — pause while showing turn result or when game is finished
+  const shouldPoll = !turnResult && game?.status !== 'FINISHED';
   const { data: game, loading, error } = usePolling(
     () => getGameState(id),
     3000,

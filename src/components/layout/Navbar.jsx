@@ -15,9 +15,11 @@ export default function Navbar() {
     <nav className="navbar">
       <Link to="/" className="navbar-brand">Dino Top Trumps</Link>
       <div className="navbar-links">
+        <Link to="/about">How to Play</Link>
         {isAuthenticated ? (
           <>
             <Link to="/lobby">Lobby</Link>
+            <Link to="/cards">Cards</Link>
             <Link to="/history">History</Link>
             <Link to="/leaderboard">Leaderboard</Link>
             <Link to="/profile">Profile</Link>
