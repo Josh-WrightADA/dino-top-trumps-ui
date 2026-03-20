@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 function calculateSecondsLeft(turnDeadline) {
   if (!turnDeadline) return null;
@@ -6,10 +6,15 @@ function calculateSecondsLeft(turnDeadline) {
   return Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
 }
 
-export default function TurnTimer({ turnDeadline, isYourTurn }) {
+export default function TurnTimer({ turnDeadline, isYourTurn, onExpired }) {
   const [, setTick] = useState(0);
+  const hasFiredRef = useRef(false);
 
   const forceUpdate = useCallback(() => setTick(t => t + 1), []);
+
+  useEffect(() => {
+    hasFiredRef.current = false;
+  }, [turnDeadline]);
 
   useEffect(() => {
     if (!turnDeadline) return;
@@ -18,6 +23,14 @@ export default function TurnTimer({ turnDeadline, isYourTurn }) {
   }, [turnDeadline, forceUpdate]);
 
   const secondsLeft = calculateSecondsLeft(turnDeadline);
+
+  useEffect(() => {
+    if (secondsLeft === 0 && !hasFiredRef.current && onExpired) {
+      hasFiredRef.current = true;
+      onExpired();
+    }
+  }, [secondsLeft, onExpired]);
+
   if (secondsLeft === null) return null;
 
   const urgent = secondsLeft <= 10;

@@ -41,5 +41,5 @@ export default function usePolling(asyncFn, interval, enabled = true) {
     return () => clearInterval(id);
   }, [poll, interval, enabled]);
 
-  return { data, loading, error };
+  return { data, loading, error, refetch: poll };
 }

@@ -65,4 +65,22 @@ describe('TurnTimer', () => {
     const { container } = render(<TurnTimer turnDeadline={deadline} isYourTurn={true} />);
     expect(container.firstChild.classList.contains('turn-timer--critical')).toBe(true);
   });
+
+  it('calls onExpired when timer reaches zero', () => {
+    const onExpired = vi.fn();
+    const deadline = new Date(Date.now() + 2000).toISOString();
+    render(<TurnTimer turnDeadline={deadline} isYourTurn={true} onExpired={onExpired} />);
+
+    act(() => { vi.advanceTimersByTime(3000); });
+    expect(onExpired).toHaveBeenCalledOnce();
+  });
+
+  it('does not call onExpired more than once', () => {
+    const onExpired = vi.fn();
+    const deadline = new Date(Date.now() + 1000).toISOString();
+    render(<TurnTimer turnDeadline={deadline} isYourTurn={true} onExpired={onExpired} />);
+
+    act(() => { vi.advanceTimersByTime(5000); });
+    expect(onExpired).toHaveBeenCalledOnce();
+  });
 });

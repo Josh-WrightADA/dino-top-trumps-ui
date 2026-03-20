@@ -22,7 +22,7 @@ export default function GameBoard() {
   const [pollEnabled, setPollEnabled] = useState(true);
 
   // Poll game state — pause while showing turn result or when game is finished
-  const { data: game, loading, error } = usePolling(
+  const { data: game, loading, error, refetch } = usePolling(
     () => getGameState(id),
     3000,
     pollEnabled
@@ -90,6 +90,17 @@ export default function GameBoard() {
     }
   }, [id]);
 
+  const handleTurnExpired = useCallback(async () => {
+    if (isYourTurn) {
+      try {
+        await forfeitGame(id);
+      } catch {
+        // Backend may have already forfeited — refetch to get latest state
+      }
+    }
+    refetch();
+  }, [id, isYourTurn, refetch]);
+
   if (loading && !game) return <div className="game-board"><p>Loading game...</p></div>;
   if (error) return <div className="game-board"><p>Error loading game.</p></div>;
   if (!game) return null;
@@ -152,7 +163,7 @@ export default function GameBoard() {
         <>
           <div className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}>
             <span>{isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}</span>
-            <TurnTimer turnDeadline={game.turnDeadline} isYourTurn={isYourTurn} />
+            <TurnTimer turnDeadline={game.turnDeadline} isYourTurn={isYourTurn} onExpired={handleTurnExpired} />
           </div>
 
           {turnError && (
