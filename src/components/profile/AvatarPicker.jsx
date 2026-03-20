@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { getCards } from '../../api/gameApi';
 import { setDinoAvatar } from '../../api/authApi';
+import { DEFAULT_AVATARS } from '../../constants/defaultAvatars';
 
 export default function AvatarPicker({ onClose, onSelect }) {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selecting, setSelecting] = useState(false);
+  const [tab, setTab] = useState('portraits');
 
   useEffect(() => {
     async function fetchCards() {
@@ -51,38 +53,77 @@ export default function AvatarPicker({ onClose, onSelect }) {
           </button>
         </div>
 
+        <div className="avatar-picker__tabs">
+          <button
+            className={`avatar-picker__tab ${tab === 'portraits' ? 'avatar-picker__tab--active' : ''}`}
+            onClick={() => setTab('portraits')}
+          >
+            Portraits
+          </button>
+          <button
+            className={`avatar-picker__tab ${tab === 'cards' ? 'avatar-picker__tab--active' : ''}`}
+            onClick={() => setTab('cards')}
+          >
+            Card Art
+          </button>
+        </div>
+
         {error && (
           <p style={{ color: '#c62828', background: '#fdecea', padding: '0.5rem', borderRadius: '4px', marginBottom: '1rem' }}>
             {error}
           </p>
         )}
 
-        {loading ? (
-          <p>Loading cards...</p>
-        ) : (
+        {tab === 'portraits' && (
           <div className="avatar-picker__grid">
-            {cards.map((card) => (
+            {DEFAULT_AVATARS.map((avatar) => (
               <button
-                key={card.id}
+                key={avatar.name}
                 className="avatar-picker__card"
-                onClick={() => handleSelect(card.imageUrl)}
-                disabled={selecting || !card.imageUrl}
-                title={card.name}
-                aria-label={`Select ${card.name} as avatar`}
+                onClick={() => handleSelect(avatar.url)}
+                disabled={selecting}
+                title={avatar.name}
+                aria-label={`Select ${avatar.name} as avatar`}
               >
-                {card.imageUrl ? (
-                  <img
-                    src={card.imageUrl}
-                    alt={card.name}
-                    className="avatar-picker__thumbnail"
-                  />
-                ) : (
-                  <div className="avatar-picker__no-image">{card.name.charAt(0)}</div>
-                )}
-                <span className="avatar-picker__card-name">{card.name}</span>
+                <img
+                  src={avatar.url}
+                  alt={avatar.name}
+                  className="avatar-picker__thumbnail"
+                />
+                <span className="avatar-picker__card-name">{avatar.name}</span>
               </button>
             ))}
           </div>
+        )}
+
+        {tab === 'cards' && (
+          loading ? (
+            <p>Loading cards...</p>
+          ) : (
+            <div className="avatar-picker__grid">
+              {cards.map((card) => (
+                <button
+                  key={card.id}
+                  className="avatar-picker__card"
+                  onClick={() => handleSelect(card.imageUrl)}
+                  disabled={selecting || !card.imageUrl}
+                  title={card.name}
+                  aria-label={`Select ${card.name} as avatar`}
+                >
+                  {card.imageUrl ? (
+                    <img
+                      src={card.imageUrl}
+                      alt={card.name}
+                      className="avatar-picker__thumbnail"
+                    />
+                  ) : (
+                    <div className="avatar-picker__no-image">{card.name.charAt(0)}</div>
+                  )}
+                  <span className="avatar-picker__card-name">{card.name}</span>
+                </button>
+              ))}
+            </div>
+          )
         )}
       </div>
     </div>
