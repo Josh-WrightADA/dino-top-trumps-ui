@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createGame } from '../../api/gameApi';
+import { getProfile } from '../../api/authApi';
+import RankBadge from '../rank/RankBadge';
 import './Game.css';
 
 export default function GameOver({ game, userId }) {
   const navigate = useNavigate();
   const [rematchLoading, setRematchLoading] = useState(false);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const res = await getProfile();
+        setProfile(res.data);
+      } catch {
+        // Non-critical — ELO just won't display
+      }
+    }
+    fetchProfile();
+  }, []);
 
   if (!game) return null;
 
@@ -46,6 +61,20 @@ export default function GameOver({ game, userId }) {
             {game.isPlayer1 ? p2Cards : p1Cards}
           </div>
         </div>
+        {profile && (
+          <>
+            <div className="game-over__stat">
+              <div className="game-over__stat-label">Your ELO</div>
+              <div className="game-over__stat-value">{profile.eloRating}</div>
+            </div>
+            <div className="game-over__stat">
+              <div className="game-over__stat-label">Rank</div>
+              <div className="game-over__stat-value">
+                <RankBadge tierKey={profile.rankTier} />
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="game-over__actions">
