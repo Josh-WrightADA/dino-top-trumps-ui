@@ -5,7 +5,7 @@ export const RANK_TIERS = {
   },
   HERBIVORE: {
     label: 'Herbivore',
-    badgeUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774032207/dino-top-trumps/badges/herbivore.jpg',
+    badgeUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774032960/Subject_fiauaa.png',
   },
   CARNIVORE: {
     label: 'Carnivore',
