@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/layout/Navbar';
 import ProtectedRoute from './components/layout/ProtectedRoute';
@@ -20,30 +20,38 @@ import CardsPage from './pages/CardsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
+function AppRoutes() {
+  const location = useLocation();
+
+  return (
+    <ErrorBoundary resetKey={location.pathname}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/lobby" element={<ProtectedRoute><LobbyPage /></ProtectedRoute>} />
+        <Route path="/game/:id" element={<ProtectedRoute><GamePage /></ProtectedRoute>} />
+        <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
+        <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+        <Route path="/player/:id" element={<ProtectedRoute><PlayerProfilePage /></ProtectedRoute>} />
+        <Route path="/my-games" element={<ProtectedRoute><MyGamesPage /></ProtectedRoute>} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/cards" element={<ProtectedRoute><CardsPage /></ProtectedRoute>} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </ErrorBoundary>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Navbar />
-        <ErrorBoundary>
-          <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/lobby" element={<ProtectedRoute><LobbyPage /></ProtectedRoute>} />
-          <Route path="/game/:id" element={<ProtectedRoute><GamePage /></ProtectedRoute>} />
-          <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
-          <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-          <Route path="/player/:id" element={<ProtectedRoute><PlayerProfilePage /></ProtectedRoute>} />
-          <Route path="/my-games" element={<ProtectedRoute><MyGamesPage /></ProtectedRoute>} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/cards" element={<ProtectedRoute><CardsPage /></ProtectedRoute>} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        </ErrorBoundary>
+        <AppRoutes />
       </AuthProvider>
     </BrowserRouter>
   );

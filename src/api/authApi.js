@@ -25,7 +25,7 @@ export function deleteAccount() {
 }
 
 export function getPublicProfile(userId) {
-  return axiosClient.get(`/api/v1/players/${userId}`);
+  return axiosClient.get(`/api/v1/auth/players/${userId}`);
 }
 
 export function forgotPassword(email) {

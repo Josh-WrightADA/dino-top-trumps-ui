@@ -19,14 +19,19 @@ export default function GameBoard() {
   const [turnError, setTurnError] = useState('');
   const [cardCache, setCardCache] = useState({});
   const [topCard, setTopCard] = useState(null);
+  const [pollEnabled, setPollEnabled] = useState(true);
 
   // Poll game state — pause while showing turn result or when game is finished
-  const shouldPoll = !turnResult && game?.status !== 'FINISHED';
   const { data: game, loading, error } = usePolling(
     () => getGameState(id),
     3000,
-    shouldPoll
+    pollEnabled
   );
+
+  // Stop polling when showing turn result or game is finished
+  useEffect(() => {
+    setPollEnabled(!turnResult && game?.status !== 'FINISHED');
+  }, [turnResult, game?.status]);
 
   // Load all cards once to build a lookup cache
   useEffect(() => {

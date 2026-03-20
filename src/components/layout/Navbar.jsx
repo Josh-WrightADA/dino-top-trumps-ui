@@ -25,12 +25,12 @@ export default function Navbar() {
             <Link to="/history">History</Link>
             <Link to="/leaderboard">Leaderboard</Link>
             <Link to="/profile">Profile</Link>
-            <span className="navbar-user navbar-avatar">
+            <Link to="/profile" className="navbar-user navbar-avatar" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="avatar-placeholder avatar-placeholder--small">
                 {(user?.username || 'U').charAt(0)}
               </div>
               {user?.username}
-            </span>
+            </Link>
             <button onClick={handleLogout} className="navbar-logout">Logout</button>
           </>
         ) : (
