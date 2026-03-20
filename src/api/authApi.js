@@ -35,3 +35,15 @@ export function forgotPassword(email) {
 export function resetPassword(token, newPassword) {
   return axiosClient.post('/api/v1/auth/reset-password', { token, newPassword });
 }
+
+export function uploadAvatar(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return axiosClient.post('/api/v1/auth/me/avatar', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+}
+
+export function setDinoAvatar(imageUrl) {
+  return axiosClient.post('/api/v1/auth/me/avatar/dino', { imageUrl });
+}

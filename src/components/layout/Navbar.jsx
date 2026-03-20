@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import './Navbar.css';
+import '../profile/Avatar.css';
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
@@ -24,7 +25,12 @@ export default function Navbar() {
             <Link to="/history">History</Link>
             <Link to="/leaderboard">Leaderboard</Link>
             <Link to="/profile">Profile</Link>
-            <span className="navbar-user">{user?.username}</span>
+            <span className="navbar-user navbar-avatar">
+              <div className="avatar-placeholder avatar-placeholder--small">
+                {(user?.username || 'U').charAt(0)}
+              </div>
+              {user?.username}
+            </span>
             <button onClick={handleLogout} className="navbar-logout">Logout</button>
           </>
         ) : (
