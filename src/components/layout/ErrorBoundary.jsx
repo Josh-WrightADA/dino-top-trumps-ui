@@ -10,6 +10,13 @@ export default class ErrorBoundary extends Component {
     return { hasError: true };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (state.hasError && state.prevKey !== props.resetKey) {
+      return { hasError: false, prevKey: props.resetKey };
+    }
+    return { prevKey: props.resetKey };
+  }
+
   componentDidCatch(error, info) {
     console.error('[ErrorBoundary] Caught render error:', error, info);
   }
