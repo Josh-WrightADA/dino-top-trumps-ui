@@ -34,9 +34,10 @@ describe('GameOver', () => {
     expect(screen.getByText('DEFEAT')).toBeInTheDocument();
   });
 
-  it('shows play again and leaderboard links', () => {
+  it('shows new game and leaderboard links', () => {
     renderWithRouter(<GameOver game={wonGame} userId="user-1" />);
-    expect(screen.getByText('Play Again')).toBeInTheDocument();
+    expect(screen.getByText('New Game')).toBeInTheDocument();
+    expect(screen.getByText('Lobby')).toBeInTheDocument();
     expect(screen.getByText('Leaderboard')).toBeInTheDocument();
   });
 

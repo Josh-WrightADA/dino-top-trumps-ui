@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createGame } from '../../api/gameApi';
 import './Game.css';
 
 export default function GameOver({ game, userId }) {
   const navigate = useNavigate();
+  const [rematchLoading, setRematchLoading] = useState(false);
 
   if (!game) return null;
 
@@ -12,11 +14,11 @@ export default function GameOver({ game, userId }) {
   const p2Cards = game.player2HandSize;
 
   async function handleRematch() {
+    setRematchLoading(true);
     try {
       const res = await createGame();
       navigate(`/game/${res.data.id}`);
     } catch {
-      // If rematch fails, fall back to lobby
       navigate('/lobby');
     }
   }
@@ -47,8 +49,10 @@ export default function GameOver({ game, userId }) {
       </div>
 
       <div className="game-over__actions">
-        <Link to="/lobby"><button>Play Again</button></Link>
-        <button onClick={handleRematch}>Rematch</button>
+        <button onClick={handleRematch} disabled={rematchLoading}>
+          {rematchLoading ? 'Creating...' : 'New Game'}
+        </button>
+        <Link to="/lobby"><button style={{ background: 'transparent', color: '#2d6a4f', border: '2px solid #2d6a4f' }}>Lobby</button></Link>
         <Link to="/leaderboard"><button style={{ background: 'transparent', color: '#2d6a4f', border: '2px solid #2d6a4f' }}>Leaderboard</button></Link>
       </div>
     </div>
