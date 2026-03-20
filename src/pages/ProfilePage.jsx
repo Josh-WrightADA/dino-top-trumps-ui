@@ -21,7 +21,7 @@ export default function ProfilePage() {
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const fileInputRef = useRef(null);
-  const { logout } = useAuth();
+  const { logout, refreshProfile } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,6 +60,7 @@ export default function ProfilePage() {
       const res = await uploadAvatar(file);
       setProfile((prev) => ({ ...prev, avatarUrl: res.data.avatarUrl }));
       setSuccess('Avatar updated.');
+      refreshProfile();
     } catch {
       setError('Failed to upload avatar. Please try again.');
     } finally {
@@ -72,6 +73,7 @@ export default function ProfilePage() {
   function handleDinoAvatarSelected(avatarUrl) {
     setProfile((prev) => ({ ...prev, avatarUrl }));
     setShowAvatarPicker(false);
+    refreshProfile();
     setSuccess('Avatar updated.');
   }
 

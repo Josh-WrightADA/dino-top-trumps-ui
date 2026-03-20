@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthProvider';
 import Navbar from './components/layout/Navbar';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import ErrorBoundary from './components/layout/ErrorBoundary';
+import useAuth from './hooks/useAuth';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -19,6 +21,16 @@ import AboutPage from './pages/AboutPage';
 import CardsPage from './pages/CardsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
+
+function ProfileInitializer() {
+  const { isAuthenticated, refreshProfile } = useAuth();
+  useEffect(() => {
+    if (isAuthenticated) {
+      refreshProfile();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
 
 function AppRoutes() {
   const location = useLocation();
@@ -50,6 +62,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <ProfileInitializer />
         <Navbar />
         <AppRoutes />
       </AuthProvider>
