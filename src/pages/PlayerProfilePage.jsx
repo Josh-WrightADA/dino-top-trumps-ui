@@ -1,16 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPublicProfile } from '../api/authApi';
+import RankBadge from '../components/rank/RankBadge';
 import '../components/game/Game.css';
 import '../components/profile/Avatar.css';
-
-const RANK_LABELS = {
-  HATCHLING: 'Hatchling',
-  HERBIVORE: 'Herbivore',
-  CARNIVORE: 'Carnivore',
-  APEX: 'Apex',
-  METEOR: 'Meteor',
-};
 
 export default function PlayerProfilePage() {
   const { id } = useParams();
@@ -65,7 +58,7 @@ export default function PlayerProfilePage() {
             </div>
             <div>
               <div className="profile__stat-label">Rank</div>
-              <div className="profile__stat-value">{RANK_LABELS[profile.rankTier] || profile.rankTier}</div>
+              <div className="profile__stat-value"><RankBadge tierKey={profile.rankTier} size="medium" /></div>
             </div>
             <div>
               <div className="profile__stat-label">Games Played</div>

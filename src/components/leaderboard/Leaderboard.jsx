@@ -2,16 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getLeaderboard } from '../../api/gameApi';
 import useAuth from '../../hooks/useAuth';
+import RankBadge from '../rank/RankBadge';
 import '../game/Game.css';
 import '../profile/Avatar.css';
-
-const RANK_LABELS = {
-  HATCHLING: 'Hatchling',
-  HERBIVORE: 'Herbivore',
-  CARNIVORE: 'Carnivore',
-  APEX: 'Apex',
-  METEOR: 'Meteor',
-};
 
 const PAGE_SIZE = 10;
 
@@ -86,7 +79,7 @@ export default function Leaderboard() {
                       {player.displayName || player.username}
                     </Link>
                   </td>
-                  <td>{RANK_LABELS[player.rankTier] || player.rankTier}</td>
+                  <td><RankBadge tierKey={player.rankTier} /></td>
                   <td>{player.eloRating}</td>
                   <td>{player.gamesPlayed}</td>
                   <td>{player.gamesWon}</td>
