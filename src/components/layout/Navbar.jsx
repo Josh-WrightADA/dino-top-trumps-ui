@@ -26,10 +26,14 @@ export default function Navbar() {
             <Link to="/leaderboard">Leaderboard</Link>
             <Link to="/profile">Profile</Link>
             <Link to="/profile" className="navbar-user navbar-avatar" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="avatar-placeholder avatar-placeholder--small">
-                {(user?.username || 'U').charAt(0)}
-              </div>
-              {user?.username}
+              {user?.avatarUrl ? (
+                <img src={user.avatarUrl} alt="" className="avatar avatar--small" />
+              ) : (
+                <div className="avatar-placeholder avatar-placeholder--small">
+                  {(user?.username || 'U').charAt(0)}
+                </div>
+              )}
+              {user?.displayName || user?.username}
             </Link>
             <button onClick={handleLogout} className="navbar-logout">Logout</button>
           </>
