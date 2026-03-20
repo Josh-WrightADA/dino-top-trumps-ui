@@ -3,16 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { getProfile, updateProfile, changePassword, deleteAccount, uploadAvatar } from '../api/authApi';
 import useAuth from '../hooks/useAuth';
 import AvatarPicker from '../components/profile/AvatarPicker';
+import RankBadge from '../components/rank/RankBadge';
 import '../components/game/Game.css';
 import '../components/profile/Avatar.css';
-
-const RANK_LABELS = {
-  HATCHLING: 'Hatchling',
-  HERBIVORE: 'Herbivore',
-  CARNIVORE: 'Carnivore',
-  APEX: 'Apex',
-  METEOR: 'Meteor',
-};
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
@@ -196,7 +189,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <div className="profile__stat-label">Rank</div>
-                  <div className="profile__stat-value">{RANK_LABELS[profile.rankTier] || profile.rankTier}</div>
+                  <div className="profile__stat-value"><RankBadge tierKey={profile.rankTier} size="medium" /></div>
                 </div>
                 <div>
                   <div className="profile__stat-label">Games Won</div>
