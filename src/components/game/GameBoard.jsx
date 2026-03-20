@@ -7,6 +7,7 @@ import DinoCard from './DinoCard';
 import StatSelector from './StatSelector';
 import TurnResult from './TurnResult';
 import GameOver from './GameOver';
+import TurnTimer from './TurnTimer';
 import './Game.css';
 
 export default function GameBoard() {
@@ -145,7 +146,8 @@ export default function GameBoard() {
       ) : (
         <>
           <div className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}>
-            {isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}
+            <span>{isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}</span>
+            <TurnTimer turnDeadline={game.turnDeadline} isYourTurn={isYourTurn} />
           </div>
 
           {turnError && (
