@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getLeaderboard } from '../../api/gameApi';
 import useAuth from '../../hooks/useAuth';
 import '../game/Game.css';
+import '../profile/Avatar.css';
 
 const RANK_LABELS = {
   HATCHLING: 'Hatchling',
@@ -60,7 +61,23 @@ export default function Leaderboard() {
                 className={player.userId === user?.id ? 'leaderboard-table__current-user' : ''}
               >
                 <td>{index + 1}</td>
-                <td><Link to={`/player/${player.userId}`}>{player.displayName || player.username}</Link></td>
+                <td>
+                  <Link to={`/player/${player.userId}`} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    {player.avatarUrl ? (
+                      <img
+                        src={player.avatarUrl}
+                        alt=""
+                        className="avatar avatar--medium"
+                        style={{ width: '32px', height: '32px' }}
+                      />
+                    ) : (
+                      <div className="avatar-placeholder avatar-placeholder--medium" style={{ width: '32px', height: '32px', fontSize: '0.8rem' }}>
+                        {(player.displayName || player.username || 'U').charAt(0)}
+                      </div>
+                    )}
+                    {player.displayName || player.username}
+                  </Link>
+                </td>
                 <td>{RANK_LABELS[player.rankTier] || player.rankTier}</td>
                 <td>{player.eloRating}</td>
                 <td>{player.gamesPlayed}</td>

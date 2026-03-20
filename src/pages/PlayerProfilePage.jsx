@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPublicProfile } from '../api/authApi';
 import '../components/game/Game.css';
+import '../components/profile/Avatar.css';
 
 const RANK_LABELS = {
   HATCHLING: 'Hatchling',
@@ -41,7 +42,20 @@ export default function PlayerProfilePage() {
   return (
     <div className="page">
       <div className="profile">
-        <h2 style={{ marginBottom: '1rem' }}>{profile.displayName || profile.username}</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.5rem', gap: '0.75rem' }}>
+          {profile.avatarUrl ? (
+            <img
+              src={profile.avatarUrl}
+              alt={`${profile.displayName || profile.username}'s avatar`}
+              className="avatar avatar--large"
+            />
+          ) : (
+            <div className="avatar-placeholder avatar-placeholder--large">
+              {(profile.displayName || profile.username || 'U').charAt(0)}
+            </div>
+          )}
+          <h2 style={{ margin: 0 }}>{profile.displayName || profile.username}</h2>
+        </div>
 
         <div className="profile__card">
           <div className="profile__stats">

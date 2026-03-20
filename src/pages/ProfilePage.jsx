@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProfile, updateProfile, changePassword, deleteAccount } from '../api/authApi';
+import { getProfile, updateProfile, changePassword, deleteAccount, uploadAvatar } from '../api/authApi';
 import useAuth from '../hooks/useAuth';
+import AvatarPicker from '../components/profile/AvatarPicker';
 import '../components/game/Game.css';
+import '../components/profile/Avatar.css';
 
 const RANK_LABELS = {
   HATCHLING: 'Hatchling',
@@ -23,6 +25,9 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showAvatarPicker, setShowAvatarPicker] = useState(false);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const fileInputRef = useRef(null);
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -40,6 +45,42 @@ export default function ProfilePage() {
     }
     fetch();
   }, []);
+
+  async function handleAvatarFileChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setError('Only JPEG, PNG, or WebP images are allowed.');
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setError('Image must be smaller than 2MB.');
+      return;
+    }
+
+    setUploadingAvatar(true);
+    setError('');
+    setSuccess('');
+    try {
+      const res = await uploadAvatar(file);
+      setProfile((prev) => ({ ...prev, avatarUrl: res.data.avatarUrl }));
+      setSuccess('Avatar updated.');
+    } catch {
+      setError('Failed to upload avatar. Please try again.');
+    } finally {
+      setUploadingAvatar(false);
+      // reset so the same file can be re-selected if needed
+      e.target.value = '';
+    }
+  }
+
+  function handleDinoAvatarSelected(avatarUrl) {
+    setProfile((prev) => ({ ...prev, avatarUrl }));
+    setShowAvatarPicker(false);
+    setSuccess('Avatar updated.');
+  }
 
   async function handleSave(e) {
     e.preventDefault();
@@ -108,6 +149,45 @@ export default function ProfilePage() {
 
         {profile ? (
           <>
+            <div className="profile__card avatar-section">
+              {profile.avatarUrl ? (
+                <img
+                  src={profile.avatarUrl}
+                  alt="Your avatar"
+                  className="avatar avatar--large"
+                />
+              ) : (
+                <div className="avatar-placeholder avatar-placeholder--large">
+                  {(profile.username || 'U').charAt(0)}
+                </div>
+              )}
+
+              <div className="avatar-section__actions">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  style={{ display: 'none' }}
+                  onChange={handleAvatarFileChange}
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current.click()}
+                  disabled={uploadingAvatar}
+                >
+                  {uploadingAvatar ? 'Uploading...' : 'Upload Photo'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowAvatarPicker(true)}
+                  disabled={uploadingAvatar}
+                  style={{ background: 'transparent', color: '#2d6a4f', border: '2px solid #2d6a4f' }}
+                >
+                  Choose a Dino
+                </button>
+              </div>
+            </div>
+
             <div className="profile__card">
               <div className="profile__stats">
                 <div>
@@ -180,6 +260,13 @@ export default function ProfilePage() {
           <p>Could not load profile.</p>
         )}
       </div>
+
+      {showAvatarPicker && (
+        <AvatarPicker
+          onClose={() => setShowAvatarPicker(false)}
+          onSelect={handleDinoAvatarSelected}
+        />
+      )}
     </div>
   );
 }
