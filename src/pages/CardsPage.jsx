@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getCards } from '../api/gameApi';
 import DinoCard from '../components/game/DinoCard';
+import CardDetailModal from '../components/game/CardDetailModal';
 
 export default function CardsPage() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedCard, setSelectedCard] = useState(null);
 
   useEffect(() => {
     async function fetchCards() {
@@ -35,9 +37,22 @@ export default function CardsPage() {
         marginTop: '1.5rem',
       }}>
         {cards.map((card) => (
-          <DinoCard key={card.id} card={card} />
+          <div
+            key={card.id}
+            onClick={() => setSelectedCard(card)}
+            style={{ cursor: 'pointer' }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter') setSelectedCard(card); }}
+          >
+            <DinoCard card={card} />
+          </div>
         ))}
       </div>
+
+      {selectedCard && (
+        <CardDetailModal card={selectedCard} onClose={() => setSelectedCard(null)} />
+      )}
     </div>
   );
 }
