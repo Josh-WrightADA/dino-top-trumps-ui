@@ -88,7 +88,7 @@ export default function GameLobby() {
           <ul className="lobby__game-list">
             {games.map((game) => (
               <li key={game.id} className="lobby__game-item">
-                <span>Game {game.id.substring(0, 8)}...</span>
+                <span>{game.hostName || 'Unknown'}'s Game</span>
                 <button onClick={() => handleJoin(game.id)} disabled={loading}>Join</button>
               </li>
             ))}
