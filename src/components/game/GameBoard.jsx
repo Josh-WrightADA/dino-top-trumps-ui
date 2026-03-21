@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import usePolling from '../../hooks/usePolling';
@@ -20,6 +20,7 @@ export default function GameBoard() {
   const [cardCache, setCardCache] = useState({});
   const [topCard, setTopCard] = useState(null);
   const [pollEnabled, setPollEnabled] = useState(true);
+  const lastSeenTurnRef = useRef(0);
 
   // Poll game state — pause while showing turn result or when game is finished
   const { data: game, loading, error, refetch } = usePolling(
@@ -32,6 +33,17 @@ export default function GameBoard() {
   useEffect(() => {
     setPollEnabled(!turnResult && game?.status !== 'FINISHED');
   }, [turnResult, game?.status]);
+
+  // Detect new turn result from polling (for the waiting player)
+  useEffect(() => {
+    if (game?.lastTurn && game.lastTurn.turnNumber > lastSeenTurnRef.current) {
+      lastSeenTurnRef.current = game.lastTurn.turnNumber;
+      // Only show if we didn't just play this turn ourselves (active player already sees it)
+      if (!turnResult) {
+        setTurnResult(game.lastTurn);
+      }
+    }
+  }, [game?.lastTurn, turnResult]);
 
   // Load all cards once to build a lookup cache
   useEffect(() => {
@@ -52,13 +64,13 @@ export default function GameBoard() {
 
   // Update top card when game state changes
   useEffect(() => {
-    if (game && game.yourHand && game.yourHand.length > 0) {
+    if (game && game.yourHand && game.yourHand.length > 0 && !turnResult) {
       const cardId = game.yourHand[0];
       setTopCard(cardCache[cardId] || null);
-    } else {
+    } else if (!game?.yourHand?.length) {
       setTopCard(null);
     }
-  }, [game, cardCache]);
+  }, [game, cardCache, turnResult]);
 
   const isPlayer1 = game?.player1Id === user?.id;
   const isYourTurn = game?.currentTurnPlayerId === user?.id;
@@ -70,6 +82,7 @@ export default function GameBoard() {
     try {
       const res = await playTurn(id, stat);
       setTurnResult(res.data);
+      lastSeenTurnRef.current = res.data.turnNumber;
     } catch {
       setTurnError('Failed to play turn. Please try again.');
     } finally {
