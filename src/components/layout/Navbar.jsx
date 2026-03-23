@@ -26,7 +26,7 @@ export default function Navbar() {
             <Link to="/history">History</Link>
             <Link to="/leaderboard">Leaderboard</Link>
             <Link to="/profile">Profile</Link>
-            <Link to="/profile" className="navbar-user navbar-avatar" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to="/profile" className="navbar-user navbar-avatar navbar-avatar--link">
               {user?.avatarUrl ? (
                 <img src={user.avatarUrl} alt="" className="avatar avatar--small" />
               ) : (

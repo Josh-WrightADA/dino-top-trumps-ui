@@ -1,0 +1,20 @@
+/* ========================
+   HOME PAGE
+   ======================== */
+
+.home-page {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.home-page__cta {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+}
+
+.home-page__auth-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}

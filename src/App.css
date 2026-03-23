@@ -9,3 +9,137 @@
   margin: 0 auto;
   padding: 1.5rem;
 }
+
+/* --- Page-level centred layout --- */
+.page--centered {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+/* --- Not Found Page --- */
+.not-found__back-btn {
+  margin-top: 1rem;
+}
+
+/* --- Cards Page --- */
+.cards-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.cards-page__card-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+/* --- My Games Page --- */
+.my-games__heading {
+  margin-bottom: 1rem;
+}
+
+/* --- Profile Page additions --- */
+.profile__heading {
+  margin-bottom: 1rem;
+}
+
+.profile__alert--error {
+  color: #c62828;
+  background: #fdecea;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.profile__alert--success {
+  color: #2d6a4f;
+  background: #d8f3dc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.profile__button-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.profile__security-heading {
+  margin-bottom: 0.75rem;
+}
+
+/* --- Auth success message --- */
+.auth-success {
+  color: #2d6a4f;
+  background: #d8f3dc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+/* --- Reset Password success --- */
+.reset-password__success {
+  color: #2d6a4f;
+  text-align: center;
+}
+
+/* --- Player Profile Page --- */
+.player-profile__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 0.75rem;
+}
+
+.player-profile__name {
+  margin: 0;
+}
+
+.player-profile__back-btn {
+  margin-bottom: 1rem;
+}
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.rank-badge__icon--small {
+  width: 20px;
+  height: 20px;
+}
+
+.rank-badge__icon--medium {
+  width: 28px;
+  height: 28px;
+}
+
+.rank-badge__icon--large {
+  width: 36px;
+  height: 36px;
+}
+
+/* --- Error Boundary --- */
+.error-boundary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* --- Navbar avatar link --- */
+.navbar-avatar--link {
+  text-decoration: none;
+  color: inherit;
+}
+

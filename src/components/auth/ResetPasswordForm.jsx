@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { resetPassword } from '../../api/authApi';
 import useAuth from '../../hooks/useAuth';
 import './AuthForms.css';
@@ -23,8 +23,8 @@ export default function ResetPasswordForm() {
       setError('Both fields are required.');
       return;
     }
-    if (newPassword.length < 6) {
-      setError('Password must be at least 6 characters.');
+    if (newPassword.length < 8) {
+      setError('Password must be at least 8 characters.');
       return;
     }
     if (newPassword !== confirmPassword) {
@@ -51,7 +51,7 @@ export default function ResetPasswordForm() {
     return (
       <div className="auth-form">
         <h2>Password Reset</h2>
-        <p style={{ color: '#2d6a4f', textAlign: 'center' }}>
+        <p className="reset-password__success">
           Your password has been reset successfully. Redirecting to login...
         </p>
       </div>
@@ -61,9 +61,9 @@ export default function ResetPasswordForm() {
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
       <h2>Reset Password</h2>
-      {error && <p className="auth-error">{error}</p>}
+      {error && <p className="auth-error" role="alert">{error}</p>}
       <label>
-        New Password
+        New Password (at least 8 characters)
         <input
           type="password"
           value={newPassword}
@@ -83,6 +83,9 @@ export default function ResetPasswordForm() {
       <button type="submit" disabled={loading}>
         {loading ? 'Resetting...' : 'Reset Password'}
       </button>
+      <div className="auth-links">
+        <Link to="/login">Back to Login</Link>
+      </div>
     </form>
   );
 }

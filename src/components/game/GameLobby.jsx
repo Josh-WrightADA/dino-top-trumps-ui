@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createGame, getAvailableGames, joinGame } from '../../api/gameApi';
+import ErrorMessage from '../shared/ErrorMessage';
+import LoadingSpinner from '../shared/LoadingSpinner';
 import '../game/Game.css';
 
 export default function GameLobby() {
@@ -76,14 +78,14 @@ export default function GameLobby() {
         </button>
       </div>
 
-      {error && <p style={{ color: '#c62828', background: '#fdecea', padding: '0.5rem', borderRadius: '4px', marginBottom: '1rem' }}>{error}</p>}
+      {error && <ErrorMessage message={error} onRetry={() => setError('')} />}
 
-      <div style={{ background: '#fff', border: '1px solid #ddd', borderRadius: '8px', padding: '1.5rem', marginBottom: '1.5rem' }}>
-        <h3 style={{ marginBottom: '0.75rem' }}>Available Games</h3>
+      <div className="lobby__section">
+        <h3>Available Games</h3>
         {gamesLoading ? (
-          <p style={{ color: '#888' }}>Loading...</p>
+          <LoadingSpinner message="Loading games..." />
         ) : games.length === 0 ? (
-          <p style={{ color: '#888' }}>No games waiting for players. Create one above.</p>
+          <p>No games waiting for players. Create one above.</p>
         ) : (
           <ul className="lobby__game-list">
             {games.map((game) => (
@@ -96,15 +98,15 @@ export default function GameLobby() {
         )}
       </div>
 
-      <div style={{ background: '#fff', border: '1px solid #ddd', borderRadius: '8px', padding: '1.5rem' }}>
-        <h3 style={{ marginBottom: '0.75rem' }}>Join by Game ID</h3>
-        <form onSubmit={handleJoinById} style={{ display: 'flex', gap: '0.5rem' }}>
+      <div className="lobby__section">
+        <h3>Join by Game ID</h3>
+        <form onSubmit={handleJoinById} className="lobby__join-form">
           <input
             type="text"
             placeholder="Paste game ID here..."
             value={joinGameId}
             onChange={(e) => setJoinGameId(e.target.value)}
-            style={{ flex: 1, padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px', fontSize: '0.9rem' }}
+            className="lobby__join-input"
           />
           <button type="submit" disabled={loading || !joinGameId.trim()}>Join</button>
         </form>

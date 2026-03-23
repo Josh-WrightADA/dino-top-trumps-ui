@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getCards } from '../../api/gameApi';
 import { setDinoAvatar } from '../../api/authApi';
 import { DEFAULT_AVATARS } from '../../constants/defaultAvatars';
+import ErrorMessage from '../shared/ErrorMessage';
 
 export default function AvatarPicker({ onClose, onSelect }) {
   const [cards, setCards] = useState([]);
@@ -42,14 +43,17 @@ export default function AvatarPicker({ onClose, onSelect }) {
     <div className="avatar-picker" role="dialog" aria-modal="true" aria-label="Choose a dino avatar">
       <div className="avatar-picker__panel">
         <div className="avatar-picker__header">
-          <h3>Choose a Dino</h3>
+          <div>
+            <h3>Set Profile Picture</h3>
+            <p className="avatar-picker__subtitle">Pick a portrait or card image</p>
+          </div>
           <button
             className="avatar-picker__close"
             onClick={onClose}
             aria-label="Close"
             disabled={selecting}
           >
-            x
+            &times;
           </button>
         </div>
 
@@ -68,11 +72,7 @@ export default function AvatarPicker({ onClose, onSelect }) {
           </button>
         </div>
 
-        {error && (
-          <p style={{ color: '#c62828', background: '#fdecea', padding: '0.5rem', borderRadius: '4px', marginBottom: '1rem' }}>
-            {error}
-          </p>
-        )}
+        {error && <ErrorMessage message={error} />}
 
         {tab === 'portraits' && (
           <div className="avatar-picker__grid">

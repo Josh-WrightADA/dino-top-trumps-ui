@@ -332,3 +332,8 @@
 .quiz-summary__restart-btn:hover {
   background-color: #1b5e20;
 }
+.quiz__correct-answer {
+  color: #c62828;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}

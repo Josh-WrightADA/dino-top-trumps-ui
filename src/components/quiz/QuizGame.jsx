@@ -4,7 +4,7 @@ import QuizSummary from './QuizSummary';
 import { generateQuizQuestions, calculateScore } from './quizLogic';
 import './Quiz.css';
 
-export default function QuizGame({ cards }) {
+export default function QuizGame({ cards, onRestart }) {
   const [questions] = useState(() => generateQuizQuestions(cards, 10));
   const [currentRound, setCurrentRound] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
@@ -36,11 +36,15 @@ export default function QuizGame({ cards }) {
   }
 
   function handleRestart() {
-    setCurrentRound(0);
-    setTotalScore(0);
-    setResults([]);
-    setShowResult(false);
-    setLastAnswer(null);
+    if (onRestart) {
+      onRestart();
+    } else {
+      setCurrentRound(0);
+      setTotalScore(0);
+      setResults([]);
+      setShowResult(false);
+      setLastAnswer(null);
+    }
   }
 
   if (isFinished) {
@@ -64,6 +68,11 @@ export default function QuizGame({ cards }) {
         <h2 className={`quiz__result-title ${isCorrect ? 'quiz__result-title--correct' : 'quiz__result-title--wrong'}`}>
           {isCorrect ? 'Correct!' : 'Wrong!'}
         </h2>
+        {!isCorrect && (
+          <p className="quiz__correct-answer">
+            The correct answer was: <strong>{q.correctAnswer}</strong>
+          </p>
+        )}
         <p className="quiz__result-score">+{score} points</p>
         <div className="quiz__card-reveal">
           {q.card.imageUrl && (

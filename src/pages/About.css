@@ -1,0 +1,17 @@
+/* ========================
+   ABOUT PAGE
+   ======================== */
+
+.about-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.about-page__section-heading {
+  margin-top: 2rem;
+}
+
+.about-page__rules-list {
+  line-height: 2;
+}

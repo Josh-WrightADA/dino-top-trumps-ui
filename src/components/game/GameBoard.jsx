@@ -8,6 +8,8 @@ import StatSelector from './StatSelector';
 import TurnResult from './TurnResult';
 import GameOver from './GameOver';
 import TurnTimer from './TurnTimer';
+import LoadingSpinner from '../shared/LoadingSpinner';
+import ErrorMessage from '../shared/ErrorMessage';
 import './Game.css';
 
 export default function GameBoard() {
@@ -114,8 +116,8 @@ export default function GameBoard() {
     refetch();
   }, [id, isYourTurn, refetch]);
 
-  if (loading && !game) return <div className="game-board"><p>Loading game...</p></div>;
-  if (error) return <div className="game-board"><p>Error loading game.</p></div>;
+  if (loading && !game) return <div className="game-board"><LoadingSpinner message="Loading game..." /></div>;
+  if (error) return <div className="game-board"><ErrorMessage message="Error loading game." onRetry={refetch} /></div>;
   if (!game) return null;
 
   // FINISHED state
@@ -161,8 +163,8 @@ export default function GameBoard() {
         </div>
       </div>
 
-      <div style={{ textAlign: 'right', marginBottom: '0.5rem' }}>
-        <button onClick={handleForfeit} style={{ background: '#c62828', fontSize: '0.8rem', padding: '0.3rem 0.75rem' }}>Forfeit</button>
+      <div className="game-board__forfeit-row">
+        <button onClick={handleForfeit} className="btn--danger btn--small">Forfeit</button>
       </div>
 
       {turnResult ? (
@@ -174,13 +176,16 @@ export default function GameBoard() {
         />
       ) : (
         <>
-          <div className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}>
+          <div
+            className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}
+            aria-live="polite"
+          >
             <span>{isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}</span>
             <TurnTimer turnDeadline={game.turnDeadline} isYourTurn={isYourTurn} onExpired={handleTurnExpired} />
           </div>
 
           {turnError && (
-            <p style={{ color: '#c62828', background: '#fdecea', padding: '0.5rem', borderRadius: '4px', margin: '0.5rem 0' }}>
+            <p className="game-board__turn-error" role="alert">
               {turnError}
             </p>
           )}

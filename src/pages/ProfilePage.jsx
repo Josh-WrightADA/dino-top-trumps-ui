@@ -1,42 +1,44 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProfile, updateProfile, changePassword, deleteAccount, uploadAvatar } from '../api/authApi';
+import { getProfile, uploadAvatar } from '../api/authApi';
 import useAuth from '../hooks/useAuth';
+import AvatarSection from '../components/profile/AvatarSection';
+import ProfileInfoSection from '../components/profile/ProfileInfoSection';
+import SecuritySection from '../components/profile/SecuritySection';
 import AvatarPicker from '../components/profile/AvatarPicker';
 import RankBadge from '../components/rank/RankBadge';
+import LoadingSpinner from '../components/shared/LoadingSpinner';
+import ErrorMessage from '../components/shared/ErrorMessage';
 import '../components/game/Game.css';
 import '../components/profile/Avatar.css';
+import '../components/shared/Shared.css';
+import '../App.css';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState(false);
-  const [changingPassword, setChangingPassword] = useState(false);
-  const [displayName, setDisplayName] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
-  const fileInputRef = useRef(null);
   const { logout, refreshProfile } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetch() {
-      try {
-        const res = await getProfile();
-        setProfile(res.data);
-        setDisplayName(res.data.displayName || '');
-      } catch {
-        setError('Failed to load profile.');
-      } finally {
-        setLoading(false);
-      }
+  async function fetchProfile() {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await getProfile();
+      setProfile(res.data);
+    } catch {
+      setError('Failed to load profile.');
+    } finally {
+      setLoading(false);
     }
-    fetch();
+  }
+
+  useEffect(() => {
+    fetchProfile();
   }, []);
 
   async function handleAvatarFileChange(e) {
@@ -65,7 +67,6 @@ export default function ProfilePage() {
       setError('Failed to upload avatar. Please try again.');
     } finally {
       setUploadingAvatar(false);
-      // reset so the same file can be re-selected if needed
       e.target.value = '';
     }
   }
@@ -77,59 +78,6 @@ export default function ProfilePage() {
     setSuccess('Avatar updated.');
   }
 
-  async function handleSave(e) {
-    e.preventDefault();
-    setSaving(true);
-    setError('');
-    setSuccess('');
-    try {
-      const res = await updateProfile({ displayName });
-      setProfile(res.data);
-      setEditing(false);
-      setSuccess('Display name updated.');
-    } catch {
-      setError('Failed to update profile.');
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function handleChangePassword(e) {
-    e.preventDefault();
-    if (newPassword.length < 8) {
-      setError('New password must be at least 8 characters.');
-      return;
-    }
-    setSaving(true);
-    setError('');
-    setSuccess('');
-    try {
-      await changePassword(currentPassword, newPassword);
-      setChangingPassword(false);
-      setCurrentPassword('');
-      setNewPassword('');
-      setSuccess('Password changed successfully.');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to change password.');
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function handleDeleteAccount() {
-    if (!window.confirm('Are you sure? This action cannot be undone.')) return;
-    try {
-      await deleteAccount();
-      logout();
-      navigate('/');
-    } catch {
-      setError('Failed to delete account.');
-    }
-  }
-
-  if (loading) return <div className="page"><p>Loading profile...</p></div>;
-  if (error && !profile) return <div className="page"><p style={{ color: '#c62828' }}>{error}</p></div>;
-
   const winRate = profile?.gamesPlayed > 0
     ? `${Math.round((profile.gamesWon / profile.gamesPlayed) * 100)}%`
     : 'N/A';
@@ -137,61 +85,39 @@ export default function ProfilePage() {
   return (
     <div className="page">
       <div className="profile">
-        <h2 style={{ marginBottom: '1rem' }}>Profile</h2>
+        <h2 className="profile__heading">Profile</h2>
 
-        {error && <p style={{ color: '#c62828', background: '#fdecea', padding: '0.5rem', borderRadius: '4px', marginBottom: '1rem' }}>{error}</p>}
-        {success && <p style={{ color: '#2d6a4f', background: '#d8f3dc', padding: '0.5rem', borderRadius: '4px', marginBottom: '1rem' }}>{success}</p>}
+        {error && <p className="profile__alert--error" role="alert">{error}</p>}
+        {success && <p className="profile__alert--success" role="status">{success}</p>}
 
-        {profile ? (
+        {loading && <LoadingSpinner message="Loading profile..." />}
+
+        {!loading && error && !profile && (
+          <ErrorMessage message={error} onRetry={fetchProfile} />
+        )}
+
+        {!loading && profile && (
           <>
-            <div className="profile__card avatar-section">
-              {profile.avatarUrl ? (
-                <img
-                  src={profile.avatarUrl}
-                  alt="Your avatar"
-                  className="avatar avatar--large"
-                />
-              ) : (
-                <div className="avatar-placeholder avatar-placeholder--large">
-                  {(profile.username || 'U').charAt(0)}
-                </div>
-              )}
-
-              <div className="avatar-section__actions">
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  style={{ display: 'none' }}
-                  onChange={handleAvatarFileChange}
-                />
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current.click()}
-                  disabled={uploadingAvatar}
-                >
-                  {uploadingAvatar ? 'Uploading...' : 'Upload Photo'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowAvatarPicker(true)}
-                  disabled={uploadingAvatar}
-                  style={{ background: 'transparent', color: '#2d6a4f', border: '2px solid #2d6a4f' }}
-                >
-                  Choose a Dino
-                </button>
-              </div>
-            </div>
+            <AvatarSection
+              profile={profile}
+              uploadingAvatar={uploadingAvatar}
+              onFileChange={handleAvatarFileChange}
+              onPickerOpen={() => setShowAvatarPicker(true)}
+            />
 
             <div className="profile__card">
               <div className="profile__stats">
                 <div>
-                  <div className="profile__stat-label">ELO Rating</div>
-                  <div className="profile__stat-value">{profile.eloRating}</div>
+                  <div className="profile__stat-label">League Points</div>
+                  <div className="profile__stat-value">
+                    {profile.leaguePoints != null ? profile.leaguePoints : profile.eloRating}
+                  </div>
                 </div>
                 <div>
                   <div className="profile__stat-label">Rank</div>
-                  <div className="profile__stat-value"><RankBadge tierKey={profile.rankTier} size="medium" /></div>
+                  <div className="profile__stat-value">
+                    <RankBadge tierKey={profile.rankTier} size="medium" />
+                  </div>
                 </div>
                 <div>
                   <div className="profile__stat-label">Games Won</div>
@@ -204,55 +130,20 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="profile__card">
-              <div className="profile__info">
-                <p><strong>Username:</strong> {profile.username}</p>
-                <p><strong>Display Name:</strong> {profile.displayName || profile.username}</p>
-              </div>
+            <ProfileInfoSection
+              profile={profile}
+              onProfileUpdated={(updated) => setProfile(updated)}
+              onError={setError}
+              onSuccess={setSuccess}
+            />
 
-              {editing ? (
-                <form className="profile__edit-form" onSubmit={handleSave}>
-                  <label>
-                    Display Name
-                    <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-                  </label>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button type="submit" disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
-                    <button type="button" onClick={() => setEditing(false)} style={{ background: 'transparent', color: '#2d6a4f', border: '2px solid #2d6a4f' }}>Cancel</button>
-                  </div>
-                </form>
-              ) : (
-                <button onClick={() => setEditing(true)}>Edit Display Name</button>
-              )}
-            </div>
-
-            <div className="profile__card">
-              <h3 style={{ marginBottom: '0.75rem' }}>Security</h3>
-              {changingPassword ? (
-                <form className="profile__edit-form" onSubmit={handleChangePassword}>
-                  <label>
-                    Current Password
-                    <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} autoComplete="current-password" />
-                  </label>
-                  <label>
-                    New Password
-                    <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} autoComplete="new-password" />
-                  </label>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button type="submit" disabled={saving}>{saving ? 'Changing...' : 'Change Password'}</button>
-                    <button type="button" onClick={() => setChangingPassword(false)} style={{ background: 'transparent', color: '#2d6a4f', border: '2px solid #2d6a4f' }}>Cancel</button>
-                  </div>
-                </form>
-              ) : (
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button onClick={() => setChangingPassword(true)}>Change Password</button>
-                  <button onClick={handleDeleteAccount} style={{ background: '#c62828' }}>Delete Account</button>
-                </div>
-              )}
-            </div>
+            <SecuritySection
+              onLogout={logout}
+              onError={setError}
+              onSuccess={setSuccess}
+              onNavigate={navigate}
+            />
           </>
-        ) : (
-          <p>Could not load profile.</p>
         )}
       </div>
 
