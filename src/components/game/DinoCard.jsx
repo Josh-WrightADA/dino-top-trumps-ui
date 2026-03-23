@@ -33,17 +33,13 @@ export default function DinoCard({ card, highlightStat }) {
         {STAT_ORDER.map((stat) => (
           <div
             key={stat}
-            className="dino-card__stat"
-            style={highlightStat === stat ? { fontWeight: 700 } : {}}
+            className={`dino-card__stat${highlightStat === stat ? ' dino-card__stat--highlighted' : ''}`}
           >
             <span className="dino-card__stat-label">{stat}</span>
             <div className="dino-card__stat-bar">
               <div
-                className="dino-card__stat-fill"
-                style={{
-                  width: `${card[stat]}%`,
-                  background: highlightStat === stat ? '#1b4332' : '#2d6a4f',
-                }}
+                className={`dino-card__stat-fill${highlightStat === stat ? ' dino-card__stat-fill--highlighted' : ''}`}
+                style={{ width: `${Math.min(card[stat], 100)}%` }}
               />
             </div>
             <span className="dino-card__stat-value">{card[stat]}</span>

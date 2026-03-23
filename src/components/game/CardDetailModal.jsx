@@ -1,8 +1,17 @@
+import { useEffect } from 'react';
 import './Game.css';
 
 const STAT_ORDER = ['height', 'weight', 'intelligence', 'speed', 'strength'];
 
 export default function CardDetailModal({ card, onClose }) {
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') onClose();
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!card) return null;
 
   const dietClass = card.diet ? card.diet.toLowerCase() : '';
@@ -16,7 +25,7 @@ export default function CardDetailModal({ card, onClose }) {
             <h2 className="card-modal__name">{card.name}</h2>
             {card.meaning && <div className="card-modal__meaning">"{card.meaning}"</div>}
           </div>
-          <button className="card-modal__close" onClick={onClose} aria-label="Close">x</button>
+          <button className="card-modal__close" onClick={onClose} aria-label="Close">&times;</button>
         </div>
 
         {card.imageUrl ? (
@@ -41,7 +50,7 @@ export default function CardDetailModal({ card, onClose }) {
             <div key={stat} className="dino-card__stat">
               <span className="dino-card__stat-label">{stat}</span>
               <div className="dino-card__stat-bar">
-                <div className="dino-card__stat-fill" style={{ width: `${card[stat]}%` }} />
+                <div className="dino-card__stat-fill" style={{ width: `${Math.min(card[stat], 100)}%` }} />
               </div>
               <span className="dino-card__stat-value">{card[stat]}</span>
             </div>

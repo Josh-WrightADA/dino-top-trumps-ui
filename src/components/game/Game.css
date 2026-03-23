@@ -235,7 +235,13 @@
   color: #213547;
 }
 
-/* --- Stat Selector --- */
+.dino-card__stat--highlighted {
+  font-weight: 700;
+}
+
+.dino-card__stat-fill--highlighted {
+  background: #1b4332;
+}
 .stat-selector {
   margin: 1rem 0;
 }
@@ -460,6 +466,35 @@
   color: #888;
 }
 
+.lobby__section {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.lobby__section h3 {
+  margin-bottom: 0.75rem;
+}
+
+.lobby__section p {
+  color: #888;
+}
+
+.lobby__join-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lobby__join-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
 /* --- Leaderboard --- */
 .leaderboard-table {
   width: 100%;
@@ -520,6 +555,7 @@
 
 .match-item__result--won { background: #d8f3dc; color: #1b4332; }
 .match-item__result--lost { background: #fdecea; color: #c62828; }
+.match-item__result--pending { background: #fff3cd; color: #856404; }
 
 .match-item__opponent {
   font-weight: 500;
@@ -716,4 +752,81 @@
 .pagination__info {
   font-size: 0.85rem;
   color: #666;
+}
+
+/* --- Game Board extras --- */
+.game-board__forfeit-row {
+  text-align: right;
+  margin-bottom: 0.5rem;
+}
+
+.game-board__turn-error {
+  color: #c62828;
+  background: #fdecea;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* --- Leaderboard player link --- */
+.leaderboard-table__player-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.leaderboard-table__player-link:hover {
+  text-decoration: underline;
+}
+
+.leaderboard-table__avatar {
+  width: 32px;
+  height: 32px;
+}
+
+.leaderboard-table__avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  font-size: 0.8rem;
+}
+
+/* --- Leaderboard heading --- */
+.leaderboard__heading {
+  margin-bottom: 1rem;
+}
+
+/* --- Match History heading --- */
+.match-history__heading {
+  margin-bottom: 1rem;
+}
+
+/* --- Profile bio --- */
+.profile__bio-input {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* --- Admin badge --- */
+.profile__admin-badge {
+  display: inline-block;
+  background: #2d6a4f;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.5rem;
+  border-radius: 3px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
 }

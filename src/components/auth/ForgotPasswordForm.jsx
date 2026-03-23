@@ -33,8 +33,8 @@ export default function ForgotPasswordForm() {
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
       <h2>Forgot Password</h2>
-      {error && <p className="auth-error">{error}</p>}
-      {message && <p style={{ color: '#2d6a4f' }}>{message}</p>}
+      {error && <p className="auth-error" role="alert">{error}</p>}
+      {message && <p className="auth-success" role="status">{message}</p>}
       <label>
         Email
         <input

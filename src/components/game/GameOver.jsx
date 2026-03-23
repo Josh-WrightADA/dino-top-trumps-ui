@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createGame } from '../../api/gameApi';
 import { getProfile } from '../../api/authApi';
 import RankBadge from '../rank/RankBadge';
+import '../shared/Shared.css';
 import './Game.css';
 
 export default function GameOver({ game, userId }) {
@@ -81,8 +82,8 @@ export default function GameOver({ game, userId }) {
         <button onClick={handleRematch} disabled={rematchLoading}>
           {rematchLoading ? 'Creating...' : 'New Game'}
         </button>
-        <Link to="/lobby"><button style={{ background: 'transparent', color: '#2d6a4f', border: '2px solid #2d6a4f' }}>Lobby</button></Link>
-        <Link to="/leaderboard"><button style={{ background: 'transparent', color: '#2d6a4f', border: '2px solid #2d6a4f' }}>Leaderboard</button></Link>
+        <Link to="/lobby"><button className="btn--secondary">Lobby</button></Link>
+        <Link to="/leaderboard"><button className="btn--secondary">Leaderboard</button></Link>
       </div>
     </div>
   );

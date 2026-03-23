@@ -20,8 +20,8 @@ export default function RegisterForm() {
     if (!emailRegex.test(email)) {
       return 'Please enter a valid email address.';
     }
-    if (password.length < 6) {
-      return 'Password must be at least 6 characters.';
+    if (password.length < 8) {
+      return 'Password must be at least 8 characters.';
     }
     if (password !== confirmPassword) {
       return 'Passwords do not match.';
@@ -54,7 +54,7 @@ export default function RegisterForm() {
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
       <h2>Register</h2>
-      {error && <p className="auth-error">{error}</p>}
+      {error && <p className="auth-error" role="alert">{error}</p>}
       <label>
         Username
         <input

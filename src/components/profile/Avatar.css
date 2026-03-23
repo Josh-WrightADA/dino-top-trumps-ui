@@ -228,3 +228,9 @@
   align-items: center;
   gap: 0.4rem;
 }
+
+.avatar-picker__subtitle {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0.1rem 0 0;
+}
