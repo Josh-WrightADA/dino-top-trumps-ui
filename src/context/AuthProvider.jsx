@@ -24,7 +24,11 @@ function getInitialAuth() {
     if (decoded && !isTokenExpired(decoded)) {
       return {
         token: storedToken,
-        user: { id: decoded.sub || decoded.id, username: decoded.username || decoded.sub },
+        user: {
+          id: decoded.sub || decoded.id,
+          username: decoded.username || decoded.sub,
+          role: decoded.role || null,
+        },
       };
     }
     localStorage.removeItem('token');
@@ -47,6 +51,7 @@ export function AuthProvider({ children }) {
         username: decoded.username || decoded.sub,
         avatarUrl: res.data.avatarUrl || null,
         displayName: res.data.displayName || null,
+        role: res.data.role || decoded.role || null,
       });
     } catch {
       // Profile fetch failed — keep basic user info from token
@@ -58,7 +63,7 @@ export function AuthProvider({ children }) {
     setToken(newToken);
     const decoded = decodeToken(newToken);
     if (decoded) {
-      setUser({ id: decoded.sub || decoded.id, username: decoded.username || decoded.sub });
+      setUser({ id: decoded.sub || decoded.id, username: decoded.username || decoded.sub, role: decoded.role || null });
       fetchAndSetProfile(newToken);
     }
   }
