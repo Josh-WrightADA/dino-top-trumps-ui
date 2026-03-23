@@ -65,4 +65,26 @@ describe('TurnResult', () => {
     render(<TurnResult result={winResult} isPlayer1={false} onDismiss={() => {}} />);
     expect(screen.getByText('You lost this round.')).toBeInTheDocument();
   });
+
+  it('displays card images when provided', () => {
+    const p1Card = { name: 'T-Rex', imageUrl: 'http://example.com/trex.jpg' };
+    const p2Card = { name: 'Stego', imageUrl: 'http://example.com/stego.jpg' };
+    render(<TurnResult result={winResult} isPlayer1={true} player1Card={p1Card} player2Card={p2Card} onDismiss={() => {}} />);
+    expect(screen.getByAltText('T-Rex')).toBeInTheDocument();
+    expect(screen.getByAltText('Stego')).toBeInTheDocument();
+  });
+
+  it('shows card names when provided', () => {
+    const p1Card = { name: 'T-Rex', imageUrl: '' };
+    const p2Card = { name: 'Stego', imageUrl: '' };
+    render(<TurnResult result={winResult} isPlayer1={true} player1Card={p1Card} player2Card={p2Card} onDismiss={() => {}} />);
+    expect(screen.getByText('T-Rex')).toBeInTheDocument();
+    expect(screen.getByText('Stego')).toBeInTheDocument();
+  });
+
+  it('shows Unknown when card props are missing', () => {
+    render(<TurnResult result={winResult} isPlayer1={true} onDismiss={() => {}} />);
+    const unknowns = screen.getAllByText('Unknown');
+    expect(unknowns).toHaveLength(2);
+  });
 });

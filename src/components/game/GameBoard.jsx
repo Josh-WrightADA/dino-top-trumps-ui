@@ -24,7 +24,9 @@ export default function GameBoard() {
   const [cardCache, setCardCache] = useState({});
   const [topCard, setTopCard] = useState(null);
   const [pollEnabled, setPollEnabled] = useState(true);
+  const [showCoinFlip, setShowCoinFlip] = useState(false);
   const lastSeenTurnRef = useRef(0);
+  const coinFlipShownRef = useRef(false);
 
   // Friends invite state
   const [friends, setFriends] = useState([]);
@@ -41,6 +43,20 @@ export default function GameBoard() {
   useEffect(() => {
     setPollEnabled(!turnResult && game?.status !== 'FINISHED');
   }, [turnResult, game?.status]);
+
+  // Show coin flip once when the game first becomes IN_PROGRESS with no turns played
+  useEffect(() => {
+    if (
+      game?.status === 'IN_PROGRESS' &&
+      !game?.lastTurn &&
+      !coinFlipShownRef.current
+    ) {
+      coinFlipShownRef.current = true;
+      setShowCoinFlip(true);
+      const timer = setTimeout(() => setShowCoinFlip(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [game?.status, game?.lastTurn]);
 
   // Detect new turn result from polling (for the waiting player)
   useEffect(() => {
@@ -205,6 +221,17 @@ export default function GameBoard() {
   // IN_PROGRESS state
   return (
     <div className="game-board">
+      {showCoinFlip && (
+        <div className="game-board__coin-flip">
+          <h2 className="game-board__coin-flip-title">Coin Flip!</h2>
+          <p className="game-board__coin-flip-result">
+            {game.currentTurnPlayerId === user?.id
+              ? "You go first!"
+              : "Your opponent goes first!"}
+          </p>
+        </div>
+      )}
+
       <div className="game-board__status">
         <div>
           <div className="game-board__status-label">Your Cards</div>
@@ -231,6 +258,8 @@ export default function GameBoard() {
           result={turnResult}
           isPlayer1={isPlayer1}
           userId={user?.id}
+          player1Card={cardCache[turnResult?.player1CardId] || null}
+          player2Card={cardCache[turnResult?.player2CardId] || null}
           onDismiss={handleDismissResult}
         />
       ) : (
