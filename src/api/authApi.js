@@ -20,8 +20,8 @@ export function changePassword(currentPassword, newPassword) {
   return axiosClient.put('/api/v1/auth/change-password', { currentPassword, newPassword });
 }
 
-export function deleteAccount() {
-  return axiosClient.delete('/api/v1/auth/me');
+export function deleteAccount(password) {
+  return axiosClient.delete('/api/v1/auth/me', { data: { password } });
 }
 
 export function getPublicProfile(userId) {
