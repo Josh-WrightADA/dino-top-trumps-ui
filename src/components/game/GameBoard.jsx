@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import usePolling from '../../hooks/usePolling';
 import { getGameState, playTurn, forfeitGame, getCards } from '../../api/gameApi';
+import { getFriends, sendGameInvite } from '../../api/socialApi';
 import DinoCard from './DinoCard';
 import StatSelector from './StatSelector';
 import TurnResult from './TurnResult';
@@ -10,6 +11,7 @@ import GameOver from './GameOver';
 import TurnTimer from './TurnTimer';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
+import '../shared/Shared.css';
 import './Game.css';
 
 export default function GameBoard() {
@@ -23,6 +25,10 @@ export default function GameBoard() {
   const [topCard, setTopCard] = useState(null);
   const [pollEnabled, setPollEnabled] = useState(true);
   const lastSeenTurnRef = useRef(0);
+
+  // Friends invite state
+  const [friends, setFriends] = useState([]);
+  const [inviteStatus, setInviteStatus] = useState({});
 
   // Poll game state — pause while showing turn result or when game is finished
   const { data: game, loading, error, refetch } = usePolling(
@@ -77,6 +83,17 @@ export default function GameBoard() {
   const isPlayer1 = game?.player1Id === user?.id;
   const isYourTurn = game?.currentTurnPlayerId === user?.id;
 
+  // Load friends list when game is WAITING and current user is the host
+  useEffect(() => {
+    if (game?.status === 'WAITING' && isPlayer1) {
+      getFriends()
+        .then((res) => setFriends(res.data))
+        .catch(() => {
+          // Friends list unavailable — silently skip
+        });
+    }
+  }, [game?.status, isPlayer1]);
+
   const handleStatSelect = useCallback(async (stat) => {
     if (submitting || !isYourTurn) return;
     setSubmitting(true);
@@ -116,6 +133,17 @@ export default function GameBoard() {
     refetch();
   }, [id, isYourTurn, refetch]);
 
+  async function handleSendInvite(friendId) {
+    setInviteStatus((prev) => ({ ...prev, [friendId]: 'sending' }));
+    try {
+      await sendGameInvite(id, friendId);
+      setInviteStatus((prev) => ({ ...prev, [friendId]: 'sent' }));
+    } catch (err) {
+      const message = err.response?.data?.detail || 'Failed to send invite.';
+      setInviteStatus((prev) => ({ ...prev, [friendId]: message }));
+    }
+  }
+
   if (loading && !game) return <div className="game-board"><LoadingSpinner message="Loading game..." /></div>;
   if (error) return <div className="game-board"><ErrorMessage message="Error loading game." onRetry={refetch} /></div>;
   if (!game) return null;
@@ -139,6 +167,37 @@ export default function GameBoard() {
           <p>Share this game ID with a friend:</p>
           <p><strong>{id}</strong></p>
         </div>
+
+        {isPlayer1 && friends.length > 0 && (
+          <div className="game-board__invite-friends">
+            <h4 className="game-board__invite-title">Invite a Friend</h4>
+            <ul className="game-board__invite-list">
+              {friends.map((f) => {
+                const friendId = f.addresseeId;
+                const status = inviteStatus[friendId];
+                return (
+                  <li key={f.id} className="game-board__invite-row">
+                    <span className="game-board__invite-id">{friendId.slice(0, 12)}...</span>
+                    {status === 'sent' ? (
+                      <span className="game-board__invite-sent">Invited</span>
+                    ) : (
+                      <button
+                        className="btn--secondary btn--small"
+                        onClick={() => handleSendInvite(friendId)}
+                        disabled={status === 'sending'}
+                      >
+                        {status === 'sending' ? 'Sending...' : 'Invite'}
+                      </button>
+                    )}
+                    {status && status !== 'sent' && status !== 'sending' && (
+                      <span className="game-board__invite-error">{status}</span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </div>
     );
   }

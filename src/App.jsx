@@ -20,6 +20,8 @@ import MyGamesPage from './pages/MyGamesPage';
 import AboutPage from './pages/AboutPage';
 import CardsPage from './pages/CardsPage';
 import QuizPage from './pages/QuizPage';
+import AdminPage from './pages/AdminPage';
+import FriendsPage from './pages/FriendsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
@@ -54,6 +56,8 @@ function AppRoutes() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cards" element={<ProtectedRoute><CardsPage /></ProtectedRoute>} />
         <Route path="/quiz" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
+        <Route path="/friends" element={<ProtectedRoute><FriendsPage /></ProtectedRoute>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </ErrorBoundary>

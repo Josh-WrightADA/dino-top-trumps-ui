@@ -41,7 +41,10 @@ export default function Navbar() {
             <Link to="/quiz" onClick={closeMenu}>Quiz</Link>
             <Link to="/history" onClick={closeMenu}>History</Link>
             <Link to="/leaderboard" onClick={closeMenu}>Leaderboard</Link>
-            <Link to="/profile" onClick={closeMenu}>Profile</Link>
+            <Link to="/friends" onClick={closeMenu}>Friends</Link>
+            {user?.role === 'ADMIN' && (
+              <Link to="/admin" onClick={closeMenu}>Admin</Link>
+            )}
             <Link to="/profile" className="navbar-user navbar-avatar navbar-avatar--link" onClick={closeMenu}>
               {user?.avatarUrl ? (
                 <img src={user.avatarUrl} alt="" className="avatar avatar--small" />
@@ -51,6 +54,9 @@ export default function Navbar() {
                 </div>
               )}
               {user?.displayName || user?.username}
+              {user?.role === 'ADMIN' && (
+                <span className="profile__admin-badge">ADMIN</span>
+              )}
             </Link>
             <button onClick={handleLogout} className="navbar-logout">Logout</button>
           </>
