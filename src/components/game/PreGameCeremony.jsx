@@ -46,7 +46,6 @@ export default function PreGameCeremony({ opponentId, currentTurnPlayerId, curre
   // Countdown in stage 3 then auto-dismiss
   useEffect(() => {
     if (stage !== 3) return;
-    setCountdown(3);
     const interval = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
