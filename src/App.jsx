@@ -19,6 +19,7 @@ import PlayerProfilePage from './pages/PlayerProfilePage';
 import MyGamesPage from './pages/MyGamesPage';
 import AboutPage from './pages/AboutPage';
 import CardsPage from './pages/CardsPage';
+import QuizPage from './pages/QuizPage';
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
@@ -52,6 +53,7 @@ function AppRoutes() {
         <Route path="/my-games" element={<ProtectedRoute><MyGamesPage /></ProtectedRoute>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cards" element={<ProtectedRoute><CardsPage /></ProtectedRoute>} />
+        <Route path="/quiz" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </ErrorBoundary>
