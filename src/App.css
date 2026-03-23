@@ -1,32 +1,46 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Atmospheric background glow */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 137, 42, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
+
+/* ========================
+   PAGE CONTAINER
+   ======================== */
 
 .page {
   max-width: 960px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: var(--space-8) var(--space-4);
+  min-height: calc(100vh - 60px);
+  position: relative;
+  z-index: 1;
 }
 
 /* --- Page-level centred layout --- */
 .page--centered {
   text-align: center;
-  padding-top: 3rem;
+  padding-top: var(--space-12);
 }
 
 /* --- Not Found Page --- */
 .not-found__back-btn {
-  margin-top: 1rem;
+  margin-top: var(--space-4);
 }
 
 /* --- Cards Page --- */
 .cards-page__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
 }
 
 .cards-page__card-btn {
@@ -40,51 +54,54 @@
 
 /* --- My Games Page --- */
 .my-games__heading {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 
 /* --- Profile Page additions --- */
 .profile__heading {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 
 .profile__alert--error {
-  color: #c62828;
-  background: #fdecea;
-  padding: 0.5rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  color: var(--color-danger);
+  background: var(--color-danger-bg);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--color-danger);
 }
 
 .profile__alert--success {
-  color: #2d6a4f;
-  background: #d8f3dc;
-  padding: 0.5rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  color: var(--color-success);
+  background: var(--color-success-bg);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--color-success);
 }
 
 .profile__button-row {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .profile__security-heading {
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-3);
 }
 
 /* --- Auth success message --- */
 .auth-success {
-  color: #2d6a4f;
-  background: #d8f3dc;
-  padding: 0.5rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
+  color: var(--color-success);
+  background: var(--color-success-bg);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  border: 1px solid var(--color-success);
 }
 
 /* --- Reset Password success --- */
 .reset-password__success {
-  color: #2d6a4f;
+  color: var(--color-success);
   text-align: center;
 }
 
@@ -93,8 +110,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1.5rem;
-  gap: 0.75rem;
+  margin-bottom: var(--space-6);
+  gap: var(--space-3);
 }
 
 .player-profile__name {
@@ -102,8 +119,9 @@
 }
 
 .player-profile__back-btn {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
+
 .rank-badge {
   display: inline-flex;
   align-items: center;
@@ -132,9 +150,16 @@
   align-items: center;
   justify-content: center;
   min-height: 50vh;
-  gap: 1rem;
-  padding: 2rem;
+  gap: var(--space-4);
+  padding: var(--space-8);
   text-align: center;
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.error-boundary h2 {
+  color: var(--color-danger);
 }
 
 /* --- Navbar avatar link --- */
@@ -142,4 +167,3 @@
   text-decoration: none;
   color: inherit;
 }
-
