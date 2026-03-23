@@ -54,7 +54,7 @@ export default function Leaderboard() {
                   <th>Rank</th>
                   <th>Player</th>
                   <th>Tier</th>
-                  <th>ELO</th>
+                  <th>LP</th>
                   <th>Played</th>
                   <th>Won</th>
                   <th>Win %</th>
@@ -69,7 +69,7 @@ export default function Leaderboard() {
                     <td>{start + index + 1}</td>
                     <td>
                       <Link
-                        to={`/player/${player.userId}`}
+                        to={player.userId === user?.id ? '/profile' : `/player/${player.userId}`}
                         className="leaderboard-table__player-link"
                       >
                         {player.avatarUrl ? (
@@ -87,7 +87,7 @@ export default function Leaderboard() {
                       </Link>
                     </td>
                     <td><RankBadge tierKey={player.rankTier} /></td>
-                    <td>{player.eloRating}</td>
+                    <td>{player.leaguePoints}</td>
                     <td>{player.gamesPlayed}</td>
                     <td>{player.gamesWon}</td>
                     <td>

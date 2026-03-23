@@ -41,7 +41,7 @@ export default function ResetPasswordForm() {
       setSuccess(true);
       setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Reset failed.');
+      setError(err.response?.data?.detail || err.response?.data?.message || 'Reset failed.');
     } finally {
       setLoading(false);
     }

@@ -44,7 +44,7 @@ export default function RegisterForm() {
       await register(username, email, password);
       navigate('/login');
     } catch (err) {
-      const message = err.response?.data?.message || 'Registration failed. Please try again.';
+      const message = err.response?.data?.detail || err.response?.data?.message || 'Registration failed. Please try again.';
       setError(message);
     } finally {
       setLoading(false);

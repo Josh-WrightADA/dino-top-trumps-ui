@@ -27,7 +27,7 @@ export default function LoginForm() {
       login(res.data.accessToken);
       navigate('/lobby');
     } catch (err) {
-      const message = err.response?.data?.message || 'Login failed. Please try again.';
+      const message = err.response?.data?.detail || err.response?.data?.message || 'Login failed. Please try again.';
       setError(message);
     } finally {
       setLoading(false);
