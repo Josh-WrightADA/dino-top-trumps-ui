@@ -20,7 +20,7 @@ vi.mock('../hooks/useAuth', () => ({
   }),
 }));
 
-import { getUsers, banUser, unbanUser, getAdminGames, getReports } from '../api/adminApi';
+import { getUsers, banUser, getAdminGames, getReports } from '../api/adminApi';
 
 const mockUsers = [
   { id: 'user-1', username: 'player1', displayName: 'Player One', email: 'p1@test.com', role: 'ADMIN', status: 'ACTIVE', eloRating: 1200, leaguePoints: 0, rankTier: 'CARNIVORE', gamesPlayed: 10, gamesWon: 7, createdAt: '2026-01-01T00:00:00Z' },
