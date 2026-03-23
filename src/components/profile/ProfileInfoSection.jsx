@@ -19,8 +19,8 @@ export default function ProfileInfoSection({ profile, onProfileUpdated, onError,
       onProfileUpdated(res.data);
       setEditing(false);
       onSuccess('Profile updated.');
-    } catch {
-      onError('Failed to update profile.');
+    } catch (err) {
+      onError(err.response?.data?.detail || 'Failed to update profile.');
     } finally {
       setSaving(false);
     }

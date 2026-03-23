@@ -35,6 +35,9 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
+      setShowCurrentPassword(false);
+      setShowNewPassword(false);
+      setShowConfirmPassword(false);
       onSuccess('Password changed successfully.');
     } catch (err) {
       onError(err.response?.data?.detail || err.response?.data?.message || 'Failed to change password.');
@@ -117,7 +120,12 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
           </label>
           <div className="profile__button-row">
             <button type="submit" disabled={saving}>{saving ? 'Changing...' : 'Change Password'}</button>
-            <button type="button" onClick={() => setChangingPassword(false)} className="btn--secondary">Cancel</button>
+            <button type="button" onClick={() => {
+              setChangingPassword(false);
+              setShowCurrentPassword(false);
+              setShowNewPassword(false);
+              setShowConfirmPassword(false);
+            }} className="btn--secondary">Cancel</button>
           </div>
         </form>
       ) : (
