@@ -17,16 +17,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --ignore-engines
+        run: npm ci
 
       - name: Lint
-        run: yarn eslint src/ --max-warnings 0 --ignore-pattern "src/context/**"
+        run: npx eslint src/ --max-warnings 0 --ignore-pattern "src/context/**"
 
       - name: Run tests
-        run: yarn vitest run
+        run: npx vitest run
 
       - name: Build
-        run: yarn build
+        run: npm run build
