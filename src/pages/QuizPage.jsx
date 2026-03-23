@@ -14,7 +14,7 @@ export default function QuizPage() {
       try {
         const response = await getCards();
         setCards(response.data);
-      } catch (err) {
+      } catch {
         setError('Failed to load cards. Please try again.');
       } finally {
         setLoading(false);
