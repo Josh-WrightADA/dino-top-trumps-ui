@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import AvatarPicker from '../components/profile/AvatarPicker';
-import { DEFAULT_AVATARS } from '../constants/defaultAvatars';
+import AvatarPicker from './AvatarPicker';
+import { DEFAULT_AVATARS } from '../../constants/defaultAvatars';
 
-vi.mock('../api/gameApi', () => ({
+vi.mock('../../api/gameApi', () => ({
   getCards: vi.fn(() => Promise.resolve({
     data: [
       { id: '1', name: 'T-Rex', imageUrl: 'https://example.com/trex.jpg' },
@@ -12,7 +12,7 @@ vi.mock('../api/gameApi', () => ({
   })),
 }));
 
-vi.mock('../api/authApi', () => ({
+vi.mock('../../api/authApi', () => ({
   setDinoAvatar: vi.fn(() => Promise.resolve({ data: { avatarUrl: 'https://example.com/avatar.png' } })),
 }));
 
@@ -62,7 +62,7 @@ describe('AvatarPicker', () => {
   });
 
   it('calls setDinoAvatar and onSelect when a portrait is clicked', async () => {
-    const { setDinoAvatar } = await import('../api/authApi');
+    const { setDinoAvatar } = await import('../../api/authApi');
     render(<AvatarPicker onClose={onClose} onSelect={onSelect} />);
     fireEvent.click(screen.getByLabelText(`Select ${DEFAULT_AVATARS[0].name} as avatar`));
     await waitFor(() => {

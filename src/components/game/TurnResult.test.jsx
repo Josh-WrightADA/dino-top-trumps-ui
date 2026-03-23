@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import TurnResult from '../components/game/TurnResult';
+import TurnResult from './TurnResult';
 
 describe('TurnResult', () => {
   const winResult = {
@@ -63,7 +63,6 @@ describe('TurnResult', () => {
 
   it('swaps scores correctly for player2 perspective', () => {
     render(<TurnResult result={winResult} isPlayer1={false} onDismiss={() => {}} />);
-    // Player2 sees player2StatValue as "You" and player1StatValue as "Opponent"
     expect(screen.getByText('You lost this round.')).toBeInTheDocument();
   });
 });

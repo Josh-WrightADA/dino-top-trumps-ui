@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import QuizSummary from '../components/quiz/QuizSummary';
+import QuizSummary from './QuizSummary';
 
 const mockResults = [
   { isCorrect: true, usedHint: false, score: 10, cardName: 'T-Rex' },

@@ -1,24 +1,23 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import Leaderboard from '../components/leaderboard/Leaderboard';
-import { vi } from 'vitest';
+import Leaderboard from './Leaderboard';
+import { renderWithRouter } from '../../test/helpers/renderHelpers';
 
-vi.mock('../api/gameApi', () => ({
+vi.mock('../../api/gameApi', () => ({
   getLeaderboard: vi.fn(),
 }));
 
-vi.mock('../hooks/useAuth', () => ({
+vi.mock('../../hooks/useAuth', () => ({
   default: () => ({ user: { id: 'user-1' } }),
 }));
 
-import { getLeaderboard } from '../api/gameApi';
-
-function renderWithRouter(ui) {
-  return render(<MemoryRouter>{ui}</MemoryRouter>);
-}
+import { getLeaderboard } from '../../api/gameApi';
 
 describe('Leaderboard', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('calculates win rate correctly', async () => {
     getLeaderboard.mockResolvedValue({
       data: [
