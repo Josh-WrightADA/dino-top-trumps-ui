@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
-import TurnTimer from '../components/game/TurnTimer';
+import TurnTimer from './TurnTimer';
 
 describe('TurnTimer', () => {
   beforeEach(() => {

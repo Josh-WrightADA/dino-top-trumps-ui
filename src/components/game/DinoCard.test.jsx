@@ -1,13 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import DinoCard from '../components/game/DinoCard';
+import DinoCard from './DinoCard';
+import { mockCard } from '../../test/helpers/mockFixtures';
 
-const mockCard = {
+const card = {
+  ...mockCard,
   id: '123',
-  name: 'T-Rex',
   meaning: 'Tyrant Lizard King',
-  diet: 'Carnivore',
-  era: 'Late Cretaceous',
   imageUrl: null,
   height: 85,
   weight: 95,
@@ -18,19 +17,19 @@ const mockCard = {
 
 describe('DinoCard', () => {
   it('renders card name and meaning', () => {
-    render(<DinoCard card={mockCard} />);
+    render(<DinoCard card={card} />);
     expect(screen.getByText('T-Rex')).toBeInTheDocument();
     expect(screen.getByText('"Tyrant Lizard King"')).toBeInTheDocument();
   });
 
   it('renders diet and era tags', () => {
-    render(<DinoCard card={mockCard} />);
+    render(<DinoCard card={card} />);
     expect(screen.getByText('Carnivore')).toBeInTheDocument();
-    expect(screen.getByText('Late Cretaceous')).toBeInTheDocument();
+    expect(screen.getByText('Cretaceous')).toBeInTheDocument();
   });
 
   it('renders all five stat values', () => {
-    render(<DinoCard card={mockCard} />);
+    render(<DinoCard card={card} />);
     expect(screen.getByText('85')).toBeInTheDocument();
     expect(screen.getByText('95')).toBeInTheDocument();
     expect(screen.getByText('55')).toBeInTheDocument();
@@ -39,7 +38,7 @@ describe('DinoCard', () => {
   });
 
   it('renders placeholder when no image', () => {
-    render(<DinoCard card={mockCard} />);
+    render(<DinoCard card={card} />);
     expect(screen.getByText('DINO')).toBeInTheDocument();
   });
 

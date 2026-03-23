@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import RankBadge from '../components/rank/RankBadge';
+import RankBadge from './RankBadge';
 
 describe('RankBadge', () => {
   it('renders the tier label for a known tier', () => {

@@ -1,11 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import GameOver from '../components/game/GameOver';
-
-function renderWithRouter(ui) {
-  return render(<MemoryRouter>{ui}</MemoryRouter>);
-}
+import { screen } from '@testing-library/react';
+import GameOver from './GameOver';
+import { renderWithRouter } from '../../test/helpers/renderHelpers';
 
 describe('GameOver', () => {
   const wonGame = {

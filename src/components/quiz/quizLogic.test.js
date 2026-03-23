@@ -1,21 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { generateQuizQuestions, calculateScore, getRankTitle } from '../components/quiz/quizLogic';
-
-const mockCards = Array.from({ length: 10 }, (_, i) => ({
-  id: `card-${i}`,
-  name: `Dino ${i}`,
-  meaning: `Meaning ${i}`,
-  diet: 'Carnivore',
-  era: 'Cretaceous',
-  imageUrl: `http://example.com/dino-${i}.jpg`,
-  description: `Description ${i}`,
-  funFact: `Fun fact ${i}`,
-  height: 50 + i,
-  weight: 50 + i,
-  intelligence: 50 + i,
-  speed: 50 + i,
-  strength: 50 + i,
-}));
+import { generateQuizQuestions, calculateScore, getRankTitle } from './quizLogic';
+import { mockCards } from '../../test/helpers/mockFixtures';
 
 describe('generateQuizQuestions', () => {
   it('generates the requested number of questions', () => {
