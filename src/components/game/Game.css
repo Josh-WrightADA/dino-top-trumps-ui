@@ -582,6 +582,36 @@
   color: var(--color-text-muted);
 }
 
+.lobby__tier-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-4);
+}
+
+.lobby__tier-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-right: var(--space-1);
+}
+
+.lobby__tier-pill {
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.lobby__tier-pill--hatchling { background: var(--color-tier-hatchling); }
+.lobby__tier-pill--herbivore { background: var(--color-tier-herbivore); }
+.lobby__tier-pill--carnivore { background: var(--color-tier-carnivore); }
+.lobby__tier-pill--apex { background: var(--color-tier-apex); }
+.lobby__tier-pill--meteor { background: var(--color-tier-meteor); }
+
 /* --- Leaderboard --- */
 .leaderboard__heading {
   margin-bottom: var(--space-4);
@@ -1074,6 +1104,110 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Pre-Game Ceremony --- */
+.pre-game-ceremony {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+}
+
+.pre-game-ceremony__stage {
+  animation: ceremonyFadeIn 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+@keyframes ceremonyFadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.pre-game-ceremony__label {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.pre-game-ceremony__opponent-name {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  color: var(--color-amber);
+  margin-bottom: var(--space-2);
+}
+
+.pre-game-ceremony__opponent-bio {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  max-width: 400px;
+  margin-bottom: var(--space-4);
+}
+
+.pre-game-ceremony__opponent-rank {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+}
+
+.pre-game-ceremony__coin {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-amber), var(--color-amber-bright));
+  margin: var(--space-4) auto;
+  animation: coinSpin 1s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-2xl);
+  color: var(--color-text-inverse);
+  font-weight: 700;
+}
+
+@keyframes coinSpin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(720deg); }
+}
+
+.pre-game-ceremony__flip-result {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-text-primary);
+}
+
+.pre-game-ceremony__ready-title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  color: var(--color-amber);
+}
+
+.pre-game-ceremony__start-btn {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-xl);
+  font-family: var(--font-display);
+  background: linear-gradient(135deg, var(--color-amber), var(--color-amber-bright));
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.pre-game-ceremony__start-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-glow-amber);
+}
+
+.pre-game-ceremony__countdown {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
 
 /* --- Turn Result card images --- */

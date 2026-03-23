@@ -9,6 +9,7 @@ import StatSelector from './StatSelector';
 import TurnResult from './TurnResult';
 import GameOver from './GameOver';
 import TurnTimer from './TurnTimer';
+import PreGameCeremony from './PreGameCeremony';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
 import '../shared/Shared.css';
@@ -24,9 +25,9 @@ export default function GameBoard() {
   const [cardCache, setCardCache] = useState({});
   const [topCard, setTopCard] = useState(null);
   const [pollEnabled, setPollEnabled] = useState(true);
-  const [showCoinFlip, setShowCoinFlip] = useState(false);
+  const [showCeremony, setShowCeremony] = useState(false);
   const lastSeenTurnRef = useRef(0);
-  const coinFlipShownRef = useRef(false);
+  const ceremonyShownRef = useRef(false);
 
   // Friends invite state
   const [friends, setFriends] = useState([]);
@@ -44,17 +45,15 @@ export default function GameBoard() {
     setPollEnabled(!turnResult && game?.status !== 'FINISHED');
   }, [turnResult, game?.status]);
 
-  // Show coin flip once when the game first becomes IN_PROGRESS with no turns played
+  // Show ceremony once when the game first becomes IN_PROGRESS with no turns played
   useEffect(() => {
     if (
       game?.status === 'IN_PROGRESS' &&
       !game?.lastTurn &&
-      !coinFlipShownRef.current
+      !ceremonyShownRef.current
     ) {
-      coinFlipShownRef.current = true;
-      setShowCoinFlip(true);
-      const timer = setTimeout(() => setShowCoinFlip(false), 3000);
-      return () => clearTimeout(timer);
+      ceremonyShownRef.current = true;
+      setShowCeremony(true);
     }
   }, [game?.status, game?.lastTurn]);
 
@@ -98,6 +97,7 @@ export default function GameBoard() {
 
   const isPlayer1 = game?.player1Id === user?.id;
   const isYourTurn = game?.currentTurnPlayerId === user?.id;
+  const opponentId = game?.player1Id === user?.id ? game?.player2Id : game?.player1Id;
 
   // Load friends list when game is WAITING and current user is the host
   useEffect(() => {
@@ -219,19 +219,21 @@ export default function GameBoard() {
   }
 
   // IN_PROGRESS state
+  if (showCeremony) {
+    return (
+      <div className="game-board">
+        <PreGameCeremony
+          opponentId={opponentId}
+          currentTurnPlayerId={game.currentTurnPlayerId}
+          currentPlayerId={user?.id}
+          onComplete={() => setShowCeremony(false)}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="game-board">
-      {showCoinFlip && (
-        <div className="game-board__coin-flip">
-          <h2 className="game-board__coin-flip-title">Coin Flip!</h2>
-          <p className="game-board__coin-flip-result">
-            {game.currentTurnPlayerId === user?.id
-              ? "You go first!"
-              : "Your opponent goes first!"}
-          </p>
-        </div>
-      )}
-
       <div className="game-board__status">
         <div>
           <div className="game-board__status-label">Your Cards</div>

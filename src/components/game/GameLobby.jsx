@@ -98,6 +98,15 @@ export default function GameLobby() {
         )}
       </div>
 
+      <div className="lobby__tier-info">
+        <span className="lobby__tier-label">Ranks:</span>
+        <span className="lobby__tier-pill lobby__tier-pill--hatchling">Hatchling</span>
+        <span className="lobby__tier-pill lobby__tier-pill--herbivore">Herbivore</span>
+        <span className="lobby__tier-pill lobby__tier-pill--carnivore">Carnivore</span>
+        <span className="lobby__tier-pill lobby__tier-pill--apex">Apex</span>
+        <span className="lobby__tier-pill lobby__tier-pill--meteor">Meteor</span>
+      </div>
+
       <div className="lobby__section">
         <h3>Join by Game ID</h3>
         <form onSubmit={handleJoinById} className="lobby__join-form">
