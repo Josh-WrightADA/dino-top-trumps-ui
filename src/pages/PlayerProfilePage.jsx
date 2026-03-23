@@ -65,8 +65,8 @@ export default function PlayerProfilePage() {
           <div className="profile__card">
             <div className="profile__stats">
               <div>
-                <div className="profile__stat-label">ELO Rating</div>
-                <div className="profile__stat-value">{profile.eloRating}</div>
+                <div className="profile__stat-label">League Points</div>
+                <div className="profile__stat-value">{profile.leaguePoints}</div>
               </div>
               <div>
                 <div className="profile__stat-label">Rank</div>

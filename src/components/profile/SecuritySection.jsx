@@ -25,7 +25,7 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
       setNewPassword('');
       onSuccess('Password changed successfully.');
     } catch (err) {
-      onError(err.response?.data?.message || 'Failed to change password.');
+      onError(err.response?.data?.detail || err.response?.data?.message || 'Failed to change password.');
     } finally {
       setSaving(false);
     }

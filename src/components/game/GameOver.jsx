@@ -65,8 +65,8 @@ export default function GameOver({ game, userId }) {
         {profile && (
           <>
             <div className="game-over__stat">
-              <div className="game-over__stat-label">Your ELO</div>
-              <div className="game-over__stat-value">{profile.eloRating}</div>
+              <div className="game-over__stat-label">League Points</div>
+              <div className="game-over__stat-value">{profile.leaguePoints}</div>
             </div>
             <div className="game-over__stat">
               <div className="game-over__stat-label">Rank</div>
