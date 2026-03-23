@@ -29,6 +29,18 @@ export default function GameOver({ game, userId }) {
   const p1Cards = game.player1HandSize;
   const p2Cards = game.player2HandSize;
 
+  function getGameOverMessage(gameState, isWinner) {
+    const reason = gameState.gameEndReason;
+    if (reason === 'TIMEOUT') {
+      return isWinner ? 'Your opponent ran out of time!' : 'You ran out of time!';
+    }
+    if (reason === 'FORFEIT') {
+      return isWinner ? 'Your opponent forfeited!' : 'You forfeited the game.';
+    }
+    // NORMAL or null (backward compat)
+    return isWinner ? 'You collected all the cards!' : 'Your opponent collected all the cards.';
+  }
+
   async function handleRematch() {
     setRematchLoading(true);
     try {
@@ -46,7 +58,7 @@ export default function GameOver({ game, userId }) {
         {youWon ? 'Victory!' : 'Defeat'}
       </h2>
       <p className="game-over__subtitle">
-        {youWon ? 'You collected all the cards!' : 'Your opponent collected all the cards.'}
+        {getGameOverMessage(game, youWon)}
       </p>
 
       <div className="game-over__stats">

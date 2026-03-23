@@ -1,6 +1,6 @@
 import './Game.css';
 
-export default function TurnResult({ result, isPlayer1, userId, onDismiss }) {
+export default function TurnResult({ result, isPlayer1, userId, player1Card, player2Card, onDismiss }) {
   if (!result) return null;
 
   const yourScore = isPlayer1 ? result.player1StatValue : result.player2StatValue;
@@ -25,9 +25,27 @@ export default function TurnResult({ result, isPlayer1, userId, onDismiss }) {
     }
   }
 
+  const yourCard = isPlayer1 ? player1Card : player2Card;
+  const theirCard = isPlayer1 ? player2Card : player1Card;
+
   return (
     <div className={`turn-result ${outcomeClass}`}>
       <div className="turn-result__stat">{result.chosenStat}</div>
+      <div className="turn-result__cards">
+        <div className="turn-result__card">
+          {yourCard?.imageUrl && (
+            <img src={yourCard.imageUrl} alt={yourCard.name} className="turn-result__card-image" />
+          )}
+          <span className="turn-result__card-name">{yourCard?.name || 'Unknown'}</span>
+        </div>
+        <span className="turn-result__vs">VS</span>
+        <div className="turn-result__card">
+          {theirCard?.imageUrl && (
+            <img src={theirCard.imageUrl} alt={theirCard.name} className="turn-result__card-image" />
+          )}
+          <span className="turn-result__card-name">{theirCard?.name || 'Unknown'}</span>
+        </div>
+      </div>
       <div className="turn-result__comparison">
         <div className="turn-result__score">
           <div className="turn-result__score-label">You</div>
