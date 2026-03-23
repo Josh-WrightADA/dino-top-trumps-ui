@@ -41,4 +41,24 @@ describe('GameOver', () => {
     const { container } = renderWithRouter(<GameOver game={null} userId="user-1" />);
     expect(container.innerHTML).toBe('');
   });
+
+  it('shows timeout message when gameEndReason is TIMEOUT', () => {
+    renderWithRouter(<GameOver game={{ ...wonGame, gameEndReason: 'TIMEOUT' }} userId="user-1" />);
+    expect(screen.getByText(/opponent ran out of time/i)).toBeInTheDocument();
+  });
+
+  it('shows forfeit message when gameEndReason is FORFEIT', () => {
+    renderWithRouter(<GameOver game={{ ...wonGame, gameEndReason: 'FORFEIT' }} userId="user-1" />);
+    expect(screen.getByText(/opponent forfeited/i)).toBeInTheDocument();
+  });
+
+  it('shows normal message when gameEndReason is NORMAL', () => {
+    renderWithRouter(<GameOver game={{ ...wonGame, gameEndReason: 'NORMAL' }} userId="user-1" />);
+    expect(screen.getByText(/collected all the cards/i)).toBeInTheDocument();
+  });
+
+  it('shows loser timeout message correctly', () => {
+    renderWithRouter(<GameOver game={{ ...lostGame, gameEndReason: 'TIMEOUT' }} userId="user-1" />);
+    expect(screen.getByText(/you ran out of time/i)).toBeInTheDocument();
+  });
 });
