@@ -22,6 +22,7 @@ export default function Navbar() {
             <Link to="/lobby">Lobby</Link>
             <Link to="/my-games">My Games</Link>
             <Link to="/cards">Cards</Link>
+            <Link to="/quiz">Quiz</Link>
             <Link to="/history">History</Link>
             <Link to="/leaderboard">Leaderboard</Link>
             <Link to="/profile">Profile</Link>
