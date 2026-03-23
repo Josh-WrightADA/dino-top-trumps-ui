@@ -2,9 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   getFriends, getPendingRequests, removeFriend,
-  acceptFriendRequest, declineFriendRequest,
+  acceptFriendRequest, declineFriendRequest, sendFriendRequest,
   getPendingInvites, acceptGameInvite, declineGameInvite,
 } from '../api/socialApi';
+import { getLeaderboard } from '../api/gameApi';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
 import '../components/shared/Shared.css';
@@ -16,7 +17,40 @@ export default function FriendsPage() {
   const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const [searchFeedback, setSearchFeedback] = useState({ userId: null, message: '', type: '' });
   const navigate = useNavigate();
+
+  async function handleSearch() {
+    if (searchQuery.trim().length < 2) return;
+    setSearching(true);
+    setSearchResults([]);
+    try {
+      const res = await getLeaderboard();
+      const filtered = res.data.filter(player =>
+        player.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (player.displayName && player.displayName.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+      setSearchResults(filtered);
+    } catch {
+      // Silent fail — search is supplementary
+    } finally {
+      setSearching(false);
+    }
+  }
+
+  async function handleAddFriend(userId) {
+    setSearchFeedback({ userId, message: '', type: '' });
+    try {
+      await sendFriendRequest(userId);
+      setSearchFeedback({ userId, message: 'Request sent!', type: 'success' });
+    } catch (err) {
+      const detail = err?.response?.data?.detail || 'Failed to send request.';
+      setSearchFeedback({ userId, message: detail, type: 'error' });
+    }
+  }
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
@@ -92,6 +126,49 @@ export default function FriendsPage() {
       <h1 className="friends-page__title">Friends</h1>
 
       {error && <ErrorMessage message={error} onRetry={fetchAll} />}
+
+      {/* Add a Friend */}
+      <div className="friends__search">
+        <h3>Add a Friend</h3>
+        <div className="friends__search-input-row">
+          <input
+            type="text"
+            placeholder="Search by username..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            className="friends__search-input"
+          />
+          <button onClick={handleSearch} disabled={searching || searchQuery.trim().length < 2}>
+            {searching ? 'Searching...' : 'Search'}
+          </button>
+        </div>
+        {searchResults.length > 0 && (
+          <div className="friends__search-results">
+            {searchResults.map(player => (
+              <div key={player.userId} className="friends__search-result">
+                <span>{player.displayName || player.username}</span>
+                <div className="friends__search-result-actions">
+                  <button
+                    className="btn--secondary btn--small"
+                    onClick={() => handleAddFriend(player.userId)}
+                    disabled={searchFeedback.userId === player.userId && searchFeedback.type === 'success'}
+                  >
+                    {searchFeedback.userId === player.userId && searchFeedback.type === 'success'
+                      ? 'Sent!'
+                      : 'Add Friend'}
+                  </button>
+                  {searchFeedback.userId === player.userId && searchFeedback.message && (
+                    <span className={`friends-page__feedback friends-page__feedback--${searchFeedback.type}`}>
+                      {searchFeedback.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* Pending Friend Requests */}
       <section className="friends-page__section">

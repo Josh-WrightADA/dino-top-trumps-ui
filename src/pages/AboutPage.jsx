@@ -16,10 +16,35 @@ export default function AboutPage() {
         <li>The game ends when one player holds all the cards.</li>
       </ol>
 
-      <h2 className="about-page__section-heading">ELO Rankings</h2>
-      <p>
-        After every game, both players&apos; ELO ratings are updated. Beating a higher-ranked opponent
-        earns more points. Rankings are visible on the Leaderboard.
+      <h2 className="about-page__section-heading">Ranked Progression</h2>
+      <p>Win games to earn League Points (LP). Reach 100 LP to promote to the next tier.</p>
+
+      <div className="about-page__tier-list">
+        <div className="about-page__tier about-page__tier--hatchling">
+          <span className="about-page__tier-name">Hatchling</span>
+          <span className="about-page__tier-desc">Starting tier for all new players</span>
+        </div>
+        <div className="about-page__tier about-page__tier--herbivore">
+          <span className="about-page__tier-name">Herbivore</span>
+          <span className="about-page__tier-desc">Proving your knowledge of the prehistoric world</span>
+        </div>
+        <div className="about-page__tier about-page__tier--carnivore">
+          <span className="about-page__tier-name">Carnivore</span>
+          <span className="about-page__tier-desc">A formidable competitor in the arena</span>
+        </div>
+        <div className="about-page__tier about-page__tier--apex">
+          <span className="about-page__tier-name">Apex</span>
+          <span className="about-page__tier-desc">Among the most skilled players</span>
+        </div>
+        <div className="about-page__tier about-page__tier--meteor">
+          <span className="about-page__tier-name">Meteor</span>
+          <span className="about-page__tier-desc">Extinction-level dominance</span>
+        </div>
+      </div>
+
+      <p className="about-page__tier-note">
+        Win: +25 LP (more in your first 10 games). Loss: -15 LP.
+        Promote at 100 LP. New players climb faster during placement matches.
       </p>
     </div>
   );
