@@ -9,6 +9,8 @@ export default function ResetPasswordForm() {
   const token = searchParams.get('token') || '';
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -64,21 +66,41 @@ export default function ResetPasswordForm() {
       {error && <p className="auth-error" role="alert">{error}</p>}
       <label>
         New Password (at least 8 characters)
-        <input
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          autoComplete="new-password"
-        />
+        <div className="auth-form__password-field">
+          <input
+            type={showNewPassword ? 'text' : 'password'}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            autoComplete="new-password"
+          />
+          <button
+            type="button"
+            className="auth-form__toggle-password"
+            onClick={() => setShowNewPassword(prev => !prev)}
+            aria-label={showNewPassword ? 'Hide password' : 'Show password'}
+          >
+            {showNewPassword ? 'Hide' : 'Show'}
+          </button>
+        </div>
       </label>
       <label>
         Confirm Password
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          autoComplete="new-password"
-        />
+        <div className="auth-form__password-field">
+          <input
+            type={showConfirmPassword ? 'text' : 'password'}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            autoComplete="new-password"
+          />
+          <button
+            type="button"
+            className="auth-form__toggle-password"
+            onClick={() => setShowConfirmPassword(prev => !prev)}
+            aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+          >
+            {showConfirmPassword ? 'Hide' : 'Show'}
+          </button>
+        </div>
       </label>
       <button type="submit" disabled={loading}>
         {loading ? 'Resetting...' : 'Reset Password'}

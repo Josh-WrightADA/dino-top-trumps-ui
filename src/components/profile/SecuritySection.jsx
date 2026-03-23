@@ -7,12 +7,23 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
   const [changingPassword, setChangingPassword] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deletePassword, setDeletePassword] = useState('');
 
   async function handleChangePassword(e) {
     e.preventDefault();
     if (newPassword.length < 8) {
       onError('New password must be at least 8 characters.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      onError('Passwords do not match.');
       return;
     }
     setSaving(true);
@@ -23,6 +34,7 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
       setChangingPassword(false);
       setCurrentPassword('');
       setNewPassword('');
+      setConfirmPassword('');
       onSuccess('Password changed successfully.');
     } catch (err) {
       onError(err.response?.data?.detail || err.response?.data?.message || 'Failed to change password.');
@@ -32,13 +44,12 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
   }
 
   async function handleDeleteAccount() {
-    if (!window.confirm('Are you sure? This action cannot be undone.')) return;
     try {
-      await deleteAccount();
+      await deleteAccount(deletePassword);
       onLogout();
       onNavigate('/');
     } catch {
-      onError('Failed to delete account.');
+      onError('Failed to delete account. Check your password and try again.');
     }
   }
 
@@ -49,21 +60,60 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
         <form className="profile__edit-form" onSubmit={handleChangePassword}>
           <label>
             Current Password
-            <input
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              autoComplete="current-password"
-            />
+            <div className="auth-form__password-field">
+              <input
+                type={showCurrentPassword ? 'text' : 'password'}
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                className="auth-form__toggle-password"
+                onClick={() => setShowCurrentPassword(prev => !prev)}
+                aria-label={showCurrentPassword ? 'Hide password' : 'Show password'}
+              >
+                {showCurrentPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
           </label>
           <label>
             New Password (at least 8 characters)
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              autoComplete="new-password"
-            />
+            <div className="auth-form__password-field">
+              <input
+                type={showNewPassword ? 'text' : 'password'}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                autoComplete="new-password"
+              />
+              <button
+                type="button"
+                className="auth-form__toggle-password"
+                onClick={() => setShowNewPassword(prev => !prev)}
+                aria-label={showNewPassword ? 'Hide password' : 'Show password'}
+              >
+                {showNewPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
+          </label>
+          <label>
+            Confirm New Password
+            <div className="auth-form__password-field">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                autoComplete="new-password"
+              />
+              <button
+                type="button"
+                className="auth-form__toggle-password"
+                onClick={() => setShowConfirmPassword(prev => !prev)}
+                aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+              >
+                {showConfirmPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
           </label>
           <div className="profile__button-row">
             <button type="submit" disabled={saving}>{saving ? 'Changing...' : 'Change Password'}</button>
@@ -73,7 +123,29 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
       ) : (
         <div className="profile__button-row">
           <button onClick={() => setChangingPassword(true)}>Change Password</button>
-          <button onClick={handleDeleteAccount} className="btn--danger">Delete Account</button>
+          {!showDeleteConfirm && (
+            <button onClick={() => setShowDeleteConfirm(true)} className="btn--danger">Delete Account</button>
+          )}
+        </div>
+      )}
+      {showDeleteConfirm && (
+        <div className="profile__delete-confirm">
+          <p className="profile__delete-warning">This action cannot be undone. Enter your password to confirm.</p>
+          <input
+            type="password"
+            value={deletePassword}
+            onChange={(e) => setDeletePassword(e.target.value)}
+            placeholder="Enter your password"
+            className="profile__delete-input"
+          />
+          <div className="profile__button-row">
+            <button onClick={handleDeleteAccount} className="btn--danger" disabled={!deletePassword}>
+              Confirm Delete
+            </button>
+            <button onClick={() => { setShowDeleteConfirm(false); setDeletePassword(''); }} className="btn--secondary">
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </div>
