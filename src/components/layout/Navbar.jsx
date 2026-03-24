@@ -22,7 +22,7 @@ export default function Navbar() {
     <nav className="navbar">
       <Link to="/" className="navbar-brand" onClick={closeMenu}>
         <img
-          src="https://res.cloudinary.com/djnj9zlw3/image/upload/v1774358611/logo_yrbw3f_ebcb8d.png"
+          src="https://res.cloudinary.com/djnj9zlw3/image/upload/v1774360272/logo_igimhm.png"
           alt=""
           className="navbar-brand__logo"
         />
