@@ -87,4 +87,19 @@ describe('TurnResult', () => {
     const unknowns = screen.getAllByText('Unknown');
     expect(unknowns).toHaveLength(2);
   });
+
+  it('auto-dismisses after 8 seconds', () => {
+    vi.useFakeTimers();
+    const onDismiss = vi.fn();
+    render(<TurnResult result={winResult} isPlayer1={true} onDismiss={onDismiss} />);
+    expect(onDismiss).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(8000);
+    expect(onDismiss).toHaveBeenCalledOnce();
+    vi.useRealTimers();
+  });
+
+  it('renders auto-dismiss progress bar', () => {
+    const { container } = render(<TurnResult result={winResult} isPlayer1={true} onDismiss={() => {}} />);
+    expect(container.querySelector('.turn-result__auto-dismiss-bar')).toBeInTheDocument();
+  });
 });

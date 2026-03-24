@@ -50,12 +50,14 @@ export default function GameBoard() {
     if (
       game?.status === 'IN_PROGRESS' &&
       !game?.lastTurn &&
-      !ceremonyShownRef.current
+      !ceremonyShownRef.current &&
+      !sessionStorage.getItem(`ceremony-${id}`)
     ) {
       ceremonyShownRef.current = true;
+      sessionStorage.setItem(`ceremony-${id}`, 'true');
       setShowCeremony(true);
     }
-  }, [game?.status, game?.lastTurn]);
+  }, [game?.status, game?.lastTurn, id]);
 
   // Detect new turn result from polling (for the waiting player)
   useEffect(() => {
@@ -249,9 +251,6 @@ export default function GameBoard() {
             {isPlayer1 ? game.player2HandSize : game.player1HandSize}
           </div>
         </div>
-      </div>
-
-      <div className="game-board__forfeit-row">
         <button onClick={handleForfeit} className="btn--danger btn--small">Forfeit</button>
       </div>
 
@@ -280,7 +279,7 @@ export default function GameBoard() {
             </p>
           )}
 
-          {topCard && <DinoCard card={topCard} />}
+          {topCard && <DinoCard card={topCard} compact />}
 
           {isYourTurn && topCard && (
             <StatSelector

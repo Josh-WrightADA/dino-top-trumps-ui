@@ -100,7 +100,11 @@ export default function PreGameCeremony({ opponentId, currentTurnPlayerId, curre
       {stage === 2 && (
         <div className="pre-game-ceremony__stage" key="stage-2">
           <div className="pre-game-ceremony__coin" aria-hidden="true">
-            T
+            <img
+              src="https://res.cloudinary.com/djnj9zlw3/image/upload/v1774360272/logo_igimhm.png"
+              alt=""
+              style={{ width: '60%', height: '60%', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+            />
           </div>
           <p className="pre-game-ceremony__flip-result">
             {youGoFirst ? 'You go first!' : 'Your opponent goes first!'}
