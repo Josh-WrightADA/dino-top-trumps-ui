@@ -7,7 +7,7 @@ import './Home.css';
 const FEATURE_ITEMS = [
   {
     key: 'battle',
-    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774357984/swords_zkyqy0.png',
+    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774360272/swords_aije99.png',
     title: 'Card Battles',
     description: 'Challenge opponents in real-time dinosaur duels. Pick your stat, outsmart your rival.',
     link: '/lobby',
@@ -15,7 +15,7 @@ const FEATURE_ITEMS = [
   },
   {
     key: 'rank',
-    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774357985/trophy_sjxjyf.png',
+    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774360272/trophy_ovchnj.png',
     title: 'Ranked Play',
     description: 'Climb from Hatchling to Meteor. Hidden ELO, visible glory.',
     link: '/leaderboard',
@@ -23,7 +23,7 @@ const FEATURE_ITEMS = [
   },
   {
     key: 'quiz',
-    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774357984/skullicon_z3c3qm.png',
+    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774360272/skullicon_jjvkzu.png',
     title: 'Dino Quiz',
     description: 'Test your prehistoric knowledge. 10 rounds, hints, fun facts.',
     link: '/quiz',
@@ -31,7 +31,7 @@ const FEATURE_ITEMS = [
   },
   {
     key: 'gallery',
-    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774357985/cards_jtooza.png',
+    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774360276/cards_qzkjju.png',
     title: 'Card Gallery',
     description: '36 hand-illustrated dinosaurs. Browse stats, lore, and art.',
     link: '/cards',
