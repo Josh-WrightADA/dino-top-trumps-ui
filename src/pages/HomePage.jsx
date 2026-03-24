@@ -123,9 +123,13 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="home__scroll-hint" aria-hidden="true">
+        <button
+          className="home__scroll-hint"
+          onClick={() => featuresRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          aria-label="Scroll to features"
+        >
           <span className="home__scroll-chevron" />
-        </div>
+        </button>
       </section>
       <section className="home__features" ref={featuresRef}>
         <div className="home__features-grid">
