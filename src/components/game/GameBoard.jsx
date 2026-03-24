@@ -182,8 +182,16 @@ export default function GameBoard() {
         <div className="game-board__waiting">
           <div className="game-board__waiting-spinner" />
           <h3>Waiting for opponent...</h3>
-          <p>Share this game ID with a friend:</p>
-          <p><strong>{id}</strong></p>
+          <p>Send this code to a challenger:</p>
+          <p>
+            <span
+              className="game-board__game-id"
+              onClick={() => { navigator.clipboard.writeText(id); }}
+              title="Click to copy"
+            >
+              {id}
+            </span>
+          </p>
         </div>
 
         {isPlayer1 && friends.length > 0 && (
