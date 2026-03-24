@@ -58,6 +58,7 @@ function UsersTab() {
   useEffect(() => { fetchUsers(); }, []);
 
   async function handleBan(userId) {
+    if (!window.confirm('Are you sure you want to ban this user?')) return;
     try {
       const res = await banUser(userId);
       setUsers((prev) => prev.map((u) => (u.id === userId ? res.data : u)));
@@ -234,6 +235,7 @@ function ReportsTab() {
   useEffect(() => { fetchReports(); }, []);
 
   async function handleDismiss(reportId) {
+    if (!window.confirm('Are you sure you want to dismiss this report?')) return;
     try {
       const res = await dismissReport(reportId);
       setReports((prev) => prev.map((r) => (r.id === reportId ? res.data : r)));

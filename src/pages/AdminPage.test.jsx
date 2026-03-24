@@ -38,6 +38,7 @@ const mockReports = [
 describe('AdminPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    window.confirm = vi.fn(() => true);
     getUsers.mockResolvedValue({ data: mockUsers });
     getAdminGames.mockResolvedValue({ data: mockGames });
     getReports.mockResolvedValue({ data: mockReports });

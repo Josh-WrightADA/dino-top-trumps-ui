@@ -130,4 +130,5 @@
 
 .auth-form__toggle-password:hover {
   color: var(--color-amber);
+  background: none;
 }

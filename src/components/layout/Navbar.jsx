@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import './Navbar.css';
 import '../profile/Avatar.css';
@@ -39,20 +39,20 @@ export default function Navbar() {
         <span className="navbar-hamburger__bar" />
       </button>
       <div className={`navbar-links${menuOpen ? ' navbar-links--open' : ''}`}>
-        <Link to="/about" onClick={closeMenu}>How to Play</Link>
+        <NavLink to="/about" onClick={closeMenu}>How to Play</NavLink>
         {isAuthenticated ? (
           <>
-            <Link to="/lobby" onClick={closeMenu}>Lobby</Link>
-            <Link to="/my-games" onClick={closeMenu}>My Games</Link>
-            <Link to="/cards" onClick={closeMenu}>Cards</Link>
-            <Link to="/quiz" onClick={closeMenu}>Quiz</Link>
-            <Link to="/history" onClick={closeMenu}>History</Link>
-            <Link to="/leaderboard" onClick={closeMenu}>Leaderboard</Link>
-            <Link to="/friends" onClick={closeMenu}>Friends</Link>
+            <NavLink to="/lobby" onClick={closeMenu}>Lobby</NavLink>
+            <NavLink to="/my-games" onClick={closeMenu}>My Games</NavLink>
+            <NavLink to="/cards" onClick={closeMenu}>Cards</NavLink>
+            <NavLink to="/quiz" onClick={closeMenu}>Quiz</NavLink>
+            <NavLink to="/history" onClick={closeMenu}>History</NavLink>
+            <NavLink to="/leaderboard" onClick={closeMenu}>Leaderboard</NavLink>
+            <NavLink to="/friends" onClick={closeMenu}>Friends</NavLink>
             {user?.role === 'ADMIN' && (
-              <Link to="/admin" onClick={closeMenu}>Admin</Link>
+              <NavLink to="/admin" onClick={closeMenu}>Admin</NavLink>
             )}
-            <Link to="/profile" className="navbar-user navbar-avatar navbar-avatar--link" onClick={closeMenu}>
+            <NavLink to="/profile" className="navbar-user navbar-avatar navbar-avatar--link" onClick={closeMenu}>
               {user?.avatarUrl ? (
                 <img src={user.avatarUrl} alt="" className="avatar avatar--small" />
               ) : (
@@ -64,13 +64,13 @@ export default function Navbar() {
               {user?.role === 'ADMIN' && (
                 <span className="profile__admin-badge">ADMIN</span>
               )}
-            </Link>
+            </NavLink>
             <button onClick={handleLogout} className="navbar-logout">Logout</button>
           </>
         ) : (
           <>
-            <Link to="/login" onClick={closeMenu}>Login</Link>
-            <Link to="/register" onClick={closeMenu}>Register</Link>
+            <NavLink to="/login" onClick={closeMenu}>Login</NavLink>
+            <NavLink to="/register" onClick={closeMenu}>Register</NavLink>
           </>
         )}
       </div>

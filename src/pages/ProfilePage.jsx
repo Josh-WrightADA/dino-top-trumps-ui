@@ -87,7 +87,7 @@ export default function ProfilePage() {
       <div className="profile">
         <h2 className="profile__heading">Profile</h2>
 
-        {error && <p className="profile__alert--error" role="alert">{error}</p>}
+        {error && profile && <p className="profile__alert--error" role="alert">{error}</p>}
         {success && <p className="profile__alert--success" role="status">{success}</p>}
 
         {loading && <LoadingSpinner message="Loading profile..." />}

@@ -138,6 +138,7 @@ export default function FriendsPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             className="friends__search-input"
+            aria-label="Search for friends"
           />
           <button onClick={handleSearch} disabled={searching || searchQuery.trim().length < 2}>
             {searching ? 'Searching...' : 'Search'}
@@ -159,7 +160,10 @@ export default function FriendsPage() {
                       : 'Add Friend'}
                   </button>
                   {searchFeedback.userId === player.userId && searchFeedback.message && (
-                    <span className={`friends-page__feedback friends-page__feedback--${searchFeedback.type}`}>
+                    <span
+                      className={`friends-page__feedback friends-page__feedback--${searchFeedback.type}`}
+                      role={searchFeedback.type === 'error' ? 'alert' : 'status'}
+                    >
                       {searchFeedback.message}
                     </span>
                   )}

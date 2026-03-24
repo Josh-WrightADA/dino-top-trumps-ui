@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getActiveGames } from '../api/gameApi';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
+import '../components/shared/Shared.css';
 import '../components/game/Game.css';
 import '../App.css';
 
@@ -30,7 +31,7 @@ export default function MyGamesPage() {
 
   function getStatusClass(status) {
     if (status === 'WAITING') return 'match-item__result--pending';
-    if (status === 'IN_PROGRESS') return 'match-item__result--won';
+    if (status === 'IN_PROGRESS') return 'match-item__result--pending';
     return 'match-item__result--lost';
   }
 
@@ -50,7 +51,7 @@ export default function MyGamesPage() {
               <span className={`match-item__result ${getStatusClass(game.status)}`}>
                 {game.status}
               </span>
-              <Link to={`/game/${game.id}`}><button>Resume</button></Link>
+              <Link to={`/game/${game.id}`} className="btn">Resume</Link>
             </li>
           ))}
         </ul>

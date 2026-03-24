@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import './Game.css';
 
 const STAT_ORDER = ['height', 'weight', 'intelligence', 'speed', 'strength'];
 
 export default function DinoCard({ card, highlightStat }) {
+  const [imgError, setImgError] = useState(false);
+
   if (!card) return null;
 
   const dietClass = card.diet ? card.diet.toLowerCase() : '';
@@ -14,8 +17,14 @@ export default function DinoCard({ card, highlightStat }) {
         {card.meaning && <div className="dino-card__meaning">"{card.meaning}"</div>}
       </div>
 
-      {card.imageUrl ? (
-        <img className="dino-card__image" src={card.imageUrl} alt={card.name} />
+      {card.imageUrl && !imgError ? (
+        <img
+          className="dino-card__image"
+          src={card.imageUrl}
+          alt={card.name}
+          loading="lazy"
+          onError={() => setImgError(true)}
+        />
       ) : (
         <div className="dino-card__image-placeholder">DINO</div>
       )}

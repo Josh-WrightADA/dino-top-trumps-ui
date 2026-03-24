@@ -151,13 +151,13 @@ export default function PlayerProfilePage() {
             </div>
 
             {friendMessage && (
-              <p className="profile__alert--success">{friendMessage}</p>
+              <p className="profile__alert--success" role="status">{friendMessage}</p>
             )}
             {friendError && (
-              <p className="profile__alert--error">{friendError}</p>
+              <p className="profile__alert--error" role="alert">{friendError}</p>
             )}
             {reportMessage && (
-              <p className="profile__alert--success">{reportMessage}</p>
+              <p className="profile__alert--success" role="status">{reportMessage}</p>
             )}
 
             {reportOpen && (
@@ -177,7 +177,7 @@ export default function PlayerProfilePage() {
                   required
                 />
                 {reportError && (
-                  <p className="profile__alert--error">{reportError}</p>
+                  <p className="profile__alert--error" role="alert">{reportError}</p>
                 )}
                 <button
                   type="submit"

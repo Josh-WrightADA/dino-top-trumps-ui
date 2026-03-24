@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import './Game.css';
 
 export default function TurnResult({ result, isPlayer1, userId, player1Card, player2Card, onDismiss }) {
+  const [yourImgError, setYourImgError] = useState(false);
+  const [theirImgError, setTheirImgError] = useState(false);
+
   if (!result) return null;
 
   const yourScore = isPlayer1 ? result.player1StatValue : result.player2StatValue;
@@ -33,15 +37,25 @@ export default function TurnResult({ result, isPlayer1, userId, player1Card, pla
       <div className="turn-result__stat">{result.chosenStat}</div>
       <div className="turn-result__cards">
         <div className="turn-result__card">
-          {yourCard?.imageUrl && (
-            <img src={yourCard.imageUrl} alt={yourCard.name} className="turn-result__card-image" />
+          {yourCard?.imageUrl && !yourImgError && (
+            <img
+              src={yourCard.imageUrl}
+              alt={yourCard.name}
+              className="turn-result__card-image"
+              onError={() => setYourImgError(true)}
+            />
           )}
           <span className="turn-result__card-name">{yourCard?.name || 'Unknown'}</span>
         </div>
         <span className="turn-result__vs">VS</span>
         <div className="turn-result__card">
-          {theirCard?.imageUrl && (
-            <img src={theirCard.imageUrl} alt={theirCard.name} className="turn-result__card-image" />
+          {theirCard?.imageUrl && !theirImgError && (
+            <img
+              src={theirCard.imageUrl}
+              alt={theirCard.name}
+              className="turn-result__card-image"
+              onError={() => setTheirImgError(true)}
+            />
           )}
           <span className="turn-result__card-name">{theirCard?.name || 'Unknown'}</span>
         </div>
