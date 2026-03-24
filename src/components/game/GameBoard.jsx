@@ -265,42 +265,50 @@ export default function GameBoard() {
         <button onClick={handleForfeit} className="btn--danger btn--small">Forfeit</button>
       </div>
 
-      {turnResult ? (
-        <TurnResult
-          result={turnResult}
-          isPlayer1={isPlayer1}
-          userId={user?.id}
-          player1Card={cardCache[turnResult?.player1CardId] || null}
-          player2Card={cardCache[turnResult?.player2CardId] || null}
-          onDismiss={handleDismissResult}
-        />
-      ) : (
-        <>
-          <div
-            className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}
-            aria-live="polite"
-          >
-            <span>{isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}</span>
-            <TurnTimer turnDeadline={game.turnDeadline} isYourTurn={isYourTurn} onExpired={handleTurnExpired} />
-          </div>
+      <div className="game-board__play-area">
+        {turnResult ? (
+          <TurnResult
+            result={turnResult}
+            isPlayer1={isPlayer1}
+            userId={user?.id}
+            player1Card={cardCache[turnResult?.player1CardId] || null}
+            player2Card={cardCache[turnResult?.player2CardId] || null}
+            onDismiss={handleDismissResult}
+          />
+        ) : (
+          <>
+            {/* Left column — card */}
+            <div className="game-board__card-column">
+              {topCard && <DinoCard card={topCard} />}
+            </div>
 
-          {turnError && (
-            <p className="game-board__turn-error" role="alert">
-              {turnError}
-            </p>
-          )}
+            {/* Right column — controls */}
+            <div className="game-board__controls">
+              <div
+                className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}
+                aria-live="polite"
+              >
+                <span>{isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}</span>
+                <TurnTimer turnDeadline={game.turnDeadline} isYourTurn={isYourTurn} onExpired={handleTurnExpired} />
+              </div>
 
-          {topCard && <DinoCard card={topCard} compact />}
+              {turnError && (
+                <p className="game-board__turn-error" role="alert">
+                  {turnError}
+                </p>
+              )}
 
-          {isYourTurn && topCard && (
-            <StatSelector
-              card={topCard}
-              onSelect={handleStatSelect}
-              disabled={submitting}
-            />
-          )}
-        </>
-      )}
+              {isYourTurn && topCard && (
+                <StatSelector
+                  card={topCard}
+                  onSelect={handleStatSelect}
+                  disabled={submitting}
+                />
+              )}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

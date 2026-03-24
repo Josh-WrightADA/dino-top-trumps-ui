@@ -47,13 +47,4 @@ describe('DinoCard', () => {
     expect(container.innerHTML).toBe('');
   });
 
-  it('applies compact class when compact prop is true', () => {
-    const { container } = render(<DinoCard card={card} compact />);
-    expect(container.querySelector('.dino-card--compact')).toBeInTheDocument();
-  });
-
-  it('does not apply compact class by default', () => {
-    const { container } = render(<DinoCard card={card} />);
-    expect(container.querySelector('.dino-card--compact')).not.toBeInTheDocument();
-  });
 });

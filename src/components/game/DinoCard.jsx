@@ -2,9 +2,8 @@ import { useState } from 'react';
 import './Game.css';
 
 const STAT_ORDER = ['height', 'weight', 'intelligence', 'speed', 'strength'];
-const COMPACT_LABELS = { height: 'HT', weight: 'WT', intelligence: 'INT', speed: 'SPD', strength: 'STR' };
 
-export default function DinoCard({ card, highlightStat, compact }) {
+export default function DinoCard({ card, highlightStat }) {
   const [imgError, setImgError] = useState(false);
 
   if (!card) return null;
@@ -12,23 +11,25 @@ export default function DinoCard({ card, highlightStat, compact }) {
   const dietClass = card.diet ? card.diet.toLowerCase() : '';
 
   return (
-    <div className={`dino-card${compact ? ' dino-card--compact' : ''}`}>
+    <div className="dino-card">
       <div className="dino-card__header">
         <h3 className="dino-card__name">{card.name}</h3>
         {card.meaning && <div className="dino-card__meaning">"{card.meaning}"</div>}
       </div>
 
-      {card.imageUrl && !imgError ? (
-        <img
-          className="dino-card__image"
-          src={card.imageUrl}
-          alt={card.name}
-          loading="lazy"
-          onError={() => setImgError(true)}
-        />
-      ) : (
-        <div className="dino-card__image-placeholder">DINO</div>
-      )}
+      <div className="dino-card__image-wrapper">
+        {card.imageUrl && !imgError ? (
+          <img
+            className="dino-card__image"
+            src={card.imageUrl}
+            alt={card.name}
+            loading="lazy"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="dino-card__image-placeholder">DINO</div>
+        )}
+      </div>
 
       <div className="dino-card__meta">
         {card.diet && (
@@ -45,7 +46,7 @@ export default function DinoCard({ card, highlightStat, compact }) {
             key={stat}
             className={`dino-card__stat${highlightStat === stat ? ' dino-card__stat--highlighted' : ''}`}
           >
-            <span className="dino-card__stat-label">{compact ? COMPACT_LABELS[stat] : stat}</span>
+            <span className="dino-card__stat-label">{stat}</span>
             <div className="dino-card__stat-bar">
               <div
                 className={`dino-card__stat-fill${highlightStat === stat ? ' dino-card__stat-fill--highlighted' : ''}`}
