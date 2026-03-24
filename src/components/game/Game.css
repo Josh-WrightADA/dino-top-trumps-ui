@@ -249,11 +249,8 @@
 }
 
 .dino-card:hover {
-  border-color: rgba(212, 137, 42, 0.5);
-  box-shadow:
-    0 0 0 1px rgba(212, 137, 42, 0.3),
-    0 8px 24px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(212, 137, 42, 0.12);
+  border-color: rgba(212, 137, 42, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   transform: translateY(-2px);
 }
 
@@ -315,22 +312,10 @@
 .dino-card__image {
   width: 100%;
   aspect-ratio: 3 / 4;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center 20%;
   display: block;
-  background: var(--color-bg-card);
   height: auto;
-}
-
-.dino-card__image-wrapper::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 35%, rgba(13, 15, 10, 0.65) 100%);
-  pointer-events: none;
-}
-
-.dino-card__image-wrapper:has(.dino-card__image-placeholder)::after {
-  display: none;
 }
 
 .dino-card__image-placeholder {
@@ -934,11 +919,14 @@
   border: 1px solid rgba(212, 137, 42, 0.15);
 }
 
-.lobby__tier-pill--hatchling { color: var(--color-tier-hatchling); background: rgba(123, 139, 111, 0.1); }
-.lobby__tier-pill--herbivore { color: var(--color-tier-herbivore); background: rgba(76, 175, 80, 0.1); }
-.lobby__tier-pill--carnivore { color: var(--color-tier-carnivore); background: rgba(230, 126, 34, 0.1); }
-.lobby__tier-pill--apex { color: var(--color-tier-apex); background: rgba(192, 57, 43, 0.1); }
-.lobby__tier-pill--meteor { color: var(--color-tier-meteor); background: rgba(155, 89, 182, 0.1); }
+.lobby__tier-pill--hatchling,
+.lobby__tier-pill--herbivore,
+.lobby__tier-pill--carnivore,
+.lobby__tier-pill--apex,
+.lobby__tier-pill--meteor {
+  background: rgba(212, 137, 42, 0.06);
+  color: var(--color-text-secondary);
+}
 
 /* --- Leaderboard --- */
 .leaderboard__heading {
@@ -1134,9 +1122,9 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center 20%;
   display: block;
-  background: linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg-card) 100%);
 }
 
 .card-modal__image-placeholder {
@@ -1588,9 +1576,9 @@
   width: 180px;
   height: 140px;
   object-fit: cover;
+  object-position: center 20%;
   border-radius: var(--radius-lg);
   border: 2px solid var(--color-border);
-  background: var(--color-bg-card);
   transition: border-color var(--transition-fast);
 }
 
