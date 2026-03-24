@@ -26,7 +26,7 @@ export default function LoginForm() {
     try {
       const res = await loginApi(username, password);
       login(res.data.accessToken);
-      navigate('/lobby');
+      navigate('/');
     } catch (err) {
       const message = err.response?.data?.detail || err.response?.data?.message || 'Login failed. Please try again.';
       setError(message);

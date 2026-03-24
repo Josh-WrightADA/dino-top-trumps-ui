@@ -13,12 +13,13 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
   font-weight: 700;
   color: var(--color-amber);
   text-decoration: none;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   transition: color var(--transition-fast);
 }
 

@@ -22,12 +22,13 @@
 
 .home__ember {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--color-amber);
+  width: 5px;
+  height: 5px;
+  background: var(--color-amber-bright);
   border-radius: 50%;
   opacity: 0;
   filter: blur(1px);
+  box-shadow: 0 0 6px rgba(240, 168, 48, 0.4);
   animation: ember-rise 8s ease-in infinite;
 }
 
@@ -44,10 +45,10 @@
     opacity: 0;
   }
   10% {
-    opacity: 0.6;
+    opacity: 0.8;
   }
   50% {
-    opacity: 0.3;
+    opacity: 0.4;
   }
   100% {
     transform: translateY(-20vh) scale(1.5);
@@ -319,10 +320,17 @@
 .home__feature-card--delay-4 { animation-delay: 0.9s; }
 
 .home__feature-icon {
-  display: block;
-  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: var(--space-3);
-  filter: grayscale(0.2);
+}
+
+.home__feature-icon-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
 }
 
 .home__feature-title {
