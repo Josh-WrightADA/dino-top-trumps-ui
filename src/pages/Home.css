@@ -281,9 +281,13 @@
   animation: scroll-hint-fade 2s ease-in-out 2s both;
   background: none;
   border: none;
+  border-radius: 0;
   padding: var(--space-2);
   cursor: pointer;
 }
+
+.home__scroll-hint:hover {
+  background: none;
 }
 
 .home__scroll-chevron {
