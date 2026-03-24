@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './Game.css';
 
 const STAT_ORDER = ['height', 'weight', 'intelligence', 'speed', 'strength'];
+const COMPACT_LABELS = { height: 'HT', weight: 'WT', intelligence: 'INT', speed: 'SPD', strength: 'STR' };
 
 export default function DinoCard({ card, highlightStat, compact }) {
   const [imgError, setImgError] = useState(false);
@@ -44,7 +45,7 @@ export default function DinoCard({ card, highlightStat, compact }) {
             key={stat}
             className={`dino-card__stat${highlightStat === stat ? ' dino-card__stat--highlighted' : ''}`}
           >
-            <span className="dino-card__stat-label">{stat}</span>
+            <span className="dino-card__stat-label">{compact ? COMPACT_LABELS[stat] : stat}</span>
             <div className="dino-card__stat-bar">
               <div
                 className={`dino-card__stat-fill${highlightStat === stat ? ' dino-card__stat-fill--highlighted' : ''}`}
