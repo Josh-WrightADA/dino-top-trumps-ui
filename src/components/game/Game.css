@@ -532,12 +532,6 @@
   font-size: var(--text-sm);
 }
 
-.lobby__empty {
-  text-align: center;
-  padding: var(--space-8);
-  color: var(--color-text-muted);
-}
-
 .lobby__section {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
@@ -1080,30 +1074,6 @@
 .game-board__invite-error {
   font-size: var(--text-xs);
   color: var(--color-danger);
-}
-
-/* --- Coin Flip --- */
-.game-board__coin-flip {
-  text-align: center;
-  padding: var(--space-12) var(--space-4);
-  animation: fadeIn 0.5s ease;
-}
-
-.game-board__coin-flip-title {
-  font-family: var(--font-display);
-  color: var(--color-amber);
-  font-size: var(--text-4xl);
-  margin-bottom: var(--space-4);
-}
-
-.game-board__coin-flip-result {
-  font-size: var(--text-2xl);
-  color: var(--color-text-primary);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- Pre-Game Ceremony --- */

@@ -66,7 +66,7 @@ export default function PreGameCeremony({ opponentId, currentTurnPlayerId, curre
   const opponentInitial = opponentName.charAt(0).toUpperCase();
 
   return (
-    <div className="pre-game-ceremony">
+    <div className="pre-game-ceremony" aria-live="polite">
       {stage === 1 && (
         <div className="pre-game-ceremony__stage" key="stage-1">
           <p className="pre-game-ceremony__label">Your opponent is...</p>

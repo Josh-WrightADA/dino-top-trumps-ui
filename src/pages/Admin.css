@@ -138,6 +138,7 @@
 
 /* --- Report reason cell --- */
 .admin-reason {
+  display: inline-block;
   max-width: 280px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -152,11 +153,6 @@
   text-align: center;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
-}
-
-/* --- Section error --- */
-.admin-page__error {
-  margin-top: var(--space-4);
 }
 
 /* --- Role badge --- */

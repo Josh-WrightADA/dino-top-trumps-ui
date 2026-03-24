@@ -13,14 +13,6 @@
   margin-bottom: var(--space-6);
 }
 
-.about-page__section {
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-6);
-  margin-bottom: var(--space-6);
-}
-
 .about-page__section-heading {
   margin-top: 0;
   margin-bottom: var(--space-4);

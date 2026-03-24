@@ -53,7 +53,7 @@ export default function ResetPasswordForm() {
     return (
       <div className="auth-form">
         <h2>Password Reset</h2>
-        <p className="reset-password__success">
+        <p className="reset-password__success" role="status">
           Your password has been reset successfully. Redirecting to login...
         </p>
       </div>

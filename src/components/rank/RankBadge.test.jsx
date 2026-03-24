@@ -35,24 +35,21 @@ describe('RankBadge', () => {
     expect(container.querySelector('img')).toBeNull();
   });
 
-  it('uses small size by default (20px)', () => {
+  it('uses small size class by default', () => {
     render(<RankBadge tierKey="METEOR" />);
     const img = screen.getByAltText('Meteor badge');
-    expect(img.style.width).toBe('20px');
-    expect(img.style.height).toBe('20px');
+    expect(img).toHaveClass('rank-badge__icon--small');
   });
 
-  it('uses medium size when specified (28px)', () => {
+  it('uses medium size class when specified', () => {
     render(<RankBadge tierKey="METEOR" size="medium" />);
     const img = screen.getByAltText('Meteor badge');
-    expect(img.style.width).toBe('28px');
-    expect(img.style.height).toBe('28px');
+    expect(img).toHaveClass('rank-badge__icon--medium');
   });
 
-  it('uses large size when specified (36px)', () => {
+  it('uses large size class when specified', () => {
     render(<RankBadge tierKey="METEOR" size="large" />);
     const img = screen.getByAltText('Meteor badge');
-    expect(img.style.width).toBe('36px');
-    expect(img.style.height).toBe('36px');
+    expect(img).toHaveClass('rank-badge__icon--large');
   });
 });

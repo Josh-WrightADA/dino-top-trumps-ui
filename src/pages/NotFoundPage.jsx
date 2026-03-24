@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import '../components/shared/Shared.css';
 import '../App.css';
 
 export default function NotFoundPage() {
@@ -6,9 +7,7 @@ export default function NotFoundPage() {
     <div className="page page--centered">
       <h1>404 - Page Not Found</h1>
       <p>The page you are looking for does not exist.</p>
-      <Link to="/">
-        <button className="not-found__back-btn">Back to Home</button>
-      </Link>
+      <Link to="/" className="btn not-found__back-btn">Back to Home</Link>
     </div>
   );
 }

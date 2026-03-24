@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { changePassword, deleteAccount } from '../../api/authApi';
+import '../auth/AuthForms.css';
 import '../shared/Shared.css';
 import '../../App.css';
 
@@ -145,6 +146,7 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
             onChange={(e) => setDeletePassword(e.target.value)}
             placeholder="Enter your password"
             className="profile__delete-input"
+            aria-label="Password for account deletion"
           />
           <div className="profile__button-row">
             <button onClick={handleDeleteAccount} className="btn--danger" disabled={!deletePassword}>

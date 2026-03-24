@@ -41,7 +41,7 @@ export default function TurnTimer({ turnDeadline, isYourTurn, onExpired }) {
   else if (urgent) className += ' turn-timer--urgent';
 
   return (
-    <div className={className}>
+    <div className={className} aria-live="polite">
       <span className="turn-timer__label">
         {isYourTurn ? 'Time left' : 'Opponent time'}
       </span>
