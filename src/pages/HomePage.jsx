@@ -7,7 +7,7 @@ import './Home.css';
 const FEATURE_ITEMS = [
   {
     key: 'battle',
-    icon: '⚔',
+    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774357984/swords_zkyqy0.jpg',
     title: 'Card Battles',
     description: 'Challenge opponents in real-time dinosaur duels. Pick your stat, outsmart your rival.',
     link: '/lobby',
@@ -15,7 +15,7 @@ const FEATURE_ITEMS = [
   },
   {
     key: 'rank',
-    icon: '🏆',
+    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774357985/trophy_sjxjyf.jpg',
     title: 'Ranked Play',
     description: 'Climb from Hatchling to Meteor. Hidden ELO, visible glory.',
     link: '/leaderboard',
@@ -23,7 +23,7 @@ const FEATURE_ITEMS = [
   },
   {
     key: 'quiz',
-    icon: '🧠',
+    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774357984/skullicon_z3c3qm.jpg',
     title: 'Dino Quiz',
     description: 'Test your prehistoric knowledge. 10 rounds, hints, fun facts.',
     link: '/quiz',
@@ -31,7 +31,7 @@ const FEATURE_ITEMS = [
   },
   {
     key: 'gallery',
-    icon: '🎴',
+    iconUrl: 'https://res.cloudinary.com/djnj9zlw3/image/upload/v1774357985/cards_jtooza.jpg',
     title: 'Card Gallery',
     description: '36 hand-illustrated dinosaurs. Browse stats, lore, and art.',
     link: '/cards',
@@ -113,7 +113,9 @@ export default function HomePage() {
           {FEATURE_ITEMS.map((feature, i) => {
             const content = (
               <div className={`home__feature-card home__feature-card--delay-${i + 1}`}>
-                <span className="home__feature-icon" aria-hidden="true">{feature.icon}</span>
+                <span className="home__feature-icon" aria-hidden="true">
+                  <img src={feature.iconUrl} alt="" className="home__feature-icon-img" />
+                </span>
                 <h3 className="home__feature-title">{feature.title}</h3>
                 <p className="home__feature-desc">{feature.description}</p>
               </div>
