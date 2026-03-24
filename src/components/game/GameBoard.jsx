@@ -278,7 +278,9 @@ export default function GameBoard() {
         ) : (
           <>
             {/* Left column — card */}
-            {topCard && <DinoCard card={topCard} />}
+            <div className="game-board__card-column">
+              {topCard && <DinoCard card={topCard} />}
+            </div>
 
             {/* Right column — controls */}
             <div className="game-board__controls">
