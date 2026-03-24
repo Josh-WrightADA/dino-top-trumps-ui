@@ -160,17 +160,76 @@
   to { transform: rotate(360deg); }
 }
 
+/* --- Play Area Grid (side-by-side layout) --- */
+.game-board__play-area {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+/* Card fills left column naturally */
+.game-board__play-area .dino-card {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+/* Turn result spans full width */
+.game-board__play-area .turn-result {
+  grid-column: 1 / -1;
+}
+
+/* --- Controls Column --- */
+.game-board__controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.game-board__controls .game-board__turn-indicator {
+  margin-bottom: 0;
+}
+
+/* Stat selector reflows to vertical list in controls column */
+.game-board__controls .stat-selector {
+  margin: 0;
+}
+
+.game-board__controls .stat-selector__grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.game-board__controls .stat-selector__btn {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+}
+
+.game-board__controls .stat-selector__btn-label {
+  font-size: var(--text-sm);
+}
+
+.game-board__controls .stat-selector__btn-value {
+  margin-top: 0;
+}
+
 /* --- Dino Card --- */
 .dino-card {
   background: var(--color-bg-card);
-  border: 2px solid var(--color-border);
+  border: 1px solid rgba(212, 137, 42, 0.25);
   border-radius: var(--radius-lg);
   overflow: hidden;
   max-width: 320px;
   margin: 0 auto var(--space-6);
-  box-shadow: var(--shadow-md), 0 0 12px rgba(212, 137, 42, 0.08);
-  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    var(--shadow-md),
+    0 0 20px rgba(212, 137, 42, 0.06);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
   animation: card-enter 0.4s ease;
+  position: relative;
 }
 
 @keyframes card-enter {
@@ -179,15 +238,44 @@
 }
 
 .dino-card:hover {
-  box-shadow: var(--shadow-lg), var(--shadow-glow-amber);
-  border-color: var(--color-amber-muted);
+  border-color: rgba(212, 137, 42, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(212, 137, 42, 0.3),
+    var(--shadow-lg),
+    0 0 30px rgba(212, 137, 42, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Holographic sheen on hover */
+.dino-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(212, 137, 42, 0.03) 45%,
+    rgba(255, 212, 119, 0.06) 50%,
+    rgba(212, 137, 42, 0.03) 55%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 10;
+  border-radius: var(--radius-lg);
+}
+
+.dino-card:hover::after {
+  opacity: 1;
 }
 
 .dino-card__header {
-  background: var(--color-bg-elevated);
-  color: var(--color-text-primary);
-  padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(180deg, var(--color-bg-elevated) 0%, rgba(30, 34, 24, 0.95) 100%);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid rgba(212, 137, 42, 0.15);
 }
 
 .dino-card__name {
@@ -196,22 +284,38 @@
   font-weight: 700;
   margin: 0;
   color: var(--color-amber);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.02em;
 }
 
 .dino-card__meaning {
   font-size: var(--text-xs);
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   font-style: italic;
+  opacity: 0.8;
 }
 
-/* Full card image — contain with gradient backdrop */
+/* Image wrapper for vignette overlay */
+.dino-card__image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
 .dino-card__image {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: contain;
   display: block;
-  background: linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg-card) 100%);
+  background: radial-gradient(ellipse at center, var(--color-bg-elevated) 0%, var(--color-bg-card) 100%);
   height: auto;
+}
+
+.dino-card__image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(13, 15, 10, 0.4) 100%);
+  pointer-events: none;
 }
 
 .dino-card__image-placeholder {
@@ -229,18 +333,20 @@
   display: flex;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-bg-card);
+  border-bottom: 1px solid rgba(212, 137, 42, 0.1);
 }
 
 .dino-card__tag {
-  font-size: var(--text-xs);
-  font-weight: 600;
+  font-size: 0.65rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-sm);
-  background: var(--color-bg-elevated);
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--color-text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .dino-card__tag--carnivore {
@@ -263,12 +369,13 @@
 
 .dino-card__stats {
   padding: var(--space-3) var(--space-4);
+  background: linear-gradient(180deg, var(--color-bg-card) 0%, rgba(13, 15, 10, 0.3) 100%);
 }
 
 .dino-card__stat {
   display: flex;
   align-items: center;
-  margin-bottom: var(--space-2);
+  margin-bottom: 6px;
   gap: var(--space-2);
 }
 
@@ -277,18 +384,19 @@
 }
 
 .dino-card__stat-label {
-  width: 90px;
-  font-size: var(--text-xs);
-  font-weight: 600;
+  width: 80px;
+  font-size: 0.65rem;
+  font-weight: 700;
   text-transform: uppercase;
   color: var(--color-text-muted);
   text-align: left;
+  letter-spacing: 0.04em;
 }
 
 .dino-card__stat-bar {
   flex: 1;
-  height: 8px;
-  background: var(--color-border);
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-full);
   overflow: hidden;
   position: relative;
@@ -298,63 +406,31 @@
   height: 100%;
   border-radius: var(--radius-full);
   background: linear-gradient(90deg, var(--color-amber-muted) 0%, var(--color-amber) 100%);
-  transition: width 0.4s ease;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 4px rgba(212, 137, 42, 0.2);
 }
 
 .dino-card__stat-value {
-  width: 30px;
+  width: 28px;
   text-align: right;
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: var(--color-amber);
   font-family: var(--font-mono);
 }
 
-.dino-card__stat--highlighted {
-  font-weight: 700;
+.dino-card__stat--highlighted .dino-card__stat-label {
+  color: var(--color-amber-bright);
+}
+
+.dino-card__stat--highlighted .dino-card__stat-value {
+  color: var(--color-amber-bright);
+  text-shadow: 0 0 8px rgba(240, 168, 48, 0.4);
 }
 
 .dino-card__stat-fill--highlighted {
   background: linear-gradient(90deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);
-  box-shadow: 0 0 6px rgba(212, 137, 42, 0.4);
-}
-
-/* Compact card — game board */
-.dino-card--compact {
-  max-width: 360px;
-  margin-bottom: var(--space-2);
-}
-
-.dino-card--compact .dino-card__image {
-  aspect-ratio: 1 / 1;
-}
-
-.dino-card--compact .dino-card__stats {
-  padding: var(--space-1) var(--space-3);
-}
-
-.dino-card--compact .dino-card__stat {
-  margin-bottom: 1px;
-  gap: var(--space-1);
-}
-
-.dino-card--compact .dino-card__stat:last-child {
-  margin-bottom: 0;
-}
-
-.dino-card--compact .dino-card__stat-label {
-  width: 48px;
-  font-size: 0.6rem;
-  letter-spacing: 0;
-}
-
-.dino-card--compact .dino-card__stat-bar {
-  height: 4px;
-}
-
-.dino-card--compact .dino-card__stat-value {
-  font-size: var(--text-xs);
-  width: 24px;
+  box-shadow: 0 0 8px rgba(212, 137, 42, 0.5);
 }
 
 .stat-selector {
