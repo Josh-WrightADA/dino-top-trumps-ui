@@ -116,6 +116,7 @@ export default function GameLobby() {
             value={joinGameId}
             onChange={(e) => setJoinGameId(e.target.value)}
             className="lobby__join-input"
+            aria-label="Game ID"
           />
           <button type="submit" disabled={loading || !joinGameId.trim()}>Join</button>
         </form>
