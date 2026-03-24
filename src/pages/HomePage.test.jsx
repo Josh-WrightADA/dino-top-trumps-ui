@@ -22,7 +22,7 @@ beforeEach(() => {
   mockIsAuthenticated = true;
   mockObserverInstances.length = 0;
 
-  global.IntersectionObserver = class {
+  globalThis.IntersectionObserver = class {
     constructor(callback) {
       this.observe = vi.fn();
       this.disconnect = vi.fn();
