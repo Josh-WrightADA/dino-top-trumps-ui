@@ -119,11 +119,11 @@
 @keyframes hero-card-appear {
   0% {
     opacity: 0;
-    filter: blur(8px);
+    filter: blur(6px);
   }
   100% {
-    opacity: 0.25;
-    filter: blur(2px);
+    opacity: 0.4;
+    filter: blur(0.5px);
   }
 }
 
