@@ -105,9 +105,11 @@ export default function HomePage() {
             )}
           </div>
         </div>
-      </section>
 
-      {/* Feature Discovery */}
+        <div className="home__scroll-hint" aria-hidden="true">
+          <span className="home__scroll-chevron" />
+        </div>
+      </section>
       <section className="home__features">
         <div className="home__features-grid">
           {FEATURE_ITEMS.map((feature, i) => {
