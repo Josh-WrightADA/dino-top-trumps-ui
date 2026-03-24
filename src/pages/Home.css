@@ -78,6 +78,15 @@
   pointer-events: none;
 }
 
+.home__hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(13, 15, 10, 0.7) 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
 /* --- Hero Floating Cards --- */
 .home__hero-cards {
   position: absolute;
@@ -94,8 +103,8 @@
   height: 260px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(0, 0, 0, 0.6);
-  border: 2px solid var(--color-border);
+  box-shadow: 0 0 20px rgba(212, 137, 42, 0.15), 0 8px 32px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(212, 137, 42, 0.3);
   opacity: 0;
   animation: hero-card-appear 1s ease forwards;
 }
@@ -119,11 +128,11 @@
 @keyframes hero-card-appear {
   0% {
     opacity: 0;
-    filter: blur(6px);
+    filter: blur(4px);
   }
   100% {
-    opacity: 0.4;
-    filter: blur(0.5px);
+    opacity: 0.35;
+    filter: blur(0px);
   }
 }
 
