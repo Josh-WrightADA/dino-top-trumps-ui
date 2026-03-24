@@ -20,13 +20,11 @@ describe('GameOver', () => {
 
   it('shows victory when user won', () => {
     renderWithRouter(<GameOver game={wonGame} userId="user-1" />);
-    expect(screen.getByText('Victory!')).toBeInTheDocument();
     expect(screen.getByText('VICTORY')).toBeInTheDocument();
   });
 
   it('shows defeat when user lost', () => {
     renderWithRouter(<GameOver game={lostGame} userId="user-1" />);
-    expect(screen.getByText('Defeat')).toBeInTheDocument();
     expect(screen.getByText('DEFEAT')).toBeInTheDocument();
   });
 

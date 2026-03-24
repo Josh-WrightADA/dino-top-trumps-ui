@@ -15,7 +15,7 @@ export default function StatSelector({ card, onSelect, disabled }) {
 
   return (
     <div className="stat-selector">
-      <div className="stat-selector__title">Choose a stat to compare</div>
+      <div className="stat-selector__title">Choose Your Stat</div>
       <div className="stat-selector__grid">
         {STATS.map((stat) => (
           <button

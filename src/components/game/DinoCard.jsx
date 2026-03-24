@@ -3,7 +3,7 @@ import './Game.css';
 
 const STAT_ORDER = ['height', 'weight', 'intelligence', 'speed', 'strength'];
 
-export default function DinoCard({ card, highlightStat }) {
+export default function DinoCard({ card, highlightStat, compact }) {
   const [imgError, setImgError] = useState(false);
 
   if (!card) return null;
@@ -11,7 +11,7 @@ export default function DinoCard({ card, highlightStat }) {
   const dietClass = card.diet ? card.diet.toLowerCase() : '';
 
   return (
-    <div className="dino-card">
+    <div className={`dino-card${compact ? ' dino-card--compact' : ''}`}>
       <div className="dino-card__header">
         <h3 className="dino-card__name">{card.name}</h3>
         {card.meaning && <div className="dino-card__meaning">"{card.meaning}"</div>}

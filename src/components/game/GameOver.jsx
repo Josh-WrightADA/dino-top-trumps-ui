@@ -47,16 +47,16 @@ export default function GameOver({ game, userId }) {
       const res = await createGame();
       navigate(`/game/${res.data.id}`);
     } catch {
+      setRematchLoading(false);
       navigate('/lobby');
     }
   }
 
   return (
-    <div className="game-over">
-      <div className="game-over__trophy">{youWon ? 'VICTORY' : 'DEFEAT'}</div>
-      <h2 className={`game-over__title ${youWon ? 'game-over__title--won' : 'game-over__title--lost'}`}>
-        {youWon ? 'Victory!' : 'Defeat'}
-      </h2>
+    <div className={`game-over ${youWon ? 'game-over--won' : 'game-over--lost'}`}>
+      <div className={`game-over__trophy ${youWon ? 'game-over__trophy--won' : 'game-over__trophy--lost'}`}>
+        {youWon ? 'VICTORY' : 'DEFEAT'}
+      </div>
       <p className="game-over__subtitle">
         {getGameOverMessage(game, youWon)}
       </p>

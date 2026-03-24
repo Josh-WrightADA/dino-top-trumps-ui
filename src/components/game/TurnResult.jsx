@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Game.css';
 
 export default function TurnResult({ result, isPlayer1, userId, player1Card, player2Card, onDismiss }) {
   const [yourImgError, setYourImgError] = useState(false);
   const [theirImgError, setTheirImgError] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onDismiss();
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, [onDismiss]);
 
   if (!result) return null;
 
@@ -65,7 +72,6 @@ export default function TurnResult({ result, isPlayer1, userId, player1Card, pla
           <div className="turn-result__score-label">You</div>
           <div className="turn-result__score-value">{yourScore}</div>
         </div>
-        <div className="turn-result__vs">VS</div>
         <div className="turn-result__score">
           <div className="turn-result__score-label">Opponent</div>
           <div className="turn-result__score-value">{theirScore}</div>
@@ -73,6 +79,7 @@ export default function TurnResult({ result, isPlayer1, userId, player1Card, pla
       </div>
       <div className="turn-result__outcome">{outcomeText}</div>
       <button className="turn-result__dismiss" onClick={onDismiss}>Continue</button>
+      <div className="turn-result__auto-dismiss-bar" />
     </div>
   );
 }
