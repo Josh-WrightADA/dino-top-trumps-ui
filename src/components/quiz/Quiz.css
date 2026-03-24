@@ -75,9 +75,9 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center 20%;
   display: block;
-  background: linear-gradient(180deg, #252A1E 0%, #1E2218 100%);
 }
 
 .quiz-question__hint {
@@ -197,10 +197,10 @@
   width: 200px;
   aspect-ratio: 3 / 4;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center 20%;
   border-radius: 8px;
   flex-shrink: 0;
-  background: linear-gradient(180deg, #252A1E 0%, #1E2218 100%);
 }
 
 .quiz__card-info {
