@@ -10,6 +10,9 @@
 }
 
 .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   font-family: var(--font-display);
   font-size: var(--text-xl);
   font-weight: 700;
@@ -17,6 +20,13 @@
   text-decoration: none;
   letter-spacing: 0.03em;
   transition: color var(--transition-fast);
+}
+
+.navbar-brand__logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
 }
 
 .navbar-brand:hover {

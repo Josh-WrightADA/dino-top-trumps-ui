@@ -20,7 +20,14 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand" onClick={closeMenu}>Dino Top Trumps</Link>
+      <Link to="/" className="navbar-brand" onClick={closeMenu}>
+        <img
+          src="https://res.cloudinary.com/djnj9zlw3/image/upload/v1774352642/logo_yrbw3f.jpg"
+          alt=""
+          className="navbar-brand__logo"
+        />
+        Dino Top Trumps
+      </Link>
       <button
         className="navbar-hamburger"
         onClick={() => setMenuOpen((prev) => !prev)}
