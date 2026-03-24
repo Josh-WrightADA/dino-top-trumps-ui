@@ -187,6 +187,9 @@ export default function GameBoard() {
             <span
               className="game-board__game-id"
               onClick={() => { navigator.clipboard.writeText(id); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigator.clipboard.writeText(id); } }}
+              role="button"
+              tabIndex={0}
               title="Click to copy"
             >
               {id}
