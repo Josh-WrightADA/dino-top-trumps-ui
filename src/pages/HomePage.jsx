@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import { getCards } from '../api/gameApi';
@@ -43,6 +43,8 @@ export default function HomePage() {
   const { isAuthenticated } = useAuth();
   const [showcaseCards, setShowcaseCards] = useState([]);
   const [heroCards, setHeroCards] = useState([]);
+  const featuresRef = useRef(null);
+  const [featuresVisible, setFeaturesVisible] = useState(false);
 
   useEffect(() => {
     getCards()
@@ -53,6 +55,21 @@ export default function HomePage() {
         setShowcaseCards(shuffled);
       })
       .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!featuresRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setFeaturesVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(featuresRef.current);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -110,11 +127,11 @@ export default function HomePage() {
           <span className="home__scroll-chevron" />
         </div>
       </section>
-      <section className="home__features">
+      <section className="home__features" ref={featuresRef}>
         <div className="home__features-grid">
           {FEATURE_ITEMS.map((feature, i) => {
             const content = (
-              <div className={`home__feature-card home__feature-card--delay-${i + 1}`}>
+              <div className={`home__feature-card${featuresVisible ? ` home__feature-card--animate home__feature-card--delay-${i + 1}` : ''}`}>
                 <span className="home__feature-icon" aria-hidden="true">
                   <img src={feature.iconUrl} alt="" className="home__feature-icon-img" />
                 </span>
