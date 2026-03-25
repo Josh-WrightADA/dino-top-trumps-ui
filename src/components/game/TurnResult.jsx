@@ -18,8 +18,6 @@ export default function TurnResult({ result, isPlayer1, userId, player1Card, pla
   const theirScore = isPlayer1 ? result.player2StatValue : result.player1StatValue;
   const isDraw = !result.winnerPlayerId;
 
-  // Prefer server-authoritative winnerPlayerId when userId is available.
-  // Falls back to score comparison only when userId is not provided (e.g. tests).
   const youWon = userId
     ? result.winnerPlayerId === userId
     : yourScore > theirScore;
@@ -41,7 +39,7 @@ export default function TurnResult({ result, isPlayer1, userId, player1Card, pla
 
   return (
     <div className={`turn-result ${outcomeClass}`}>
-      <div className="turn-result__stat">{result.chosenStat}</div>
+      <div className="turn-result__stat-heading">{result.chosenStat}</div>
       <div className="turn-result__cards">
         <div className="turn-result__card">
           {yourCard?.imageUrl && !yourImgError && (
@@ -53,6 +51,7 @@ export default function TurnResult({ result, isPlayer1, userId, player1Card, pla
             />
           )}
           <span className="turn-result__card-name">{yourCard?.name || 'Unknown'}</span>
+          <span className="turn-result__card-score">{yourScore}</span>
         </div>
         <span className="turn-result__vs">VS</span>
         <div className="turn-result__card">
@@ -65,16 +64,7 @@ export default function TurnResult({ result, isPlayer1, userId, player1Card, pla
             />
           )}
           <span className="turn-result__card-name">{theirCard?.name || 'Unknown'}</span>
-        </div>
-      </div>
-      <div className="turn-result__comparison">
-        <div className="turn-result__score">
-          <div className="turn-result__score-label">You</div>
-          <div className="turn-result__score-value">{yourScore}</div>
-        </div>
-        <div className="turn-result__score">
-          <div className="turn-result__score-label">Opponent</div>
-          <div className="turn-result__score-value">{theirScore}</div>
+          <span className="turn-result__card-score">{theirScore}</span>
         </div>
       </div>
       <div className="turn-result__outcome">{outcomeText}</div>
