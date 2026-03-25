@@ -4,7 +4,6 @@ import useAuth from '../../hooks/useAuth';
 import usePolling from '../../hooks/usePolling';
 import { getGameState, playTurn, forfeitGame, getCards } from '../../api/gameApi';
 import { getFriends, sendGameInvite } from '../../api/socialApi';
-import DinoCard from './DinoCard';
 import StatSelector from './StatSelector';
 import TurnResult from './TurnResult';
 import GameOver from './GameOver';
@@ -247,23 +246,36 @@ export default function GameBoard() {
 
   return (
     <div className="game-board">
+      {/* Compact status line */}
       <div className="game-board__status">
-        <div>
-          <div className="game-board__status-label">Your Cards</div>
-          <div className="game-board__status-value">{game.yourHand?.length || 0}</div>
-        </div>
-        <div>
-          <div className="game-board__status-label">Draw Pile</div>
-          <div className="game-board__status-value">{game.drawPileSize || 0}</div>
-        </div>
-        <div>
-          <div className="game-board__status-label">Opponent Cards</div>
-          <div className="game-board__status-value">
-            {isPlayer1 ? game.player2HandSize : game.player1HandSize}
-          </div>
-        </div>
+        <span className="game-board__status-item">
+          <strong>{game.yourHand?.length || 0}</strong> cards
+        </span>
+        <span className="game-board__status-divider">·</span>
+        <span className="game-board__status-item">
+          Draw: <strong>{game.drawPileSize || 0}</strong>
+        </span>
+        <span className="game-board__status-divider">·</span>
+        <span className="game-board__status-item">
+          Opp: <strong>{isPlayer1 ? game.player2HandSize : game.player1HandSize}</strong>
+        </span>
         <button onClick={handleForfeit} className="btn--danger btn--small">Forfeit</button>
       </div>
+
+      {/* Turn indicator — full width, outside grid */}
+      {!turnResult && (
+        <div
+          className={`game-board__turn-bar ${isYourTurn ? 'game-board__turn-bar--your-turn' : 'game-board__turn-bar--waiting'}`}
+          aria-live="polite"
+        >
+          <span>{isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}</span>
+          <TurnTimer turnDeadline={game.turnDeadline} isYourTurn={isYourTurn} onExpired={handleTurnExpired} />
+        </div>
+      )}
+
+      {turnError && (
+        <p className="game-board__turn-error" role="alert">{turnError}</p>
+      )}
 
       <div className="game-board__play-area">
         {turnResult ? (
@@ -277,27 +289,35 @@ export default function GameBoard() {
           />
         ) : (
           <>
-            {/* Left column — card */}
-            <div className="game-board__card-column">
-              {topCard && <DinoCard card={topCard} />}
+            {/* Left: Image display (NOT DinoCard) */}
+            <div className="game-board__card-display">
+              {topCard?.imageUrl && (
+                <img
+                  className="game-board__card-image"
+                  src={topCard.imageUrl}
+                  alt={topCard.name}
+                />
+              )}
+              {topCard && (
+                <div className="game-board__card-overlay">
+                  <h3 className="game-board__card-name">{topCard.name}</h3>
+                  {topCard.meaning && (
+                    <div className="game-board__card-meaning">"{topCard.meaning}"</div>
+                  )}
+                  <div className="game-board__card-tags">
+                    {topCard.diet && (
+                      <span className={`dino-card__tag dino-card__tag--${topCard.diet.toLowerCase()}`}>
+                        {topCard.diet}
+                      </span>
+                    )}
+                    {topCard.era && <span className="dino-card__tag">{topCard.era}</span>}
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Right column — controls */}
+            {/* Right: Controls */}
             <div className="game-board__controls">
-              <div
-                className={`game-board__turn-indicator ${isYourTurn ? 'game-board__turn-indicator--your-turn' : 'game-board__turn-indicator--waiting'}`}
-                aria-live="polite"
-              >
-                <span>{isYourTurn ? 'Your turn — pick a stat!' : 'Waiting for opponent...'}</span>
-                <TurnTimer turnDeadline={game.turnDeadline} isYourTurn={isYourTurn} onExpired={handleTurnExpired} />
-              </div>
-
-              {turnError && (
-                <p className="game-board__turn-error" role="alert">
-                  {turnError}
-                </p>
-              )}
-
               {isYourTurn && topCard && (
                 <StatSelector
                   card={topCard}
