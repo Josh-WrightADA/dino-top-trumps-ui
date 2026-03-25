@@ -73,11 +73,11 @@
 
 .quiz-question__image {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  height: auto;
+  aspect-ratio: 3 / 5;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center top;
   display: block;
+  height: auto;
 }
 
 .quiz-question__hint {
@@ -195,12 +195,12 @@
 
 .quiz__card-image {
   width: 200px;
-  aspect-ratio: 3 / 4;
-  height: auto;
+  aspect-ratio: 3 / 5;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center top;
   border-radius: 8px;
   flex-shrink: 0;
+  height: auto;
 }
 
 .quiz__card-info {

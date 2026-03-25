@@ -12,70 +12,69 @@
 
 .game-board__status {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: var(--space-3) 6rem var(--space-3) var(--space-4);
-  margin-bottom: var(--space-4);
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-2);
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
   border-top: 2px solid rgba(212, 137, 42, 0.3);
   border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  box-shadow: var(--shadow-sm);
+}
+
+.game-board__status-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.game-board__status-item strong {
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
   font-size: var(--text-sm);
-  box-shadow: var(--shadow-md);
-  position: relative;
+}
+
+.game-board__status-divider {
+  color: var(--color-border);
 }
 
 .game-board__status .btn--danger {
-  position: absolute;
-  right: var(--space-3);
-  top: 50%;
-  transform: translateY(-50%);
-  flex-shrink: 0;
+  margin-left: auto;
 }
 
-.game-board__status-label {
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-}
-
-.game-board__status-value {
-  font-weight: 700;
-  font-size: var(--text-xl);
-  color: var(--color-text-primary);
-  font-family: var(--font-mono);
-}
-
-.game-board__turn-indicator {
+.game-board__turn-bar {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-3);
   padding: var(--space-2) var(--space-4);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
   border-radius: var(--radius-md);
   font-weight: 600;
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   border: 2px solid transparent;
 }
 
-.game-board__turn-indicator--your-turn {
+.game-board__turn-bar--your-turn {
   background: var(--color-success-bg);
   color: var(--color-success);
   border-color: var(--color-success);
   animation: your-turn-pulse 2s ease-in-out infinite;
 }
 
-@keyframes your-turn-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
-  50% { box-shadow: 0 0 20px 4px rgba(76, 175, 80, 0.15); }
-}
-
-.game-board__turn-indicator--waiting {
+.game-board__turn-bar--waiting {
   background: var(--color-warning-bg);
   color: var(--color-warning);
   border-color: var(--color-warning);
+}
+
+@keyframes your-turn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+  50% { box-shadow: 0 0 20px 4px rgba(76, 175, 80, 0.15); }
 }
 
 /* --- Turn Timer --- */
@@ -160,26 +159,12 @@
   to { transform: rotate(360deg); }
 }
 
-/* --- Play Area Grid (side-by-side layout) --- */
+/* --- Play Area Grid (Arena layout) --- */
 .game-board__play-area {
   display: grid;
-  grid-template-columns: 1fr 260px;
-  gap: var(--space-4);
+  grid-template-columns: 1fr 240px;
+  gap: var(--space-3);
   align-items: start;
-}
-
-/* Card fills left column naturally */
-.game-board__play-area .dino-card {
-  max-width: none;
-  margin-bottom: 0;
-}
-
-.game-board__play-area .dino-card__image {
-  aspect-ratio: 5 / 4;
-}
-
-.game-board__play-area .dino-card:hover {
-  transform: none;
 }
 
 /* Turn result spans full width */
@@ -187,28 +172,79 @@
   grid-column: 1 / -1;
 }
 
+/* --- Card Display (game board only — not DinoCard) --- */
+.game-board__card-display {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(212, 137, 42, 0.25);
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    var(--shadow-md),
+    0 0 20px rgba(212, 137, 42, 0.06);
+  background: var(--color-bg-card);
+  animation: card-enter 0.4s ease;
+}
+
+.game-board__card-image {
+  width: 100%;
+  max-height: calc(100vh - 200px);
+  aspect-ratio: 572 / 1024;
+  object-fit: cover;
+  display: block;
+}
+
+.game-board__card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-3) var(--space-4);
+  background: linear-gradient(to top, rgba(13, 15, 10, 0.9) 0%, transparent 100%);
+}
+
+.game-board__card-name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-amber);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  margin: 0;
+}
+
+.game-board__card-meaning {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.game-board__card-tags {
+  display: flex;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
 /* --- Controls Column --- */
 .game-board__controls {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
-.game-board__controls .game-board__turn-indicator {
-  margin-bottom: 0;
-  flex-direction: column;
-  gap: var(--space-1);
-  text-align: center;
-}
-
-/* Stat selector reflows to vertical list in controls column */
+/* Stat selector in controls — vertical list */
 .game-board__controls .stat-selector {
   margin: 0;
 }
 
+.game-board__controls .stat-selector__title {
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+
 .game-board__controls .stat-selector__grid {
   grid-template-columns: 1fr;
-  gap: var(--space-2);
+  gap: var(--space-1);
 }
 
 .game-board__controls .stat-selector__btn {
@@ -224,6 +260,7 @@
 
 .game-board__controls .stat-selector__btn-value {
   margin-top: 0;
+  font-size: var(--text-base);
 }
 
 /* --- Dino Card --- */
@@ -253,6 +290,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   transform: translateY(-2px);
 }
+
 
 /* Holographic sheen on hover */
 .dino-card::after {
@@ -311,9 +349,9 @@
 
 .dino-card__image {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 5;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center top;
   display: block;
   height: auto;
 }
@@ -366,6 +404,7 @@
   color: var(--color-amber);
   border: 1px solid rgba(212, 137, 42, 0.25);
 }
+
 
 .dino-card__stats {
   padding: var(--space-3) var(--space-4);
@@ -1120,11 +1159,10 @@
 
 .card-modal__image {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  height: auto;
+  aspect-ratio: 572 / 1024;
   object-fit: cover;
-  object-position: center 20%;
   display: block;
+  height: auto;
 }
 
 .card-modal__image-placeholder {
