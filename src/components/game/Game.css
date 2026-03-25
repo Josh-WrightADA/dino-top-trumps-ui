@@ -1608,10 +1608,10 @@
 }
 
 .turn-result__card-image {
-  width: 180px;
-  height: 140px;
+  width: 120px;
+  height: 160px;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center top;
   border-radius: var(--radius-lg);
   border: 2px solid var(--color-border);
   transition: border-color var(--transition-fast);
