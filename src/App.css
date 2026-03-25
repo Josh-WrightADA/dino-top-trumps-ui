@@ -54,6 +54,11 @@ body::before {
   border-radius: var(--radius-lg);
 }
 
+.cards-page__card-btn:hover {
+  background: none;
+  background-color: transparent;
+}
+
 /* --- My Games Page --- */
 .my-games__heading {
   margin-bottom: var(--space-4);
