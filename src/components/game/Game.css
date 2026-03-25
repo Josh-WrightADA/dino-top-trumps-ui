@@ -271,10 +271,7 @@
   overflow: hidden;
   max-width: 320px;
   margin: 0 auto var(--space-6);
-  box-shadow:
-    0 0 0 1px var(--color-border),
-    var(--shadow-md),
-    0 0 20px rgba(212, 137, 42, 0.06);
+  box-shadow: var(--shadow-md);
   transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
   animation: card-enter 0.4s ease;
   position: relative;
@@ -1611,10 +1608,10 @@
 }
 
 .turn-result__card-image {
-  width: 180px;
-  height: 140px;
+  width: 120px;
+  height: 160px;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center top;
   border-radius: var(--radius-lg);
   border: 2px solid var(--color-border);
   transition: border-color var(--transition-fast);
