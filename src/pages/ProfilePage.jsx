@@ -14,6 +14,7 @@ import '../components/profile/Avatar.css';
 import { formatWinRate } from '../utils/formatWinRate';
 import '../components/shared/Shared.css';
 import '../App.css';
+import './Profile.css';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);

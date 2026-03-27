@@ -5,6 +5,7 @@ import CardDetailModal from '../components/game/CardDetailModal';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
 import '../App.css';
+import './Cards.css';
 
 export default function CardsPage() {
   const { cards, loading, error, refetch } = useCards();

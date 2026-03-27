@@ -3,6 +3,7 @@ import { changePassword, deleteAccount } from '../../api/authApi';
 import '../auth/AuthForms.css';
 import '../shared/Shared.css';
 import '../../App.css';
+import '../../pages/Profile.css';
 
 export default function SecuritySection({ onLogout, onError, onSuccess, onNavigate }) {
   const [changingPassword, setChangingPassword] = useState(false);

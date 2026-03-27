@@ -134,3 +134,9 @@
   color: var(--color-amber);
   background: none;
 }
+
+/* --- Reset Password success --- */
+.reset-password__success {
+  color: var(--color-success);
+  text-align: center;
+}
