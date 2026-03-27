@@ -8,7 +8,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/test/setup.js',
-    exclude: ['node_modules', '.claude/**'],
+    exclude: ['node_modules', '**/worktrees/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
