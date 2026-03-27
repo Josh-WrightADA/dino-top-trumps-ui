@@ -34,6 +34,7 @@ export default function AvatarSection({ profile, uploadingAvatar, onFileChange, 
         />
         <button
           type="button"
+          className="btn"
           onClick={() => fileInputRef.current.click()}
           disabled={uploadingAvatar}
         >

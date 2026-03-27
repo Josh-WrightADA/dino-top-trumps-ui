@@ -91,7 +91,7 @@ export default function GameLobby() {
             {games.map((game) => (
               <li key={game.id} className="lobby__game-item">
                 <span>{game.hostName || 'Unknown'}'s Game</span>
-                <button onClick={() => handleJoin(game.id)} disabled={loading}>Join</button>
+                <button className="btn btn--small" onClick={() => handleJoin(game.id)} disabled={loading}>Join</button>
               </li>
             ))}
           </ul>
@@ -118,7 +118,7 @@ export default function GameLobby() {
             className="lobby__join-input"
             aria-label="Game ID"
           />
-          <button type="submit" disabled={loading || !joinGameId.trim()}>Join</button>
+          <button className="btn" type="submit" disabled={loading || !joinGameId.trim()}>Join</button>
         </form>
       </div>
     </div>
