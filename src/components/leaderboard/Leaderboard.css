@@ -19,7 +19,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-.leaderboard-table th {
+.leaderboard-table__header {
   background: var(--color-bg-elevated);
   color: var(--color-text-secondary);
   padding: var(--space-2) var(--space-4);
@@ -30,13 +30,13 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-.leaderboard-table td {
+.leaderboard-table__cell {
   padding: var(--space-2) var(--space-4);
   border-bottom: 1px solid var(--color-border-light);
   color: var(--color-text-primary);
 }
 
-.leaderboard-table tr:last-child td {
+.leaderboard-table tr:last-child .leaderboard-table__cell {
   border-bottom: none;
 }
 

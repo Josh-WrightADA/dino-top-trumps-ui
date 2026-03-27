@@ -99,12 +99,12 @@
   gap: var(--space-2);
 }
 
-.auth-links a {
+.auth-links__link {
   color: var(--color-amber);
   font-size: var(--text-sm);
 }
 
-.auth-links a:hover {
+.auth-links__link:hover {
   color: var(--color-amber-bright);
 }
 

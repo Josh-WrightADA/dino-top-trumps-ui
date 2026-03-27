@@ -55,35 +55,35 @@ export default function UsersTab() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Display Name</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>LP</th>
-                <th>Rank</th>
-                <th>Games Played</th>
-                <th>Actions</th>
+                <th className="admin-table__header">Username</th>
+                <th className="admin-table__header">Display Name</th>
+                <th className="admin-table__header">Role</th>
+                <th className="admin-table__header">Status</th>
+                <th className="admin-table__header">LP</th>
+                <th className="admin-table__header">Rank</th>
+                <th className="admin-table__header">Games Played</th>
+                <th className="admin-table__header">Actions</th>
               </tr>
             </thead>
             <tbody>
               {users.map((u) => (
                 <tr key={u.id}>
-                  <td>{u.username}</td>
-                  <td>{u.displayName || '—'}</td>
-                  <td>
+                  <td className="admin-table__cell">{u.username}</td>
+                  <td className="admin-table__cell">{u.displayName || '—'}</td>
+                  <td className="admin-table__cell">
                     <span className={`admin-role ${u.role === 'ADMIN' ? 'admin-role--admin' : 'admin-role--user'}`}>
                       {u.role}
                     </span>
                   </td>
-                  <td>
+                  <td className="admin-table__cell">
                     <span className={`admin-status ${u.status === 'ACTIVE' ? 'admin-status--active' : 'admin-status--banned'}`}>
                       {u.status}
                     </span>
                   </td>
-                  <td>{u.leaguePoints}</td>
-                  <td><RankBadge tierKey={u.rankTier} size="small" /></td>
-                  <td>{u.gamesPlayed}</td>
-                  <td>
+                  <td className="admin-table__cell">{u.leaguePoints}</td>
+                  <td className="admin-table__cell"><RankBadge tierKey={u.rankTier} size="small" /></td>
+                  <td className="admin-table__cell">{u.gamesPlayed}</td>
+                  <td className="admin-table__cell">
                     <div className="admin-table__actions">
                       {u.role !== 'ADMIN' && (
                         u.status === 'ACTIVE' ? (

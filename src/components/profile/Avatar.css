@@ -128,7 +128,7 @@
   margin-bottom: var(--space-4);
 }
 
-.avatar-picker__header h3 {
+.avatar-picker__title {
   margin: 0;
   color: var(--color-text-primary);
 }

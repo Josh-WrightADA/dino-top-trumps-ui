@@ -30,7 +30,7 @@ export default class ErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="error-boundary" role="alert">
-          <h2>Something went wrong. Please refresh the page.</h2>
+          <h2 className="error-boundary__heading">Something went wrong. Please refresh the page.</h2>
           <button className="btn" onClick={this.handleRetry}>Retry</button>
         </div>
       );

@@ -8,11 +8,6 @@
   padding-top: var(--space-8);
 }
 
-.about-page h1 {
-  color: var(--color-amber);
-  margin-bottom: var(--space-6);
-}
-
 .about-page__section-heading {
   margin-top: 0;
   margin-bottom: var(--space-4);
@@ -25,11 +20,11 @@
   padding-left: var(--space-6);
 }
 
-.about-page__rules-list li {
+.about-page__rules-item {
   margin-bottom: var(--space-1);
 }
 
-.about-page p {
+.about-page__text {
   color: var(--color-text-secondary);
   line-height: 1.7;
 }

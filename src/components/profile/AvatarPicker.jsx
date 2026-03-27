@@ -44,7 +44,7 @@ export default function AvatarPicker({ onClose, onSelect }) {
       <div className="avatar-picker__panel">
         <div className="avatar-picker__header">
           <div>
-            <h3>Set Profile Picture</h3>
+            <h3 className="avatar-picker__title">Set Profile Picture</h3>
             <p className="avatar-picker__subtitle">Pick a portrait or card image</p>
           </div>
           <button
