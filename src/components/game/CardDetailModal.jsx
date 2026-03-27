@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { STAT_ORDER } from '../../constants/statOrder';
-import './Game.css';
+import './CardDetailModal.css';
 
 export default function CardDetailModal({ card, onClose }) {
   useEffect(() => {

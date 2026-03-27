@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './Game.css';
+import './TurnResult.css';
 
 export default function TurnResult({ result, isPlayer1, userId, player1Card, player2Card, onDismiss }) {
   const [yourImgError, setYourImgError] = useState(false);

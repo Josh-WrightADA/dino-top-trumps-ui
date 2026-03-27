@@ -4,7 +4,7 @@ import { createGame } from '../../api/gameApi';
 import { getProfile } from '../../api/authApi';
 import RankBadge from '../rank/RankBadge';
 import '../shared/Shared.css';
-import './Game.css';
+import './GameOver.css';
 
 export default function GameOver({ game, userId }) {
   const navigate = useNavigate();

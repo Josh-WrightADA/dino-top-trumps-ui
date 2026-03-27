@@ -1,0 +1,144 @@
+/* ========================
+   TURN RESULT STYLES
+   ======================== */
+
+.turn-result {
+  background: var(--color-bg-elevated);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin: var(--space-4) 0;
+  text-align: center;
+  animation: reveal-enter 0.4s ease;
+}
+
+.turn-result--won {
+  border-color: var(--color-success);
+  background: var(--color-success-bg);
+  box-shadow: var(--shadow-glow-success);
+}
+
+.turn-result--lost {
+  border-color: var(--color-danger);
+  background: var(--color-danger-bg);
+  box-shadow: var(--shadow-glow-danger);
+}
+
+.turn-result--draw {
+  border-color: var(--color-warning);
+  background: var(--color-warning-bg);
+}
+
+.turn-result__stat-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-amber);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-3);
+}
+
+.turn-result__card-score {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-top: var(--space-1);
+}
+
+.turn-result__vs {
+  font-weight: 700;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.turn-result__outcome {
+  font-size: var(--text-base);
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.turn-result--won .turn-result__outcome {
+  background: linear-gradient(135deg, var(--color-success), var(--color-success-bright));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: var(--text-xl);
+}
+.turn-result--lost .turn-result__outcome { color: var(--color-danger); }
+.turn-result--draw .turn-result__outcome { color: var(--color-warning); }
+
+.turn-result__dismiss {
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-6);
+  font-size: var(--text-sm);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.turn-result__dismiss:hover {
+  border-color: var(--color-amber);
+  color: var(--color-amber);
+  background: transparent;
+}
+
+/* Auto-dismiss progress bar */
+.turn-result__auto-dismiss-bar {
+  height: 3px;
+  background: var(--color-amber);
+  margin-top: var(--space-3);
+  border-radius: var(--radius-full);
+  animation: auto-dismiss-deplete 8s linear forwards;
+}
+
+@keyframes auto-dismiss-deplete {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* Winning card glow */
+.turn-result--won .turn-result__card:first-child .turn-result__card-image {
+  border-color: var(--color-amber-border-hover);
+  box-shadow: 0 0 16px rgba(212, 137, 42, 0.2);
+}
+
+/* --- Turn Result card images --- */
+.turn-result__cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.turn-result__card {
+  text-align: center;
+}
+
+.turn-result__card-image {
+  width: 120px;
+  height: 160px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
+  transition: border-color var(--transition-fast);
+}
+
+.turn-result__card-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}
+
+.turn-result__cards .turn-result__vs {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}

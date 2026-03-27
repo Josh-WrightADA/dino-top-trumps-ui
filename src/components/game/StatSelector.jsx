@@ -1,4 +1,4 @@
-import './Game.css';
+import './StatSelector.css';
 
 // Uppercase variant — the API expects uppercase for stat selection.
 // See STAT_ORDER in src/constants/statOrder.js for the lowercase shared constant.

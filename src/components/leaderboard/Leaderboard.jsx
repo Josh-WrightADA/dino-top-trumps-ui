@@ -7,7 +7,7 @@ import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
 import Pagination from '../shared/Pagination';
 import { formatWinRate } from '../../utils/formatWinRate';
-import '../game/Game.css';
+import './Leaderboard.css';
 import '../profile/Avatar.css';
 
 const PAGE_SIZE = 10;

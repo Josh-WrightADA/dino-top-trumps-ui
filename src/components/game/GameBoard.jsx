@@ -12,7 +12,7 @@ import PreGameCeremony from './PreGameCeremony';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
 import '../shared/Shared.css';
-import './Game.css';
+import './GameBoard.css';
 
 export default function GameBoard() {
   const { id } = useParams();

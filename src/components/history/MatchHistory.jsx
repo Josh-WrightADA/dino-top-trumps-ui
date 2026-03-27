@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
 import Pagination from '../shared/Pagination';
-import '../game/Game.css';
+import './MatchHistory.css';
 
 const PAGE_SIZE = 10;
 
