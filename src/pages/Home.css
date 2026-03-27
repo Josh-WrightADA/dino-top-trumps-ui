@@ -28,7 +28,7 @@
   border-radius: 50%;
   opacity: 0;
   filter: blur(1px);
-  box-shadow: 0 0 6px rgba(240, 168, 48, 0.4);
+  box-shadow: 0 0 6px var(--color-amber-bright-glow);
   animation: ember-rise 8s ease-in infinite;
 }
 
@@ -72,9 +72,9 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 30%, rgba(212, 137, 42, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 20% 80%, rgba(212, 137, 42, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(212, 137, 42, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 50% 30%, var(--color-amber-glow-faint) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, var(--color-amber-glow-trace) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, var(--color-amber-glow-trace) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -103,8 +103,8 @@
   height: 260px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 0 20px var(--color-amber-glow-border), 0 8px 32px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(212, 137, 42, 0.3);
+  box-shadow: 0 0 20px var(--color-amber-glow-border), 0 8px 32px var(--color-overlay);
+  border: 1px solid var(--color-amber-glow-strong);
   opacity: 0;
   animation: hero-card-appear 1s ease forwards;
 }
@@ -207,7 +207,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 30px rgba(212, 137, 42, 0.3));
+  filter: drop-shadow(0 0 30px var(--color-amber-glow-strong));
 }
 
 /* --- Tagline --- */
@@ -362,7 +362,7 @@
 .home__feature-card:hover {
   border-color: var(--color-amber-muted);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-md), 0 0 20px rgba(212, 137, 42, 0.08);
+  box-shadow: var(--shadow-md), 0 0 20px var(--color-amber-glow-faint);
 }
 
 @keyframes feature-enter {

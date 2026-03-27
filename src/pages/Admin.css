@@ -91,37 +91,17 @@
 }
 
 /* --- Status badges --- */
-.admin-status--active {
-  color: var(--color-success);
+.admin-status {
   font-weight: 600;
   font-size: var(--text-xs);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.admin-status--banned {
-  color: var(--color-danger);
-  font-weight: 600;
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.admin-status--pending {
-  color: var(--color-warning);
-  font-weight: 600;
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.admin-status--dismissed {
-  color: var(--color-text-muted);
-  font-weight: 600;
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
+.admin-status--active { color: var(--color-success); }
+.admin-status--banned { color: var(--color-danger); }
+.admin-status--pending { color: var(--color-warning); }
+.admin-status--dismissed { color: var(--color-text-muted); }
 
 /* --- Table action buttons --- */
 .admin-table__actions {
@@ -156,17 +136,12 @@
 }
 
 /* --- Role badge --- */
-.admin-role--admin {
-  color: var(--color-amber);
+.admin-role {
   font-weight: 600;
   font-size: var(--text-xs);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.admin-role--user {
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
+.admin-role--admin { color: var(--color-amber); }
+.admin-role--user { color: var(--color-text-muted); }

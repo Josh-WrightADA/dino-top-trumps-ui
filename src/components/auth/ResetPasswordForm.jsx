@@ -58,8 +58,8 @@ export default function ResetPasswordForm() {
   if (success) {
     return (
       <div className="auth-form">
-        <h2>Password Reset</h2>
-        <p className="reset-password__success" role="status">
+        <h2 className="auth-form__title">Password Reset</h2>
+        <p className="auth-form__success" role="status">
           Your password has been reset successfully. Redirecting to login...
         </p>
       </div>
@@ -68,12 +68,13 @@ export default function ResetPasswordForm() {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-      <h2>Reset Password</h2>
-      {error && <p className="auth-error" role="alert">{error}</p>}
-      <label>
+      <h2 className="auth-form__title">Reset Password</h2>
+      {error && <p className="auth-form__error" role="alert">{error}</p>}
+      <label className="auth-form__label">
         New Password (at least 8 characters)
         <div className="auth-form__password-field">
           <input
+            className="auth-form__input"
             type={showNewPassword ? 'text' : 'password'}
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
@@ -89,10 +90,11 @@ export default function ResetPasswordForm() {
           </button>
         </div>
       </label>
-      <label>
+      <label className="auth-form__label">
         Confirm Password
         <div className="auth-form__password-field">
           <input
+            className="auth-form__input"
             type={showConfirmPassword ? 'text' : 'password'}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -108,7 +110,7 @@ export default function ResetPasswordForm() {
           </button>
         </div>
       </label>
-      <button type="submit" disabled={loading}>
+      <button className="auth-form__submit" type="submit" disabled={loading}>
         {loading ? 'Resetting...' : 'Reset Password'}
       </button>
       <div className="auth-links">
