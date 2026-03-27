@@ -18,7 +18,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 40%, rgba(212, 137, 42, 0.1) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 50% 40%, var(--color-amber-glow-light) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -59,7 +59,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(212, 137, 42, 0.3));
+  filter: drop-shadow(0 0 20px var(--color-amber-glow-strong));
   margin-bottom: var(--space-2);
 }
 
@@ -88,7 +88,7 @@
   font-size: 3rem;
   color: var(--color-text-inverse);
   font-weight: 700;
-  box-shadow: 0 0 30px rgba(212, 137, 42, 0.3);
+  box-shadow: 0 0 30px var(--color-amber-glow-strong);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -102,7 +102,7 @@
   font-family: var(--font-display);
   font-size: var(--text-3xl);
   color: var(--color-text-primary);
-  text-shadow: 0 0 30px rgba(212, 137, 42, 0.2);
+  text-shadow: 0 0 30px var(--color-amber-glow-md);
 }
 
 .pre-game-ceremony__ready-title {

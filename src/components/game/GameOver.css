@@ -22,7 +22,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 40px rgba(212, 137, 42, 0.4));
+  filter: drop-shadow(0 0 40px var(--color-amber-border-hover));
 }
 
 .game-over__trophy--lost {
@@ -35,7 +35,7 @@
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(212, 137, 42, 0.08) 0%, transparent 50%);
+  background: radial-gradient(ellipse at center, var(--color-amber-glow-faint) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
 }

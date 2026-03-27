@@ -103,7 +103,7 @@
 /* Winning card glow */
 .turn-result--won .turn-result__card:first-child .turn-result__card-image {
   border-color: var(--color-amber-border-hover);
-  box-shadow: 0 0 16px rgba(212, 137, 42, 0.2);
+  box-shadow: 0 0 16px var(--color-amber-glow-md);
 }
 
 /* --- Turn Result card images --- */

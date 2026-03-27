@@ -71,12 +71,12 @@ export default function UsersTab() {
                   <td>{u.username}</td>
                   <td>{u.displayName || '—'}</td>
                   <td>
-                    <span className={u.role === 'ADMIN' ? 'admin-role--admin' : 'admin-role--user'}>
+                    <span className={`admin-role ${u.role === 'ADMIN' ? 'admin-role--admin' : 'admin-role--user'}`}>
                       {u.role}
                     </span>
                   </td>
                   <td>
-                    <span className={u.status === 'ACTIVE' ? 'admin-status--active' : 'admin-status--banned'}>
+                    <span className={`admin-status ${u.status === 'ACTIVE' ? 'admin-status--active' : 'admin-status--banned'}`}>
                       {u.status}
                     </span>
                   </td>

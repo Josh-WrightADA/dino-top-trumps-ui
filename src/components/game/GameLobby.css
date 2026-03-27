@@ -63,7 +63,7 @@
 .lobby__game-item:hover {
   border-color: var(--color-amber-muted);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md), 0 0 12px rgba(212, 137, 42, 0.08);
+  box-shadow: var(--shadow-md), 0 0 12px var(--color-amber-glow-faint);
 }
 
 .lobby__game-item button {
