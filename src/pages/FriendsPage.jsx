@@ -129,7 +129,7 @@ export default function FriendsPage() {
 
       {/* Add a Friend */}
       <div className="friends__search">
-        <h3 className="friends__search-title">Add a Friend</h3>
+        <h3 className="section-heading friends__search-title">Add a Friend</h3>
         <div className="friends__search-input-row">
           <input
             type="text"
@@ -180,7 +180,7 @@ export default function FriendsPage() {
           Pending Requests {requests.length > 0 && `(${requests.length})`}
         </h2>
         {requests.length === 0 ? (
-          <p className="friends-page__empty">No pending friend requests.</p>
+          <p className="friends-page__empty">No pending requests — your allies are out hunting.</p>
         ) : (
           <ul className="friends-page__list">
             {requests.map((req) => (
@@ -219,7 +219,7 @@ export default function FriendsPage() {
         </h2>
         {friends.length === 0 ? (
           <p className="friends-page__empty">
-            No friends yet. Add friends from the leaderboard!
+            No allies in your pack yet. Search above to find players!
           </p>
         ) : (
           <ul className="friends-page__list">
@@ -252,7 +252,7 @@ export default function FriendsPage() {
           Game Invites {invites.length > 0 && `(${invites.length})`}
         </h2>
         {invites.length === 0 ? (
-          <p className="friends-page__empty">No pending game invites.</p>
+          <p className="friends-page__empty">No battle invites waiting — challenge a friend from the game board!</p>
         ) : (
           <ul className="friends-page__list">
             {invites.map((inv) => (

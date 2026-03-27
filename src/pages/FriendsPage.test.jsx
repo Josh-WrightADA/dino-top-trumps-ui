@@ -35,8 +35,8 @@ describe('FriendsPage', () => {
 
     renderWithRouter(<FriendsPage />);
     await waitFor(() => {
-      expect(screen.getByText(/no pending friend requests/i)).toBeInTheDocument();
-      expect(screen.getByText(/no friends yet/i)).toBeInTheDocument();
+      expect(screen.getByText(/no pending requests/i)).toBeInTheDocument();
+      expect(screen.getByText(/no allies in your pack/i)).toBeInTheDocument();
     });
   });
 

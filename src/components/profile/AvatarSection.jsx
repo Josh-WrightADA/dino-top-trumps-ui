@@ -1,13 +1,8 @@
 import { useRef } from 'react';
-import '../profile/Avatar.css';
-import '../shared/Shared.css';
+import './Avatar.css';
 
 export default function AvatarSection({ profile, uploadingAvatar, onFileChange, onPickerOpen }) {
   const fileInputRef = useRef(null);
-
-  function handleFileChange(e) {
-    onFileChange(e);
-  }
 
   return (
     <div className="profile__card avatar-section">
@@ -23,30 +18,36 @@ export default function AvatarSection({ profile, uploadingAvatar, onFileChange, 
         </div>
       )}
 
+      <p className="avatar-section__hint">Choose how you appear to other players</p>
+
       <div className="avatar-section__actions">
         <input
           ref={fileInputRef}
           type="file"
           accept="image/jpeg,image/png,image/webp"
           className="visually-hidden"
-          onChange={handleFileChange}
+          onChange={onFileChange}
           aria-label="Upload avatar photo"
         />
         <button
           type="button"
-          className="btn"
+          className="avatar-section__action-btn"
           onClick={() => fileInputRef.current.click()}
           disabled={uploadingAvatar}
         >
-          {uploadingAvatar ? 'Uploading...' : 'Upload Photo'}
+          <span className="avatar-section__action-label">
+            {uploadingAvatar ? 'Uploading...' : 'Upload Photo'}
+          </span>
+          <span className="avatar-section__action-desc">Use your own image</span>
         </button>
         <button
           type="button"
           onClick={onPickerOpen}
           disabled={uploadingAvatar}
-          className="btn--secondary"
+          className="avatar-section__action-btn"
         >
-          Choose a Dino
+          <span className="avatar-section__action-label">Choose Dinosaur</span>
+          <span className="avatar-section__action-desc">Pick from the gallery</span>
         </button>
       </div>
     </div>
