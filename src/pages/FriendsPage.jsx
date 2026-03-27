@@ -140,7 +140,7 @@ export default function FriendsPage() {
             className="friends__search-input"
             aria-label="Search for friends"
           />
-          <button onClick={handleSearch} disabled={searching || searchQuery.trim().length < 2}>
+          <button className="btn" onClick={handleSearch} disabled={searching || searchQuery.trim().length < 2}>
             {searching ? 'Searching...' : 'Search'}
           </button>
         </div>

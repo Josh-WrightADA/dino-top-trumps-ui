@@ -120,7 +120,7 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
             </div>
           </label>
           <div className="profile__button-row">
-            <button type="submit" disabled={saving}>{saving ? 'Changing...' : 'Change Password'}</button>
+            <button className="btn" type="submit" disabled={saving}>{saving ? 'Changing...' : 'Change Password'}</button>
             <button type="button" onClick={() => {
               setChangingPassword(false);
               setShowCurrentPassword(false);
@@ -131,7 +131,7 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
         </form>
       ) : (
         <div className="profile__button-row">
-          <button onClick={() => setChangingPassword(true)}>Change Password</button>
+          <button className="btn" onClick={() => setChangingPassword(true)}>Change Password</button>
           {!showDeleteConfirm && (
             <button onClick={() => setShowDeleteConfirm(true)} className="btn--danger">Delete Account</button>
           )}

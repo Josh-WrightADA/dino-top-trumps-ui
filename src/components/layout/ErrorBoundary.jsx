@@ -31,7 +31,7 @@ export default class ErrorBoundary extends Component {
       return (
         <div className="error-boundary" role="alert">
           <h2>Something went wrong. Please refresh the page.</h2>
-          <button onClick={this.handleRetry}>Retry</button>
+          <button className="btn" onClick={this.handleRetry}>Retry</button>
         </div>
       );
     }

@@ -59,12 +59,12 @@ export default function ProfileInfoSection({ profile, onProfileUpdated, onError,
             />
           </label>
           <div className="profile__button-row">
-            <button type="submit" disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
+            <button className="btn" type="submit" disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
             <button type="button" onClick={() => setEditing(false)} className="btn--secondary">Cancel</button>
           </div>
         </form>
       ) : (
-        <button onClick={() => setEditing(true)}>Edit Profile</button>
+        <button className="btn" onClick={() => setEditing(true)}>Edit Profile</button>
       )}
     </div>
   );
