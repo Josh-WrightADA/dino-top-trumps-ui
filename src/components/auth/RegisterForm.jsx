@@ -121,7 +121,7 @@ export default function RegisterForm() {
         {loading ? 'Registering...' : 'Register'}
       </button>
       <div className="auth-links">
-        <Link to="/login">Already have an account? Login</Link>
+        <Link to="/login" className="auth-links__link">Already have an account? Login</Link>
       </div>
     </form>
   );

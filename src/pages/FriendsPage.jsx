@@ -129,7 +129,7 @@ export default function FriendsPage() {
 
       {/* Add a Friend */}
       <div className="friends__search">
-        <h3>Add a Friend</h3>
+        <h3 className="friends__search-title">Add a Friend</h3>
         <div className="friends__search-input-row">
           <input
             type="text"

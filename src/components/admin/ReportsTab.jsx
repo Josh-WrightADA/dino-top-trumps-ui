@@ -45,27 +45,27 @@ export default function ReportsTab() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Reporter</th>
-                <th>Reported User</th>
-                <th>Reason</th>
-                <th>Status</th>
-                <th>Created At</th>
-                <th>Actions</th>
+                <th className="admin-table__header">Reporter</th>
+                <th className="admin-table__header">Reported User</th>
+                <th className="admin-table__header">Reason</th>
+                <th className="admin-table__header">Status</th>
+                <th className="admin-table__header">Created At</th>
+                <th className="admin-table__header">Actions</th>
               </tr>
             </thead>
             <tbody>
               {reports.map((r) => (
                 <tr key={r.id}>
-                  <td><span className="admin-id">{r.reporterId.slice(0, 8)}...</span></td>
-                  <td><span className="admin-id">{r.reportedUserId.slice(0, 8)}...</span></td>
-                  <td><span className="admin-reason" title={r.reason}>{r.reason}</span></td>
-                  <td>
+                  <td className="admin-table__cell"><span className="admin-id">{r.reporterId.slice(0, 8)}...</span></td>
+                  <td className="admin-table__cell"><span className="admin-id">{r.reportedUserId.slice(0, 8)}...</span></td>
+                  <td className="admin-table__cell"><span className="admin-reason" title={r.reason}>{r.reason}</span></td>
+                  <td className="admin-table__cell">
                     <span className={`admin-status ${r.status === 'PENDING' ? 'admin-status--pending' : 'admin-status--dismissed'}`}>
                       {r.status}
                     </span>
                   </td>
-                  <td>{new Date(r.createdAt).toLocaleDateString()}</td>
-                  <td>
+                  <td className="admin-table__cell">{new Date(r.createdAt).toLocaleDateString()}</td>
+                  <td className="admin-table__cell">
                     {r.status === 'PENDING' && (
                       <button className="btn btn--secondary btn--small" onClick={() => handleDismiss(r.id)}>
                         Dismiss

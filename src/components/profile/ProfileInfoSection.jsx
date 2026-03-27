@@ -30,9 +30,9 @@ export default function ProfileInfoSection({ profile, onProfileUpdated, onError,
   return (
     <div className="profile__card">
       <div className="profile__info">
-        <p><strong>Username:</strong> {profile.username}</p>
-        <p><strong>Display Name:</strong> {profile.displayName || profile.username}</p>
-        {profile.bio && <p><strong>Bio:</strong> {profile.bio}</p>}
+        <p className="profile__info-text"><strong>Username:</strong> {profile.username}</p>
+        <p className="profile__info-text"><strong>Display Name:</strong> {profile.displayName || profile.username}</p>
+        {profile.bio && <p className="profile__info-text"><strong>Bio:</strong> {profile.bio}</p>}
         {profile.role === 'ADMIN' && (
           <span className="profile__admin-badge">Admin</span>
         )}
@@ -40,15 +40,16 @@ export default function ProfileInfoSection({ profile, onProfileUpdated, onError,
 
       {editing ? (
         <form className="profile__edit-form" onSubmit={handleSave}>
-          <label>
+          <label className="profile__edit-label">
             Display Name
             <input
+              className="profile__edit-input"
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
             />
           </label>
-          <label>
+          <label className="profile__edit-label">
             Bio
             <textarea
               className="profile__bio-input"

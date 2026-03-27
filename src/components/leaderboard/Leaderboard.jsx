@@ -53,13 +53,13 @@ export default function Leaderboard() {
             <table className="leaderboard-table">
               <thead>
                 <tr>
-                  <th>Rank</th>
-                  <th>Player</th>
-                  <th>Tier</th>
-                  <th>LP</th>
-                  <th>Played</th>
-                  <th>Won</th>
-                  <th>Win %</th>
+                  <th className="leaderboard-table__header">Rank</th>
+                  <th className="leaderboard-table__header">Player</th>
+                  <th className="leaderboard-table__header">Tier</th>
+                  <th className="leaderboard-table__header">LP</th>
+                  <th className="leaderboard-table__header">Played</th>
+                  <th className="leaderboard-table__header">Won</th>
+                  <th className="leaderboard-table__header">Win %</th>
                 </tr>
               </thead>
               <tbody>
@@ -68,8 +68,8 @@ export default function Leaderboard() {
                     key={player.userId}
                     className={player.userId === user?.id ? 'leaderboard-table__current-user' : ''}
                   >
-                    <td>{start + index + 1}</td>
-                    <td>
+                    <td className="leaderboard-table__cell">{start + index + 1}</td>
+                    <td className="leaderboard-table__cell">
                       <Link
                         to={player.userId === user?.id ? '/profile' : `/player/${player.userId}`}
                         className="leaderboard-table__player-link"
@@ -88,11 +88,11 @@ export default function Leaderboard() {
                         {player.displayName || player.username}
                       </Link>
                     </td>
-                    <td><RankBadge tierKey={player.rankTier} /></td>
-                    <td>{player.leaguePoints}</td>
-                    <td>{player.gamesPlayed}</td>
-                    <td>{player.gamesWon}</td>
-                    <td>
+                    <td className="leaderboard-table__cell"><RankBadge tierKey={player.rankTier} /></td>
+                    <td className="leaderboard-table__cell">{player.leaguePoints}</td>
+                    <td className="leaderboard-table__cell">{player.gamesPlayed}</td>
+                    <td className="leaderboard-table__cell">{player.gamesWon}</td>
+                    <td className="leaderboard-table__cell">
                       {formatWinRate(player.gamesWon, player.gamesPlayed)}
                     </td>
                   </tr>

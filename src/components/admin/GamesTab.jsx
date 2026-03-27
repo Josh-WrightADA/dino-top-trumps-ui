@@ -45,23 +45,23 @@ export default function GamesTab() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Game ID</th>
-                <th>Status</th>
-                <th>Player 1</th>
-                <th>Player 2</th>
-                <th>Created At</th>
-                <th>Actions</th>
+                <th className="admin-table__header">Game ID</th>
+                <th className="admin-table__header">Status</th>
+                <th className="admin-table__header">Player 1</th>
+                <th className="admin-table__header">Player 2</th>
+                <th className="admin-table__header">Created At</th>
+                <th className="admin-table__header">Actions</th>
               </tr>
             </thead>
             <tbody>
               {games.map((g) => (
                 <tr key={g.id}>
-                  <td><span className="admin-id">{g.id.slice(0, 8)}...</span></td>
-                  <td>{g.status}</td>
-                  <td><span className="admin-id">{g.player1Id?.slice(0, 8)}...</span></td>
-                  <td><span className="admin-id">{g.player2Id ? `${g.player2Id.slice(0, 8)}...` : '—'}</span></td>
-                  <td>{new Date(g.createdAt).toLocaleDateString()}</td>
-                  <td>
+                  <td className="admin-table__cell"><span className="admin-id">{g.id.slice(0, 8)}...</span></td>
+                  <td className="admin-table__cell">{g.status}</td>
+                  <td className="admin-table__cell"><span className="admin-id">{g.player1Id?.slice(0, 8)}...</span></td>
+                  <td className="admin-table__cell"><span className="admin-id">{g.player2Id ? `${g.player2Id.slice(0, 8)}...` : '—'}</span></td>
+                  <td className="admin-table__cell">{new Date(g.createdAt).toLocaleDateString()}</td>
+                  <td className="admin-table__cell">
                     <button className="btn btn--danger btn--small" onClick={() => handleDelete(g.id)}>
                       Delete
                     </button>

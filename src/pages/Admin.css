@@ -58,7 +58,7 @@
   background: var(--color-bg-elevated);
 }
 
-.admin-table th {
+.admin-table__header {
   text-align: left;
   padding: var(--space-3) var(--space-4);
   font-size: var(--text-xs);
@@ -84,7 +84,7 @@
   background: var(--color-bg-elevated);
 }
 
-.admin-table td {
+.admin-table__cell {
   padding: var(--space-3) var(--space-4);
   color: var(--color-text-primary);
   vertical-align: middle;

@@ -73,8 +73,8 @@ export default function LoginForm() {
         {loading ? 'Logging in...' : 'Login'}
       </button>
       <div className="auth-links">
-        <Link to="/register">Create an account</Link>
-        <Link to="/forgot-password">Forgot password?</Link>
+        <Link to="/register" className="auth-links__link">Create an account</Link>
+        <Link to="/forgot-password" className="auth-links__link">Forgot password?</Link>
       </div>
     </form>
   );
