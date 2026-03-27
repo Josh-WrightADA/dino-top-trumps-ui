@@ -91,7 +91,7 @@
   pointer-events: none;
 }
 
-.game-board__waiting h3 {
+.game-board__waiting-title {
   font-family: var(--font-display);
   color: var(--color-amber);
   font-size: var(--text-2xl);
@@ -104,7 +104,7 @@
   50% { opacity: 0.6; }
 }
 
-.game-board__waiting p {
+.game-board__waiting-text {
   color: var(--color-text-muted);
   margin-bottom: var(--space-1);
 }

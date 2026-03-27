@@ -14,7 +14,7 @@
   margin-bottom: var(--space-6);
 }
 
-.lobby__header h2 {
+.lobby__title {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
   background: var(--gradient-amber-rich);
@@ -24,7 +24,7 @@
   margin: 0;
 }
 
-.lobby__header button {
+.lobby__create-btn {
   background: var(--gradient-amber);
   color: var(--color-text-inverse);
   padding: var(--space-2) var(--space-6);
@@ -38,7 +38,7 @@
   letter-spacing: 0.03em;
 }
 
-.lobby__header button:hover {
+.lobby__create-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow-amber-strong), var(--shadow-lg);
 }
@@ -66,7 +66,7 @@
   box-shadow: var(--shadow-md), 0 0 12px var(--color-amber-glow-faint);
 }
 
-.lobby__game-item button {
+.lobby__join-btn {
   padding: var(--space-1) var(--space-4);
   font-size: var(--text-sm);
 }
@@ -89,13 +89,13 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.lobby__section h3 {
+.lobby__section-title {
   font-family: var(--font-display);
   margin-bottom: var(--space-3);
   color: var(--color-amber);
 }
 
-.lobby__section p {
+.lobby__section-text {
   color: var(--color-text-muted);
 }
 

@@ -72,8 +72,8 @@ export default function GameLobby() {
   return (
     <div className="lobby">
       <div className="lobby__header">
-        <h2>Game Lobby</h2>
-        <button onClick={handleCreate} disabled={loading}>
+        <h2 className="lobby__title">Game Lobby</h2>
+        <button className="lobby__create-btn" onClick={handleCreate} disabled={loading}>
           {loading ? 'Creating...' : 'Create Game'}
         </button>
       </div>
@@ -81,17 +81,17 @@ export default function GameLobby() {
       {error && <ErrorMessage message={error} onRetry={() => setError('')} />}
 
       <div className="lobby__section">
-        <h3>Available Games</h3>
+        <h3 className="lobby__section-title">Available Games</h3>
         {gamesLoading ? (
           <LoadingSpinner message="Loading games..." />
         ) : games.length === 0 ? (
-          <p>No games waiting for players. Create one above.</p>
+          <p className="lobby__section-text">No games waiting for players. Create one above.</p>
         ) : (
           <ul className="lobby__game-list">
             {games.map((game) => (
               <li key={game.id} className="lobby__game-item">
                 <span>{game.hostName || 'Unknown'}'s Game</span>
-                <button className="btn btn--small" onClick={() => handleJoin(game.id)} disabled={loading}>Join</button>
+                <button className="btn btn--small lobby__join-btn" onClick={() => handleJoin(game.id)} disabled={loading}>Join</button>
               </li>
             ))}
           </ul>
@@ -108,7 +108,7 @@ export default function GameLobby() {
       </div>
 
       <div className="lobby__section">
-        <h3>Join by Game ID</h3>
+        <h3 className="lobby__section-title">Join by Game ID</h3>
         <form onSubmit={handleJoinById} className="lobby__join-form">
           <input
             type="text"
