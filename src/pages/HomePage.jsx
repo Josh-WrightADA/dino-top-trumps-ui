@@ -41,7 +41,7 @@ const FEATURE_ITEMS = [
 
 export default function HomePage() {
   const { isAuthenticated } = useAuth();
-  const [showcaseCards, setShowcaseCards] = useState([]);
+  const [shuffledCards, setShuffledCards] = useState([]);
   const [heroCards, setHeroCards] = useState([]);
   const featuresRef = useRef(null);
   const [featuresVisible, setFeaturesVisible] = useState(false);
@@ -49,10 +49,10 @@ export default function HomePage() {
   useEffect(() => {
     getCards()
       .then((res) => {
-        const cards = res.data;
-        const shuffled = [...cards].sort(() => Math.random() - 0.5);
+        const fetched = res.data;
+        const shuffled = [...fetched].sort(() => Math.random() - 0.5);
         setHeroCards(shuffled.slice(0, 3));
-        setShowcaseCards(shuffled);
+        setShuffledCards(shuffled);
       })
       .catch(() => {});
   }, []);
@@ -158,12 +158,12 @@ export default function HomePage() {
       </section>
 
       {/* Card Showcase Marquee */}
-      {showcaseCards.length > 0 && (
+      {shuffledCards.length > 0 && (
         <section className="home__showcase" aria-label="Dinosaur card showcase">
           <h2 className="home__showcase-heading">36 Dinosaurs. One Champion.</h2>
           <div className="home__marquee">
             <div className="home__marquee-track">
-              {[...showcaseCards, ...showcaseCards].map((card, i) => (
+              {[...shuffledCards, ...shuffledCards].map((card, i) => (
                 <div key={`${card.id}-${i}`} className="home__marquee-card">
                   <img
                     src={card.imageUrl}
@@ -178,7 +178,7 @@ export default function HomePage() {
           </div>
           <div className="home__marquee home__marquee--reverse">
             <div className="home__marquee-track home__marquee-track--reverse">
-              {[...showcaseCards].reverse().concat([...showcaseCards].reverse()).map((card, i) => (
+              {[...shuffledCards].reverse().concat([...shuffledCards].reverse()).map((card, i) => (
                 <div key={`rev-${card.id}-${i}`} className="home__marquee-card">
                   <img
                     src={card.imageUrl}

@@ -8,6 +8,7 @@ import ErrorMessage from '../components/shared/ErrorMessage';
 import '../components/game/Game.css';
 import '../components/profile/Avatar.css';
 import '../components/shared/Shared.css';
+import { formatWinRate } from '../utils/formatWinRate';
 import '../App.css';
 
 export default function PlayerProfilePage() {
@@ -77,9 +78,7 @@ export default function PlayerProfilePage() {
     }
   }
 
-  const winRate = profile && profile.gamesPlayed > 0
-    ? `${Math.round((profile.gamesWon / profile.gamesPlayed) * 100)}%`
-    : 'N/A';
+  const winRate = formatWinRate(profile?.gamesWon, profile?.gamesPlayed);
 
   return (
     <div className="page">
