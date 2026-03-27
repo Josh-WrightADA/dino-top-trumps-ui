@@ -1,0 +1,37 @@
+/* ========================
+   TURN TIMER STYLES
+   ======================== */
+
+.turn-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-left: var(--space-3);
+  font-family: var(--font-mono);
+}
+
+.turn-timer__label {
+  font-weight: 500;
+  opacity: 0.8;
+  font-family: var(--font-body);
+}
+
+.turn-timer__value {
+  font-variant-numeric: tabular-nums;
+}
+
+.turn-timer--urgent {
+  color: var(--color-warning);
+}
+
+.turn-timer--critical {
+  color: var(--color-danger);
+  animation: timer-pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes timer-pulse {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}

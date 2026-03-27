@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createGame, getAvailableGames, joinGame } from '../../api/gameApi';
 import ErrorMessage from '../shared/ErrorMessage';
 import LoadingSpinner from '../shared/LoadingSpinner';
-import '../game/Game.css';
+import './GameLobby.css';
 
 export default function GameLobby() {
   const [games, setGames] = useState([]);

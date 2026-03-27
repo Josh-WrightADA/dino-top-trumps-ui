@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import './TurnTimer.css';
 
 function calculateSecondsLeft(turnDeadline) {
   if (!turnDeadline) return null;
