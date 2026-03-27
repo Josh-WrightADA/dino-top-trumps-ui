@@ -53,7 +53,7 @@ export default function GameOver({ game, userId }) {
   }
 
   return (
-    <div className={`game-over ${youWon ? 'game-over--won' : 'game-over--lost'}`}>
+    <div className={`game-over ${youWon ? 'game-over--won' : 'game-over--lost'}`} role="alert">
       <div className={`game-over__trophy ${youWon ? 'game-over__trophy--won' : 'game-over__trophy--lost'}`}>
         {youWon ? 'VICTORY' : 'DEFEAT'}
       </div>

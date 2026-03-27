@@ -65,7 +65,7 @@ export default function QuizGame({ cards, onRestart }) {
         <div className="quiz__progress">
           Round {currentRound + 1} of {questions.length}
         </div>
-        <h2 className={`quiz__result-title ${isCorrect ? 'quiz__result-title--correct' : 'quiz__result-title--wrong'}`}>
+        <h2 className={`quiz__result-title ${isCorrect ? 'quiz__result-title--correct' : 'quiz__result-title--wrong'}`} role="alert" aria-live="assertive">
           {isCorrect ? 'Correct!' : 'Wrong!'}
         </h2>
         {!isCorrect && (
