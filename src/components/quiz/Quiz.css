@@ -24,7 +24,7 @@
   padding: var(--space-4) var(--space-8);
   font-size: var(--text-lg);
   font-weight: 600;
-  background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);
+  background: var(--gradient-amber);
   color: var(--color-text-inverse);
   border: none;
   border-radius: var(--radius-md);
@@ -34,7 +34,6 @@
 
 .quiz-page__start-btn:hover {
   opacity: 0.9;
-  background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);
 }
 
 .quiz__error {
@@ -198,7 +197,7 @@
   aspect-ratio: 3 / 5;
   object-fit: cover;
   object-position: center top;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   flex-shrink: 0;
   height: auto;
 }
@@ -246,7 +245,7 @@
   padding: var(--space-3) var(--space-8);
   font-size: var(--text-base);
   font-weight: 600;
-  background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);
+  background: var(--gradient-amber);
   color: var(--color-text-inverse);
   border: none;
   border-radius: var(--radius-md);
@@ -256,7 +255,6 @@
 
 .quiz__next-btn:hover {
   opacity: 0.9;
-  background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);
 }
 
 /* Summary */
@@ -279,14 +277,14 @@
 }
 
 .quiz-summary__score {
-  font-size: 3rem;
+  font-size: var(--text-5xl);
   font-weight: 700;
   color: var(--color-amber);
   font-family: var(--font-mono);
 }
 
 .quiz-summary__max {
-  font-size: 1.5rem;
+  font-size: var(--text-2xl);
   color: var(--color-text-muted);
   font-family: var(--font-mono);
 }
@@ -365,7 +363,7 @@
   padding: var(--space-3) var(--space-8);
   font-size: var(--text-base);
   font-weight: 600;
-  background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);
+  background: var(--gradient-amber);
   color: var(--color-text-inverse);
   border: none;
   border-radius: var(--radius-md);
@@ -375,5 +373,4 @@
 
 .quiz-summary__restart-btn:hover {
   opacity: 0.9;
-  background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);
 }

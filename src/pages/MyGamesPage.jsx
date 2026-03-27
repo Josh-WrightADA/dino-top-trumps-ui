@@ -37,7 +37,7 @@ export default function MyGamesPage() {
 
   return (
     <div className="page">
-      <h2 className="my-games__heading">My Games</h2>
+      <h2 className="page-heading my-games__heading">My Games</h2>
       {loading && <LoadingSpinner message="Loading your games..." />}
       {error && <ErrorMessage message={error} onRetry={fetchGames} />}
       {!loading && !error && games.length === 0 && (

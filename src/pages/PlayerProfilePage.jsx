@@ -97,10 +97,10 @@ export default function PlayerProfilePage() {
               <img
                 src={profile.avatarUrl}
                 alt={`${profile.displayName || profile.username}'s avatar`}
-                className="avatar avatar--large"
+                className="avatar avatar--large avatar--glow"
               />
             ) : (
-              <div className="avatar-placeholder avatar-placeholder--large">
+              <div className="avatar-placeholder avatar-placeholder--large avatar--glow">
                 {(profile.displayName || profile.username || 'U').charAt(0)}
               </div>
             )}

@@ -22,6 +22,7 @@ body::before {
   min-height: calc(100vh - 60px);
   position: relative;
   z-index: 1;
+  animation: fade-in-up 0.4s ease;
 }
 
 /* --- Page-level centred layout --- */
@@ -45,7 +46,6 @@ body::before {
 
 .cards-page__card-btn {
   background: none;
-  background-color: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
@@ -94,16 +94,6 @@ body::before {
 
 .profile__security-heading {
   margin-bottom: var(--space-3);
-}
-
-/* --- Auth success message --- */
-.auth-success {
-  color: var(--color-success);
-  background: var(--color-success-bg);
-  padding: var(--space-2);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
-  border: 1px solid var(--color-success);
 }
 
 /* --- Reset Password success --- */

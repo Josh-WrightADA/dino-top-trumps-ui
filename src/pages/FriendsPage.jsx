@@ -123,7 +123,7 @@ export default function FriendsPage() {
 
   return (
     <div className="page">
-      <h1 className="friends-page__title">Friends</h1>
+      <h1 className="page-heading friends-page__title">Friends</h1>
 
       {error && <ErrorMessage message={error} onRetry={fetchAll} />}
 
@@ -176,7 +176,7 @@ export default function FriendsPage() {
 
       {/* Pending Friend Requests */}
       <section className="friends-page__section">
-        <h2 className="friends-page__section-title">
+        <h2 className="section-heading friends-page__section-title">
           Pending Requests {requests.length > 0 && `(${requests.length})`}
         </h2>
         {requests.length === 0 ? (
@@ -214,7 +214,7 @@ export default function FriendsPage() {
 
       {/* My Friends */}
       <section className="friends-page__section">
-        <h2 className="friends-page__section-title">
+        <h2 className="section-heading friends-page__section-title">
           My Friends {friends.length > 0 && `(${friends.length})`}
         </h2>
         {friends.length === 0 ? (
@@ -248,7 +248,7 @@ export default function FriendsPage() {
 
       {/* Pending Game Invites */}
       <section className="friends-page__section">
-        <h2 className="friends-page__section-title">
+        <h2 className="section-heading friends-page__section-title">
           Game Invites {invites.length > 0 && `(${invites.length})`}
         </h2>
         {invites.length === 0 ? (

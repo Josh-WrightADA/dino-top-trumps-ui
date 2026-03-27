@@ -34,7 +34,7 @@ export default function MatchHistory() {
 
   return (
     <div>
-      <h2 className="match-history__heading">Match History</h2>
+      <h2 className="page-heading match-history__heading">Match History</h2>
       {loading && <LoadingSpinner message="Loading history..." />}
       {error && <ErrorMessage message={error} onRetry={fetchHistory} />}
       {!loading && !error && matches.length === 0 && (

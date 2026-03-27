@@ -36,7 +36,7 @@ export default function Leaderboard() {
 
   return (
     <div>
-      <h2 className="leaderboard__heading">Leaderboard</h2>
+      <h2 className="page-heading leaderboard__heading">Leaderboard</h2>
       {loading && <LoadingSpinner message="Loading leaderboard..." />}
       {error && <ErrorMessage message={error} onRetry={fetchLeaderboard} />}
       {!loading && !error && players.length === 0 && (

@@ -3,7 +3,7 @@ import './About.css';
 export default function AboutPage() {
   return (
     <div className="page about-page">
-      <h1>How to Play</h1>
+      <h1 className="page-heading">How to Play</h1>
       <p>Dino Top Trumps is a two-player card game where you battle using dinosaur statistics.</p>
 
       <h2 className="about-page__section-heading">Rules</h2>

@@ -17,7 +17,7 @@ export default function AdminPage() {
 
   return (
     <div className="page">
-      <h1 className="admin-page__title">Admin Panel</h1>
+      <h1 className="page-heading admin-page__title">Admin Panel</h1>
       <div className="admin-page__tabs">
         {TABS.map((tab) => (
           <button
