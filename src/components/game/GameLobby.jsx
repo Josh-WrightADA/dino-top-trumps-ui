@@ -85,7 +85,7 @@ export default function GameLobby() {
         {gamesLoading ? (
           <LoadingSpinner message="Loading games..." />
         ) : games.length === 0 ? (
-          <p className="lobby__section-text">No games waiting for players. Create one above.</p>
+          <p className="lobby__empty-state">No battles waiting — be the first to enter the arena!</p>
         ) : (
           <ul className="lobby__game-list">
             {games.map((game) => (
