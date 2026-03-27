@@ -82,7 +82,6 @@
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
-  --transition-slow: 400ms ease;
 
   /* Gradients */
   --gradient-amber: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getFriends, sendGameInvite } from '../../api/socialApi';
+import './GameBoard.css';
 
 /**
  * Waiting state UI for a game that hasn't started yet.
@@ -35,9 +36,9 @@ export default function WaitingForOpponent({ gameId, isPlayer1 }) {
     <>
       <div className="game-board__waiting">
         <div className="game-board__waiting-spinner" />
-        <h3>Waiting for opponent...</h3>
-        <p>Send this code to a challenger:</p>
-        <p>
+        <h3 className="game-board__waiting-title">Waiting for opponent...</h3>
+        <p className="game-board__waiting-text">Send this code to a challenger:</p>
+        <p className="game-board__waiting-text">
           <span
             className="game-board__game-id"
             onClick={() => { navigator.clipboard.writeText(gameId); }}

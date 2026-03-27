@@ -53,22 +53,6 @@
   filter: saturate(0.85);
 }
 
-.game-over__title {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  font-weight: 700;
-  margin-bottom: var(--space-1);
-}
-
-.game-over__title--won {
-  color: var(--color-amber);
-  text-shadow: var(--shadow-glow-amber);
-}
-
-.game-over__title--lost {
-  color: var(--color-danger);
-}
-
 .game-over__subtitle {
   color: var(--color-text-secondary);
   margin-bottom: var(--space-6);
