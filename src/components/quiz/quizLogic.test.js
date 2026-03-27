@@ -33,6 +33,18 @@ describe('generateQuizQuestions', () => {
       expect(q.choices).toContain(q.correctAnswer);
     });
   });
+
+  it('shuffle produces valid permutations with all items present', () => {
+    const questions = generateQuizQuestions(mockCards, 10);
+    const selectedNames = questions.map((q) => q.card.name);
+    // Every selected card should come from the original deck
+    selectedNames.forEach((name) => {
+      expect(mockCards.map((c) => c.name)).toContain(name);
+    });
+    // No duplicate questions
+    const unique = new Set(selectedNames);
+    expect(unique.size).toBe(selectedNames.length);
+  });
 });
 
 describe('calculateScore', () => {
