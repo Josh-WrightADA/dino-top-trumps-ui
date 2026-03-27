@@ -53,8 +53,8 @@ export function AuthProvider({ children }) {
         displayName: res.data.displayName || null,
         role: res.data.role || decoded.role || null,
       });
-    } catch {
-      // Profile fetch failed — keep basic user info from token
+    } catch (err) {
+      console.warn('Profile fetch failed, keeping basic token info:', err);
     }
   }, []);
 

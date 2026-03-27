@@ -17,8 +17,8 @@ export default function GameLobby() {
     try {
       const res = await getAvailableGames();
       setGames(res.data);
-    } catch {
-      // Silent — available games is optional
+    } catch (err) {
+      console.warn('Failed to fetch available games:', err);
     } finally {
       setGamesLoading(false);
     }
