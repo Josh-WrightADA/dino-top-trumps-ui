@@ -103,7 +103,7 @@
   height: 260px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(212, 137, 42, 0.15), 0 8px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px var(--color-amber-glow-border), 0 8px 32px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(212, 137, 42, 0.3);
   opacity: 0;
   animation: hero-card-appear 1s ease forwards;
@@ -203,7 +203,7 @@
 
 .home__title-line--accent {
   font-size: clamp(3rem, 10vw, 6.5rem);
-  background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 50%, #FFD477 100%);
+  background: var(--gradient-amber-rich);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -254,7 +254,7 @@
 
 .home__cta--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 40px rgba(212, 137, 42, 0.4), var(--shadow-lg);
+  box-shadow: var(--shadow-glow-amber-strong), var(--shadow-lg);
   color: var(--color-text-inverse);
 }
 
@@ -394,7 +394,7 @@
   object-fit: cover;
   border-radius: var(--radius-full);
   border: 2px solid var(--color-border);
-  filter: sepia(0.6) saturate(2) brightness(0.8) hue-rotate(-10deg);
+  filter: var(--filter-amber-tint);
 }
 
 .home__feature-title {

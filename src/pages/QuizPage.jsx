@@ -40,7 +40,7 @@ export default function QuizPage() {
       {error && <ErrorMessage message={error} onRetry={fetchCards} />}
       {!loading && !error && !started && (
         <>
-          <h1 className="quiz-page__title">Dino Quiz</h1>
+          <h1 className="page-heading quiz-page__title">Dino Quiz</h1>
           <p className="quiz-page__subtitle">
             Test your dinosaur knowledge! Identify 10 dinosaurs from their images.
             Use hints for partial credit, or go for the full 10 points per question.

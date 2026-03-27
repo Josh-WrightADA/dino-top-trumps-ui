@@ -85,7 +85,7 @@ export default function ProfilePage() {
   return (
     <div className="page">
       <div className="profile">
-        <h2 className="profile__heading">Profile</h2>
+        <h2 className="page-heading profile__heading">Profile</h2>
 
         {error && profile && <p className="profile__alert--error" role="alert">{error}</p>}
         {success && <p className="profile__alert--success" role="status">{success}</p>}

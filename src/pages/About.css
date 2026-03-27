@@ -49,6 +49,12 @@
   border-radius: var(--radius-md);
   background: var(--color-bg-surface);
   border-left: 4px solid;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.about-page__tier:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
 }
 
 .about-page__tier--hatchling { border-left-color: var(--color-tier-hatchling); }

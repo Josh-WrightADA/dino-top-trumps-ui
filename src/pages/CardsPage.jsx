@@ -31,7 +31,7 @@ export default function CardsPage() {
 
   return (
     <div className="page">
-      <h1>Card Collection</h1>
+      <h1 className="page-heading">Card Collection</h1>
       {loading && <LoadingSpinner message="Loading cards..." />}
       {error && <ErrorMessage message={error} onRetry={fetchCards} />}
       {!loading && !error && (

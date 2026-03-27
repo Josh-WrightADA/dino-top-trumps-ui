@@ -3,15 +3,17 @@
   margin: var(--space-8) auto;
   padding: var(--space-8);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background: var(--color-bg-surface);
+  box-shadow: var(--shadow-md);
 }
 
 .auth-form h2 {
   margin-top: 0;
   margin-bottom: var(--space-4);
   text-align: center;
-  color: var(--color-text-primary);
+  color: var(--color-amber);
+  font-size: var(--text-3xl);
 }
 
 .auth-form label {
@@ -50,7 +52,7 @@
   width: 100%;
   padding: 0.625rem;
   margin-top: var(--space-2);
-  background: linear-gradient(135deg, var(--color-amber) 0%, var(--color-amber-bright) 100%);
+  background: var(--gradient-amber);
   color: var(--color-text-inverse);
   border: none;
   border-radius: var(--radius-sm);
