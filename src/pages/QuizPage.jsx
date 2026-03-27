@@ -1,33 +1,14 @@
-import { useState, useEffect } from 'react';
-import { getCards } from '../api/gameApi';
+import { useState } from 'react';
+import useCards from '../hooks/useCards';
 import QuizGame from '../components/quiz/QuizGame';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
 import '../components/quiz/Quiz.css';
 
 export default function QuizPage() {
-  const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { cards, loading, error, refetch } = useCards();
   const [started, setStarted] = useState(false);
   const [gameKey, setGameKey] = useState(0);
-
-  async function fetchCards() {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await getCards();
-      setCards(response.data);
-    } catch {
-      setError('Failed to load cards. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchCards();
-  }, []);
 
   function handleStart() {
     setGameKey((k) => k + 1);
@@ -37,7 +18,7 @@ export default function QuizPage() {
   return (
     <div className="quiz-page">
       {loading && <LoadingSpinner message="Loading quiz..." />}
-      {error && <ErrorMessage message={error} onRetry={fetchCards} />}
+      {error && <ErrorMessage message="Failed to load cards. Please try again." onRetry={refetch} />}
       {!loading && !error && !started && (
         <>
           <h1 className="page-heading quiz-page__title">Dino Quiz</h1>

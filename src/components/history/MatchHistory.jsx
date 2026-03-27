@@ -4,6 +4,7 @@ import { getMatchHistory } from '../../api/gameApi';
 import useAuth from '../../hooks/useAuth';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
+import Pagination from '../shared/Pagination';
 import '../game/Game.css';
 
 const PAGE_SIZE = 10;
@@ -65,25 +66,11 @@ export default function MatchHistory() {
               })}
             </ul>
             {totalPages > 1 && (
-              <div className="pagination">
-                <button
-                  className="pagination__btn"
-                  onClick={() => setPage(p => p - 1)}
-                  disabled={page === 0}
-                >
-                  Previous
-                </button>
-                <span className="pagination__info">
-                  Page {page + 1} of {totalPages}
-                </span>
-                <button
-                  className="pagination__btn"
-                  onClick={() => setPage(p => p + 1)}
-                  disabled={page >= totalPages - 1}
-                >
-                  Next
-                </button>
-              </div>
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+              />
             )}
           </>
         );
