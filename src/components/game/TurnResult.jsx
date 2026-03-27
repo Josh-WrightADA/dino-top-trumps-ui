@@ -67,7 +67,7 @@ export default function TurnResult({ result, isPlayer1, userId, player1Card, pla
           <span className="turn-result__card-score">{theirScore}</span>
         </div>
       </div>
-      <div className="turn-result__outcome">{outcomeText}</div>
+      <div className="turn-result__outcome" role="alert">{outcomeText}</div>
       <button className="turn-result__dismiss" onClick={onDismiss}>Continue</button>
       <div className="turn-result__auto-dismiss-bar" />
     </div>
