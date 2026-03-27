@@ -110,6 +110,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
+  font-family: var(--font-body);
   transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -119,8 +120,9 @@
   transform: translateY(-2px);
 }
 
-.avatar-section__action-icon {
-  font-size: var(--text-2xl);
+.avatar-section__action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .avatar-section__action-label {
