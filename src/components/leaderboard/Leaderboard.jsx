@@ -66,7 +66,7 @@ export default function Leaderboard() {
                 {pageItems.map((player, index) => (
                   <tr
                     key={player.userId}
-                    className={player.userId === user?.id ? 'leaderboard-table__current-user' : ''}
+                    className={`leaderboard-table__row ${player.userId === user?.id ? 'leaderboard-table__current-user' : ''} ${start + index < 3 ? `leaderboard-table__row--top-${start + index + 1}` : ''}`}
                   >
                     <td className="leaderboard-table__cell">{start + index + 1}</td>
                     <td className="leaderboard-table__cell">
