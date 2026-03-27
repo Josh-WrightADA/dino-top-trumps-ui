@@ -45,6 +45,25 @@
   font-weight: 600;
 }
 
+.leaderboard-table__row:hover {
+  background: var(--color-amber-glow-faint);
+}
+
+.leaderboard-table__row--top-1 .leaderboard-table__cell:first-child {
+  color: var(--color-amber);
+  font-weight: 700;
+}
+
+.leaderboard-table__row--top-2 .leaderboard-table__cell:first-child {
+  color: #C0C0C0;
+  font-weight: 700;
+}
+
+.leaderboard-table__row--top-3 .leaderboard-table__cell:first-child {
+  color: #CD7F32;
+  font-weight: 700;
+}
+
 .leaderboard-table__player-link {
   display: flex;
   align-items: center;

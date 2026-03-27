@@ -60,7 +60,7 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
 
   return (
     <div className="profile__card">
-      <h3 className="profile__security-heading">Security</h3>
+      <h3 className="section-heading profile__security-heading">Security</h3>
       {changingPassword ? (
         <form className="profile__edit-form" onSubmit={handleChangePassword}>
           <label>

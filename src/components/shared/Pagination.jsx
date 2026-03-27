@@ -1,3 +1,5 @@
+import './Pagination.css';
+
 export default function Pagination({ page, totalPages, onPageChange, className = '' }) {
   return (
     <div className={`pagination ${className}`.trim()}>
