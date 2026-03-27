@@ -32,19 +32,20 @@ export default function ForgotPasswordForm() {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-      <h2>Forgot Password</h2>
-      {error && <p className="auth-error" role="alert">{error}</p>}
-      {message && <p className="auth-success" role="status">{message}</p>}
-      <label>
+      <h2 className="auth-form__title">Forgot Password</h2>
+      {error && <p className="auth-form__error" role="alert">{error}</p>}
+      {message && <p className="auth-form__success" role="status">{message}</p>}
+      <label className="auth-form__label">
         Email
         <input
+          className="auth-form__input"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           autoComplete="email"
         />
       </label>
-      <button type="submit" disabled={loading}>
+      <button className="auth-form__submit" type="submit" disabled={loading}>
         {loading ? 'Sending...' : 'Send Reset Link'}
       </button>
       <div className="auth-links">

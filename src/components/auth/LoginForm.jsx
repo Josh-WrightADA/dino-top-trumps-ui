@@ -37,21 +37,23 @@ export default function LoginForm() {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      {error && <p className="auth-error" role="alert">{error}</p>}
-      <label>
+      <h2 className="auth-form__title">Login</h2>
+      {error && <p className="auth-form__error" role="alert">{error}</p>}
+      <label className="auth-form__label">
         Username
         <input
+          className="auth-form__input"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           autoComplete="username"
         />
       </label>
-      <label>
+      <label className="auth-form__label">
         Password
         <div className="auth-form__password-field">
           <input
+            className="auth-form__input"
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -67,7 +69,7 @@ export default function LoginForm() {
           </button>
         </div>
       </label>
-      <button type="submit" disabled={loading}>
+      <button className="auth-form__submit" type="submit" disabled={loading}>
         {loading ? 'Logging in...' : 'Login'}
       </button>
       <div className="auth-links">

@@ -55,30 +55,33 @@ export default function RegisterForm() {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      {error && <p className="auth-error" role="alert">{error}</p>}
-      <label>
+      <h2 className="auth-form__title">Register</h2>
+      {error && <p className="auth-form__error" role="alert">{error}</p>}
+      <label className="auth-form__label">
         Username
         <input
+          className="auth-form__input"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           autoComplete="username"
         />
       </label>
-      <label>
+      <label className="auth-form__label">
         Email
         <input
+          className="auth-form__input"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           autoComplete="email"
         />
       </label>
-      <label>
+      <label className="auth-form__label">
         Password
         <div className="auth-form__password-field">
           <input
+            className="auth-form__input"
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -94,10 +97,11 @@ export default function RegisterForm() {
           </button>
         </div>
       </label>
-      <label>
+      <label className="auth-form__label">
         Confirm Password
         <div className="auth-form__password-field">
           <input
+            className="auth-form__input"
             type={showConfirmPassword ? 'text' : 'password'}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -113,7 +117,7 @@ export default function RegisterForm() {
           </button>
         </div>
       </label>
-      <button type="submit" disabled={loading}>
+      <button className="auth-form__submit" type="submit" disabled={loading}>
         {loading ? 'Registering...' : 'Register'}
       </button>
       <div className="auth-links">
