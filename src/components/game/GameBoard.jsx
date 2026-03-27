@@ -1,14 +1,13 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
-import usePolling from '../../hooks/usePolling';
-import { getGameState, playTurn, forfeitGame, getCards } from '../../api/gameApi';
-import { getFriends, sendGameInvite } from '../../api/socialApi';
+import useGameBoard from '../../hooks/useGameBoard';
+import { playTurn, forfeitGame } from '../../api/gameApi';
 import StatSelector from './StatSelector';
 import TurnResult from './TurnResult';
 import GameOver from './GameOver';
 import TurnTimer from './TurnTimer';
 import PreGameCeremony from './PreGameCeremony';
+import WaitingForOpponent from './WaitingForOpponent';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
 import '../shared/Shared.css';
@@ -16,100 +15,27 @@ import './Game.css';
 
 export default function GameBoard() {
   const { id } = useParams();
-  const { user } = useAuth();
 
-  const [turnResult, setTurnResult] = useState(null);
+  const {
+    user,
+    game,
+    loading,
+    error,
+    refetch,
+    cardCache,
+    topCard,
+    isPlayer1,
+    isYourTurn,
+    opponentId,
+    turnResult,
+    setTurnResult,
+    showCeremony,
+    setShowCeremony,
+    lastSeenTurnRef,
+  } = useGameBoard(id);
+
   const [submitting, setSubmitting] = useState(false);
   const [turnError, setTurnError] = useState('');
-  const [cardCache, setCardCache] = useState({});
-  const [topCard, setTopCard] = useState(null);
-  const [pollEnabled, setPollEnabled] = useState(true);
-  const [showCeremony, setShowCeremony] = useState(false);
-  const lastSeenTurnRef = useRef(0);
-  const ceremonyShownRef = useRef(false);
-
-  // Friends invite state
-  const [friends, setFriends] = useState([]);
-  const [inviteStatus, setInviteStatus] = useState({});
-
-  // Poll game state — pause while showing turn result or when game is finished
-  const { data: game, loading, error, refetch } = usePolling(
-    () => getGameState(id),
-    3000,
-    pollEnabled
-  );
-
-  // Stop polling when showing turn result or game is finished
-  useEffect(() => {
-    setPollEnabled(!turnResult && game?.status !== 'FINISHED');
-  }, [turnResult, game?.status]);
-
-  // Show ceremony once when the game first becomes IN_PROGRESS with no turns played
-  useEffect(() => {
-    if (
-      game?.status === 'IN_PROGRESS' &&
-      !game?.lastTurn &&
-      !ceremonyShownRef.current &&
-      !sessionStorage.getItem(`ceremony-${id}`)
-    ) {
-      ceremonyShownRef.current = true;
-      sessionStorage.setItem(`ceremony-${id}`, 'true');
-      setShowCeremony(true);
-    }
-  }, [game?.status, game?.lastTurn, id]);
-
-  // Detect new turn result from polling (for the waiting player)
-  useEffect(() => {
-    if (game?.lastTurn && game.lastTurn.turnNumber > lastSeenTurnRef.current) {
-      lastSeenTurnRef.current = game.lastTurn.turnNumber;
-      // Only show if we didn't just play this turn ourselves (active player already sees it)
-      if (!turnResult) {
-        setTurnResult(game.lastTurn);
-      }
-    }
-  }, [game?.lastTurn, turnResult]);
-
-  // Load all cards once to build a lookup cache
-  useEffect(() => {
-    async function loadCards() {
-      try {
-        const res = await getCards();
-        const cache = {};
-        for (const card of res.data) {
-          cache[card.id] = card;
-        }
-        setCardCache(cache);
-      } catch (err) {
-        console.warn('Failed to load card cache:', err);
-      }
-    }
-    loadCards();
-  }, []);
-
-  // Update top card when game state changes
-  useEffect(() => {
-    if (game && game.yourHand && game.yourHand.length > 0 && !turnResult) {
-      const cardId = game.yourHand[0];
-      setTopCard(cardCache[cardId] || null);
-    } else if (!game?.yourHand?.length) {
-      setTopCard(null);
-    }
-  }, [game, cardCache, turnResult]);
-
-  const isPlayer1 = game?.player1Id === user?.id;
-  const isYourTurn = game?.currentTurnPlayerId === user?.id;
-  const opponentId = game?.player1Id === user?.id ? game?.player2Id : game?.player1Id;
-
-  // Load friends list when game is WAITING and current user is the host
-  useEffect(() => {
-    if (game?.status === 'WAITING' && isPlayer1) {
-      getFriends()
-        .then((res) => setFriends(res.data))
-        .catch((err) => {
-          console.warn('Failed to load friends list:', err);
-        });
-    }
-  }, [game?.status, isPlayer1]);
 
   const handleStatSelect = useCallback(async (stat) => {
     if (submitting || !isYourTurn) return;
@@ -124,11 +50,11 @@ export default function GameBoard() {
     } finally {
       setSubmitting(false);
     }
-  }, [id, submitting, isYourTurn]);
+  }, [id, submitting, isYourTurn, setTurnResult, lastSeenTurnRef]);
 
   const handleDismissResult = useCallback(() => {
     setTurnResult(null);
-  }, []);
+  }, [setTurnResult]);
 
   const handleForfeit = useCallback(async () => {
     if (!window.confirm('Are you sure you want to forfeit? This counts as a loss.')) return;
@@ -150,17 +76,6 @@ export default function GameBoard() {
     refetch();
   }, [id, isYourTurn, refetch]);
 
-  async function handleSendInvite(friendId) {
-    setInviteStatus((prev) => ({ ...prev, [friendId]: 'sending' }));
-    try {
-      await sendGameInvite(id, friendId);
-      setInviteStatus((prev) => ({ ...prev, [friendId]: 'sent' }));
-    } catch (err) {
-      const message = err.response?.data?.detail || 'Failed to send invite.';
-      setInviteStatus((prev) => ({ ...prev, [friendId]: message }));
-    }
-  }
-
   if (loading && !game) return <div className="game-board"><LoadingSpinner message="Loading game..." /></div>;
   if (error) return <div className="game-board"><ErrorMessage message="Error loading game." onRetry={refetch} /></div>;
   if (!game) return null;
@@ -178,59 +93,12 @@ export default function GameBoard() {
   if (game.status === 'WAITING') {
     return (
       <div className="game-board">
-        <div className="game-board__waiting">
-          <div className="game-board__waiting-spinner" />
-          <h3>Waiting for opponent...</h3>
-          <p>Send this code to a challenger:</p>
-          <p>
-            <span
-              className="game-board__game-id"
-              onClick={() => { navigator.clipboard.writeText(id); }}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigator.clipboard.writeText(id); } }}
-              role="button"
-              tabIndex={0}
-              title="Click to copy"
-            >
-              {id}
-            </span>
-          </p>
-        </div>
-
-        {isPlayer1 && friends.length > 0 && (
-          <div className="game-board__invite-friends">
-            <h4 className="game-board__invite-title">Invite a Friend</h4>
-            <ul className="game-board__invite-list">
-              {friends.map((f) => {
-                const friendId = f.addresseeId;
-                const status = inviteStatus[friendId];
-                return (
-                  <li key={f.id} className="game-board__invite-row">
-                    <span className="game-board__invite-id">{friendId.slice(0, 12)}...</span>
-                    {status === 'sent' ? (
-                      <span className="game-board__invite-sent">Invited</span>
-                    ) : (
-                      <button
-                        className="btn--secondary btn--small"
-                        onClick={() => handleSendInvite(friendId)}
-                        disabled={status === 'sending'}
-                      >
-                        {status === 'sending' ? 'Sending...' : 'Invite'}
-                      </button>
-                    )}
-                    {status && status !== 'sent' && status !== 'sending' && (
-                      <span className="game-board__invite-error">{status}</span>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
+        <WaitingForOpponent gameId={id} isPlayer1={isPlayer1} />
       </div>
     );
   }
 
-  // IN_PROGRESS state
+  // IN_PROGRESS — pre-game ceremony
   if (showCeremony) {
     return (
       <div className="game-board">
@@ -244,6 +112,7 @@ export default function GameBoard() {
     );
   }
 
+  // IN_PROGRESS — active game
   return (
     <div className="game-board">
       {/* Compact status line */}
