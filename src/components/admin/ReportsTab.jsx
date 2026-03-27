@@ -60,7 +60,7 @@ export default function ReportsTab() {
                   <td><span className="admin-id">{r.reportedUserId.slice(0, 8)}...</span></td>
                   <td><span className="admin-reason" title={r.reason}>{r.reason}</span></td>
                   <td>
-                    <span className={r.status === 'PENDING' ? 'admin-status--pending' : 'admin-status--dismissed'}>
+                    <span className={`admin-status ${r.status === 'PENDING' ? 'admin-status--pending' : 'admin-status--dismissed'}`}>
                       {r.status}
                     </span>
                   </td>

@@ -14,7 +14,7 @@
 .card-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--color-overlay-heavy);
 }
 
 .card-modal__panel {
@@ -29,7 +29,7 @@
   box-shadow:
     0 0 0 1px var(--color-border),
     var(--shadow-lg),
-    0 0 30px rgba(212, 137, 42, 0.1);
+    0 0 30px var(--color-amber-glow-light);
 }
 
 .card-modal__header {
