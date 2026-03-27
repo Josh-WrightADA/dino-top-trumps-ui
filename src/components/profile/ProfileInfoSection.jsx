@@ -29,15 +29,6 @@ export default function ProfileInfoSection({ profile, onProfileUpdated, onError,
 
   return (
     <div className="profile__card">
-      <div className="profile__info">
-        <p className="profile__info-text"><strong>Username:</strong> {profile.username}</p>
-        <p className="profile__info-text"><strong>Display Name:</strong> {profile.displayName || profile.username}</p>
-        {profile.bio && <p className="profile__info-text"><strong>Bio:</strong> {profile.bio}</p>}
-        {profile.role === 'ADMIN' && (
-          <span className="profile__admin-badge">Admin</span>
-        )}
-      </div>
-
       {editing ? (
         <form className="profile__edit-form" onSubmit={handleSave}>
           <label className="profile__edit-label">
@@ -66,7 +57,17 @@ export default function ProfileInfoSection({ profile, onProfileUpdated, onError,
           </div>
         </form>
       ) : (
-        <button className="btn" onClick={() => setEditing(true)}>Edit Profile</button>
+        <>
+          <div className="profile__info">
+            <p className="profile__info-text"><strong>Username:</strong> {profile.username}</p>
+            <p className="profile__info-text"><strong>Display Name:</strong> {profile.displayName || profile.username}</p>
+            {profile.bio && <p className="profile__info-text"><strong>Bio:</strong> {profile.bio}</p>}
+            {profile.role === 'ADMIN' && (
+              <span className="profile__admin-badge">Admin</span>
+            )}
+          </div>
+          <button className="btn" onClick={() => setEditing(true)}>Edit Profile</button>
+        </>
       )}
     </div>
   );
