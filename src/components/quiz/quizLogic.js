@@ -1,21 +1,32 @@
 /**
+ * Fisher-Yates shuffle — unbiased O(n) randomisation.
+ * Array.sort(() => Math.random() - 0.5) produces statistically biased results.
+ */
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+/**
  * Generates quiz questions from a deck of cards.
  * Picks `count` random cards for the session, each with 4 multiple-choice name options.
  */
 export function generateQuizQuestions(cards, count = 10) {
   if (!cards || cards.length < 4) return [];
 
-  const shuffled = [...cards].sort(() => Math.random() - 0.5);
+  const shuffled = shuffleArray(cards);
   const selected = shuffled.slice(0, Math.min(count, cards.length));
 
   return selected.map((card) => {
-    const distractors = cards
-      .filter((c) => c.id !== card.id)
-      .sort(() => Math.random() - 0.5)
+    const distractors = shuffleArray(cards.filter((c) => c.id !== card.id))
       .slice(0, 3)
       .map((c) => c.name);
 
-    const choices = [...distractors, card.name].sort(() => Math.random() - 0.5);
+    const choices = shuffleArray([...distractors, card.name]);
 
     return {
       card,
