@@ -120,11 +120,11 @@ function UsersTab() {
                     <div className="admin-table__actions">
                       {u.role !== 'ADMIN' && (
                         u.status === 'ACTIVE' ? (
-                          <button className="btn--danger btn--small" onClick={() => handleBan(u.id)}>
+                          <button className="btn btn--danger btn--small" onClick={() => handleBan(u.id)}>
                             Ban
                           </button>
                         ) : (
-                          <button className="btn--secondary btn--small" onClick={() => handleUnban(u.id)}>
+                          <button className="btn btn--secondary btn--small" onClick={() => handleUnban(u.id)}>
                             Unban
                           </button>
                         )
@@ -200,7 +200,7 @@ function GamesTab() {
                   <td><span className="admin-id">{g.player2Id ? `${g.player2Id.slice(0, 8)}...` : '—'}</span></td>
                   <td>{new Date(g.createdAt).toLocaleDateString()}</td>
                   <td>
-                    <button className="btn--danger btn--small" onClick={() => handleDelete(g.id)}>
+                    <button className="btn btn--danger btn--small" onClick={() => handleDelete(g.id)}>
                       Delete
                     </button>
                   </td>
@@ -278,7 +278,7 @@ function ReportsTab() {
                   <td>{new Date(r.createdAt).toLocaleDateString()}</td>
                   <td>
                     {r.status === 'PENDING' && (
-                      <button className="btn--secondary btn--small" onClick={() => handleDismiss(r.id)}>
+                      <button className="btn btn--secondary btn--small" onClick={() => handleDismiss(r.id)}>
                         Dismiss
                       </button>
                     )}
