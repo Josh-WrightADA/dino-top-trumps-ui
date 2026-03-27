@@ -10,6 +10,8 @@ import '../components/profile/Avatar.css';
 import '../components/shared/Shared.css';
 import { formatWinRate } from '../utils/formatWinRate';
 import '../App.css';
+import './PlayerProfile.css';
+import './Profile.css';
 
 export default function PlayerProfilePage() {
   const { id } = useParams();

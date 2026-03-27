@@ -6,6 +6,7 @@ import ErrorMessage from '../components/shared/ErrorMessage';
 import '../components/shared/Shared.css';
 import '../components/history/MatchHistory.css';
 import '../App.css';
+import './MyGames.css';
 
 export default function MyGamesPage() {
   const [games, setGames] = useState([]);

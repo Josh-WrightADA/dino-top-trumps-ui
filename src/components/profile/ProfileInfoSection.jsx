@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { updateProfile } from '../../api/authApi';
 import '../shared/Shared.css';
 import '../../App.css';
+import '../../pages/Profile.css';
 
 export default function ProfileInfoSection({ profile, onProfileUpdated, onError, onSuccess }) {
   const [editing, setEditing] = useState(false);

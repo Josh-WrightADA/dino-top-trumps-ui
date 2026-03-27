@@ -1,5 +1,5 @@
 import { getRankTier } from '../../constants/rankTiers';
-
+import './RankBadge.css';
 export default function RankBadge({ tierKey, size = 'small' }) {
   const tier = getRankTier(tierKey);
 

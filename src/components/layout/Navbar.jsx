@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import './Navbar.css';
 import '../profile/Avatar.css';
+import '../../pages/Profile.css';
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../components/shared/Shared.css';
 import '../App.css';
+import './NotFound.css';
 
 export default function NotFoundPage() {
   return (
