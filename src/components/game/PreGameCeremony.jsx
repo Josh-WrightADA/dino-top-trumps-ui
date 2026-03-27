@@ -21,8 +21,8 @@ export default function PreGameCeremony({ opponentId, currentTurnPlayerId, curre
       try {
         const res = await getPublicProfile(opponentId);
         if (!cancelled) setOpponent(res.data);
-      } catch {
-        // Silently fail — ceremony continues without profile data
+      } catch (err) {
+        console.warn('Failed to fetch opponent profile:', err);
       }
     }
     if (opponentId) fetchOpponent();

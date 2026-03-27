@@ -34,8 +34,8 @@ export default function FriendsPage() {
         (player.displayName && player.displayName.toLowerCase().includes(searchQuery.toLowerCase()))
       );
       setSearchResults(filtered);
-    } catch {
-      // Silent fail — search is supplementary
+    } catch (err) {
+      console.warn('Failed to search players:', err);
     } finally {
       setSearching(false);
     }

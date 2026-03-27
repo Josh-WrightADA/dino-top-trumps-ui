@@ -79,8 +79,8 @@ export default function GameBoard() {
           cache[card.id] = card;
         }
         setCardCache(cache);
-      } catch {
-        // Cards will show as loading
+      } catch (err) {
+        console.warn('Failed to load card cache:', err);
       }
     }
     loadCards();
@@ -105,8 +105,8 @@ export default function GameBoard() {
     if (game?.status === 'WAITING' && isPlayer1) {
       getFriends()
         .then((res) => setFriends(res.data))
-        .catch(() => {
-          // Friends list unavailable — silently skip
+        .catch((err) => {
+          console.warn('Failed to load friends list:', err);
         });
     }
   }, [game?.status, isPlayer1]);
@@ -143,8 +143,8 @@ export default function GameBoard() {
     if (isYourTurn) {
       try {
         await forfeitGame(id);
-      } catch {
-        // Backend may have already forfeited — refetch to get latest state
+      } catch (err) {
+        console.warn('Forfeit request failed (may already be forfeited):', err);
       }
     }
     refetch();

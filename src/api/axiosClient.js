@@ -19,8 +19,7 @@ axiosClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor: on 401, clear token and redirect to login;
-// on network/server errors, attach a user-friendly message.
+// Response interceptor: on 401, clear token and redirect to login.
 axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -32,12 +31,6 @@ axiosClient.interceptors.response.use(
         localStorage.removeItem('token');
         window.location.href = '/login';
       }
-    } else if (!error.response) {
-      // Network error — server unreachable or request never left
-      error.userMessage = 'Network error. Please check your connection and try again.';
-    } else {
-      // Other HTTP errors (4xx, 5xx)
-      error.userMessage = `Server error (${error.response.status}). Please try again later.`;
     }
     return Promise.reject(error);
   }

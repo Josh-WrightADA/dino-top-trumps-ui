@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { resetPassword } from '../../api/authApi';
 import useAuth from '../../hooks/useAuth';
@@ -16,6 +16,13 @@ export default function ResetPasswordForm() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { logout, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => navigate('/login'), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -41,7 +48,6 @@ export default function ResetPasswordForm() {
         logout();
       }
       setSuccess(true);
-      setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
       setError(err.response?.data?.detail || err.response?.data?.message || 'Reset failed.');
     } finally {

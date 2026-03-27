@@ -16,8 +16,8 @@ export default function GameOver({ game, userId }) {
       try {
         const res = await getProfile();
         setProfile(res.data);
-      } catch {
-        // Non-critical — ELO just won't display
+      } catch (err) {
+        console.warn('Failed to fetch profile for game over screen:', err);
       }
     }
     fetchProfile();
