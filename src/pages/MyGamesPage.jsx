@@ -4,7 +4,7 @@ import { getActiveGames } from '../api/gameApi';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
 import '../components/shared/Shared.css';
-import '../components/game/Game.css';
+import '../components/history/MatchHistory.css';
 import '../App.css';
 import './MyGames.css';
 

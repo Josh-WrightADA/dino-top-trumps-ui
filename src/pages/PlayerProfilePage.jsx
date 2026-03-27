@@ -5,7 +5,7 @@ import { sendFriendRequest, reportUser } from '../api/socialApi';
 import RankBadge from '../components/rank/RankBadge';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
-import '../components/game/Game.css';
+import '../components/profile/Profile.css';
 import '../components/profile/Avatar.css';
 import '../components/shared/Shared.css';
 import { formatWinRate } from '../utils/formatWinRate';

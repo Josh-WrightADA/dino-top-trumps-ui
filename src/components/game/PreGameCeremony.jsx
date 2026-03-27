@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getPublicProfile } from '../../api/authApi';
 import RankBadge from '../rank/RankBadge';
 import '../profile/Avatar.css';
-import './Game.css';
+import './PreGameCeremony.css';
 
 const STAGE_DURATION_MS = 3000;
 const READY_AUTO_DISMISS_MS = 3000;

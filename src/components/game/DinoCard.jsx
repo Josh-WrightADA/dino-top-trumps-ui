@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { STAT_ORDER } from '../../constants/statOrder';
-import './Game.css';
+import './DinoCard.css';
 
 export default function DinoCard({ card, highlightStat }) {
   const [imgError, setImgError] = useState(false);

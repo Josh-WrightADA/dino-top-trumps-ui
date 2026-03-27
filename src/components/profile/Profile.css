@@ -1,0 +1,100 @@
+/* ========================
+   PROFILE STYLES
+   ======================== */
+
+.profile {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.profile__card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.profile__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.profile__stat-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.profile__stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+}
+
+.profile__info {
+  margin-bottom: var(--space-4);
+}
+
+.profile__info p {
+  margin-bottom: var(--space-2);
+  color: var(--color-text-secondary);
+}
+
+.profile__edit-form label {
+  display: block;
+  margin-bottom: var(--space-4);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.profile__edit-form input {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-1);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  transition: border-color var(--transition-fast);
+}
+
+.profile__edit-form input:focus {
+  outline: none;
+  border-color: var(--color-amber);
+  box-shadow: 0 0 0 2px var(--color-amber-glow);
+}
+
+.profile__bio-input {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-1);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  resize: vertical;
+  font-family: var(--font-body);
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  transition: border-color var(--transition-fast);
+}
+
+.profile__bio-input:focus {
+  outline: none;
+  border-color: var(--color-amber);
+  box-shadow: 0 0 0 2px var(--color-amber-glow);
+}
+
+@media (max-width: 480px) {
+  .profile__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
