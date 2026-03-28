@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { changePassword, deleteAccount } from '../../api/authApi';
 import '../auth/AuthForms.css';
-import '../shared/Shared.css';
 import '../../App.css';
 import '../../pages/Profile.css';
 

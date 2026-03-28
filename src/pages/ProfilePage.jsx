@@ -12,7 +12,6 @@ import ErrorMessage from '../components/shared/ErrorMessage';
 import '../components/profile/Profile.css';
 import '../components/profile/Avatar.css';
 import { formatWinRate } from '../utils/formatWinRate';
-import '../components/shared/Shared.css';
 import '../App.css';
 import './Profile.css';
 

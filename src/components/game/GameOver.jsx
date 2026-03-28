@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createGame } from '../../api/gameApi';
 import { getProfile } from '../../api/authApi';
 import RankBadge from '../rank/RankBadge';
-import '../shared/Shared.css';
 import './GameOver.css';
 
 export default function GameOver({ game, userId }) {
