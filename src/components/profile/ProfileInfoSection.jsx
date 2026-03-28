@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { updateProfile } from '../../api/authApi';
-import '../shared/Shared.css';
 import '../../App.css';
 import '../../pages/Profile.css';
 
