@@ -80,14 +80,14 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
             <button className="btn" type="submit" disabled={saving}>{saving ? 'Changing...' : 'Change Password'}</button>
             <button type="button" onClick={() => {
               setChangingPassword(false);
-            }} className="btn--secondary">Cancel</button>
+            }} className="btn btn--secondary">Cancel</button>
           </div>
         </form>
       ) : (
         <div className="profile__button-row">
           <button className="btn" onClick={() => setChangingPassword(true)}>Change Password</button>
           {!showDeleteConfirm && (
-            <button onClick={() => setShowDeleteConfirm(true)} className="btn--danger">Delete Account</button>
+            <button onClick={() => setShowDeleteConfirm(true)} className="btn btn--danger">Delete Account</button>
           )}
         </div>
       )}
@@ -103,10 +103,10 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
             aria-label="Password for account deletion"
           />
           <div className="profile__button-row">
-            <button onClick={handleDeleteAccount} className="btn--danger" disabled={!deletePassword}>
+            <button onClick={handleDeleteAccount} className="btn btn--danger" disabled={!deletePassword}>
               Confirm Delete
             </button>
-            <button onClick={() => { setShowDeleteConfirm(false); setDeletePassword(''); }} className="btn--secondary">
+            <button onClick={() => { setShowDeleteConfirm(false); setDeletePassword(''); }} className="btn btn--secondary">
               Cancel
             </button>
           </div>

@@ -127,7 +127,7 @@ export default function GameBoard() {
         <span className="game-board__status-item">
           Opp: <strong>{isPlayer1 ? game.player2HandSize : game.player1HandSize}</strong>
         </span>
-        <button onClick={handleForfeit} className="btn--danger btn--small">Forfeit</button>
+        <button onClick={handleForfeit} className="btn btn--danger btn--small">Forfeit</button>
       </div>
 
       {/* Turn indicator — full width, outside grid */}

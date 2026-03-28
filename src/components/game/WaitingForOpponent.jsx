@@ -76,7 +76,7 @@ export default function WaitingForOpponent({ gameId, isPlayer1 }) {
                     <span className="game-board__invite-sent">Invited</span>
                   ) : (
                     <button
-                      className="btn--secondary btn--small"
+                      className="btn btn--secondary btn--small"
                       onClick={() => handleSendInvite(friendId)}
                       disabled={status === 'sending'}
                     >

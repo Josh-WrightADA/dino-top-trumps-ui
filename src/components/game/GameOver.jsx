@@ -93,8 +93,8 @@ export default function GameOver({ game, userId }) {
         <button className="btn" onClick={handleRematch} disabled={rematchLoading}>
           {rematchLoading ? 'Creating...' : 'New Game'}
         </button>
-        <Link to="/lobby" className="btn--secondary">Lobby</Link>
-        <Link to="/leaderboard" className="btn--secondary">Leaderboard</Link>
+        <Link to="/lobby" className="btn btn--secondary">Lobby</Link>
+        <Link to="/leaderboard" className="btn btn--secondary">Leaderboard</Link>
       </div>
     </div>
   );
