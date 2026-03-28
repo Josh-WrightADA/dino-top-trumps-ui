@@ -1,6 +1,8 @@
 import './Pagination.css';
 
 export default function Pagination({ page, totalPages, onPageChange, className = '' }) {
+  if (totalPages <= 0) return null;
+
   return (
     <div className={`pagination ${className}`.trim()}>
       <button

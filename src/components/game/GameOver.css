@@ -101,11 +101,11 @@
   justify-content: center;
 }
 
-.game-over__actions button {
+.game-over__actions .btn {
   padding: var(--space-2) var(--space-6);
 }
 
-.game-over__actions button:first-child {
+.game-over__actions .btn:first-child {
   background: var(--gradient-amber);
   color: var(--color-text-inverse);
   font-family: var(--font-display);
@@ -117,7 +117,7 @@
   transition: transform var(--transition-fast), box-shadow var(--transition-base);
 }
 
-.game-over__actions button:first-child:hover {
+.game-over__actions .btn:first-child:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow-amber-strong);
 }

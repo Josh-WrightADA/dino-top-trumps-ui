@@ -1,34 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createGame, getAvailableGames, joinGame } from '../../api/gameApi';
+import usePolling from '../../hooks/usePolling';
 import ErrorMessage from '../shared/ErrorMessage';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import './GameLobby.css';
 
 export default function GameLobby() {
-  const [games, setGames] = useState([]);
   const [joinGameId, setJoinGameId] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [gamesLoading, setGamesLoading] = useState(true);
   const navigate = useNavigate();
 
-  async function fetchGames() {
-    try {
-      const res = await getAvailableGames();
-      setGames(res.data);
-    } catch (err) {
-      console.warn('Failed to fetch available games:', err);
-    } finally {
-      setGamesLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchGames();
-    const interval = setInterval(fetchGames, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const { data: games, loading: gamesLoading } = usePolling(getAvailableGames, 5000);
 
   async function handleCreate() {
     setLoading(true);
@@ -84,13 +68,13 @@ export default function GameLobby() {
         <h3 className="lobby__section-title">Available Games</h3>
         {gamesLoading ? (
           <LoadingSpinner message="Loading games..." />
-        ) : games.length === 0 ? (
+        ) : !games || games.length === 0 ? (
           <p className="lobby__empty-state">No battles waiting — be the first to enter the arena!</p>
         ) : (
           <ul className="lobby__game-list">
             {games.map((game) => (
               <li key={game.id} className="lobby__game-item">
-                <span>{game.hostName || 'Unknown'}'s Game</span>
+                <span>{game.hostName || 'Unknown'}&apos;s Game</span>
                 <button className="btn btn--small lobby__join-btn" onClick={() => handleJoin(game.id)} disabled={loading}>Join</button>
               </li>
             ))}

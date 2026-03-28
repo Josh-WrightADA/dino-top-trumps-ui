@@ -188,7 +188,7 @@ export default function FriendsPage() {
               <li key={req.id} className="friends-page__card">
                 <div className="friends-page__card-info">
                   <span className="friends-page__card-label">From</span>
-                  <span className="friends-page__card-value">{req.requesterId.slice(0, 12)}...</span>
+                  <span className="friends-page__card-value">{req.requesterDisplayName || `${req.requesterId.slice(0, 8)}...`}</span>
                   <span className="friends-page__card-meta">
                     {new Date(req.createdAt).toLocaleDateString()}
                   </span>
@@ -227,8 +227,8 @@ export default function FriendsPage() {
             {friends.map((f) => (
               <li key={f.id} className="friends-page__card">
                 <div className="friends-page__card-info">
-                  <span className="friends-page__card-label">Friend ID</span>
-                  <span className="friends-page__card-value">{f.addresseeId.slice(0, 12)}...</span>
+                  <span className="friends-page__card-label">Friend</span>
+                  <span className="friends-page__card-value">{f.addresseeDisplayName || `${f.addresseeId.slice(0, 8)}...`}</span>
                   <span className="friends-page__card-meta">
                     Since {new Date(f.updatedAt).toLocaleDateString()}
                   </span>
@@ -264,7 +264,7 @@ export default function FriendsPage() {
                     {inv.gameId.slice(0, 12)}...
                   </span>
                   <span className="friends-page__card-meta">
-                    From {inv.inviterId.slice(0, 8)}...
+                    From {inv.inviterDisplayName || `${inv.inviterId.slice(0, 8)}...`}
                     {inv.expiresAt && ` · Expires ${new Date(inv.expiresAt).toLocaleTimeString()}`}
                   </span>
                 </div>

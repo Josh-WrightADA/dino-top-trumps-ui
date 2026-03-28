@@ -90,7 +90,7 @@ export default function GameOver({ game, userId }) {
       </div>
 
       <div className="game-over__actions">
-        <button onClick={handleRematch} disabled={rematchLoading}>
+        <button className="btn" onClick={handleRematch} disabled={rematchLoading}>
           {rematchLoading ? 'Creating...' : 'New Game'}
         </button>
         <Link to="/lobby" className="btn--secondary">Lobby</Link>

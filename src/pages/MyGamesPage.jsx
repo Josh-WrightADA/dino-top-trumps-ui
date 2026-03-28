@@ -30,8 +30,7 @@ export default function MyGamesPage() {
   }, []);
 
   function getStatusClass(status) {
-    if (status === 'WAITING') return 'match-item__result--pending';
-    if (status === 'IN_PROGRESS') return 'match-item__result--pending';
+    if (status === 'WAITING' || status === 'IN_PROGRESS') return 'match-item__result--pending';
     return 'match-item__result--lost';
   }
 
