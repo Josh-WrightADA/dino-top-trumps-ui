@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { changePassword, deleteAccount } from '../../api/authApi';
+import PasswordField from '../auth/PasswordField';
 import '../auth/AuthForms.css';
 import '../../App.css';
 import '../../pages/Profile.css';
@@ -9,9 +10,6 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -36,9 +34,6 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-      setShowCurrentPassword(false);
-      setShowNewPassword(false);
-      setShowConfirmPassword(false);
       onSuccess('Password changed successfully.');
     } catch (err) {
       onError(err.response?.data?.detail || err.response?.data?.message || 'Failed to change password.');
@@ -62,70 +57,28 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
       <h3 className="section-heading profile__security-heading">Security</h3>
       {changingPassword ? (
         <form className="profile__edit-form" onSubmit={handleChangePassword}>
-          <label>
-            Current Password
-            <div className="auth-form__password-field">
-              <input
-                type={showCurrentPassword ? 'text' : 'password'}
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                autoComplete="current-password"
-              />
-              <button
-                type="button"
-                className="auth-form__toggle-password"
-                onClick={() => setShowCurrentPassword(prev => !prev)}
-                aria-label={showCurrentPassword ? 'Hide password' : 'Show password'}
-              >
-                {showCurrentPassword ? 'Hide' : 'Show'}
-              </button>
-            </div>
-          </label>
-          <label>
-            New Password (at least 8 characters)
-            <div className="auth-form__password-field">
-              <input
-                type={showNewPassword ? 'text' : 'password'}
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                autoComplete="new-password"
-              />
-              <button
-                type="button"
-                className="auth-form__toggle-password"
-                onClick={() => setShowNewPassword(prev => !prev)}
-                aria-label={showNewPassword ? 'Hide password' : 'Show password'}
-              >
-                {showNewPassword ? 'Hide' : 'Show'}
-              </button>
-            </div>
-          </label>
-          <label>
-            Confirm New Password
-            <div className="auth-form__password-field">
-              <input
-                type={showConfirmPassword ? 'text' : 'password'}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                autoComplete="new-password"
-              />
-              <button
-                type="button"
-                className="auth-form__toggle-password"
-                onClick={() => setShowConfirmPassword(prev => !prev)}
-                aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
-              >
-                {showConfirmPassword ? 'Hide' : 'Show'}
-              </button>
-            </div>
-          </label>
+          <PasswordField
+            label="Current Password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            autoComplete="current-password"
+          />
+          <PasswordField
+            label="New Password (at least 8 characters)"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            autoComplete="new-password"
+          />
+          <PasswordField
+            label="Confirm New Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            autoComplete="new-password"
+          />
           <div className="profile__button-row">
             <button className="btn" type="submit" disabled={saving}>{saving ? 'Changing...' : 'Change Password'}</button>
             <button type="button" onClick={() => {
               setChangingPassword(false);
-              setShowCurrentPassword(false);
-              setShowNewPassword(false);
-              setShowConfirmPassword(false);
             }} className="btn--secondary">Cancel</button>
           </div>
         </form>
