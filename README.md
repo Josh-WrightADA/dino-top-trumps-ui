@@ -107,6 +107,51 @@ VITE_API_URL=http://localhost:8080
 
 A `.env.example` file is included in the repo.
 
+### Common Commands
+
+**Setup and run:**
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# App available at http://localhost:5173
+```
+
+**Testing:**
+```bash
+# Run all tests
+npx vitest run
+
+# Run tests with coverage report (HTML output in coverage/)
+npx vitest run --coverage
+
+# Run tests in watch mode (re-runs on file changes)
+npx vitest
+```
+
+**Linting and build:**
+```bash
+# Lint (zero warnings allowed)
+npx eslint src/ --max-warnings 0 --ignore-pattern "src/context/**"
+
+# Production build (output in dist/)
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+**Node version:** This project uses Node 22. If you use nvm:
+```bash
+nvm install 22
+nvm use 22
+```
+
+**Prerequisites:** Node 22 and npm. Do not use yarn — the CI pipeline uses `npm ci` for deterministic installs. All commands are the same on Linux, Mac, and Windows.
+
 ---
 
 <details>
