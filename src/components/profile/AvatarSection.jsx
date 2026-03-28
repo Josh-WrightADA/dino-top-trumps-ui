@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import Avatar from '../shared/Avatar';
 import './Avatar.css';
 
 export default function AvatarSection({ profile, uploadingAvatar, onFileChange, onPickerOpen }) {
@@ -6,17 +7,11 @@ export default function AvatarSection({ profile, uploadingAvatar, onFileChange, 
 
   return (
     <div className="profile__card avatar-section">
-      {profile.avatarUrl ? (
-        <img
-          src={profile.avatarUrl}
-          alt="Your avatar"
-          className="avatar avatar--large"
-        />
-      ) : (
-        <div className="avatar-placeholder avatar-placeholder--large">
-          {(profile.username || 'U').charAt(0)}
-        </div>
-      )}
+      <Avatar
+        avatarUrl={profile.avatarUrl}
+        name={profile.username}
+        size="large"
+      />
 
       <p className="avatar-section__hint">Choose how you appear to other players</p>
 

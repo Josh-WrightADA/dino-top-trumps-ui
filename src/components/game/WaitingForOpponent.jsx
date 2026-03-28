@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getFriends, sendGameInvite } from '../../api/socialApi';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
 import './GameBoard.css';
 
 /**
@@ -27,7 +28,7 @@ export default function WaitingForOpponent({ gameId, isPlayer1 }) {
       await sendGameInvite(gameId, friendId);
       setInviteStatus((prev) => ({ ...prev, [friendId]: 'sent' }));
     } catch (err) {
-      const message = err.response?.data?.detail || 'Failed to send invite.';
+      const message = extractErrorMessage(err, 'Failed to send invite.');
       setInviteStatus((prev) => ({ ...prev, [friendId]: message }));
     }
   }

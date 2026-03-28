@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { register } from '../../api/authApi';
 import PasswordField from './PasswordField';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
 import './AuthForms.css';
 
 export default function RegisterForm() {
@@ -45,7 +46,7 @@ export default function RegisterForm() {
       await register(username, email, password);
       navigate('/login');
     } catch (err) {
-      const message = err.response?.data?.detail || err.response?.data?.message || 'Registration failed. Please try again.';
+      const message = extractErrorMessage(err, 'Registration failed. Please try again.');
       setError(message);
     } finally {
       setLoading(false);

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getLeaderboard } from '../../api/gameApi';
 import useAuth from '../../hooks/useAuth';
 import RankBadge from '../rank/RankBadge';
+import Avatar from '../shared/Avatar';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
 import Pagination from '../shared/Pagination';
@@ -74,17 +75,12 @@ export default function Leaderboard() {
                         to={player.userId === user?.id ? '/profile' : `/player/${player.userId}`}
                         className="leaderboard-table__player-link"
                       >
-                        {player.avatarUrl ? (
-                          <img
-                            src={player.avatarUrl}
-                            alt=""
-                            className="avatar avatar--medium leaderboard-table__avatar"
-                          />
-                        ) : (
-                          <div className="avatar-placeholder avatar-placeholder--medium leaderboard-table__avatar-placeholder">
-                            {(player.displayName || player.username || 'U').charAt(0)}
-                          </div>
-                        )}
+                        <Avatar
+                          avatarUrl={player.avatarUrl}
+                          name={player.displayName || player.username}
+                          size="medium"
+                          className="leaderboard-table__avatar"
+                        />
                         {player.displayName || player.username}
                       </Link>
                     </td>

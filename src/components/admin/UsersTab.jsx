@@ -3,6 +3,7 @@ import { getUsers, banUser, unbanUser } from '../../api/adminApi';
 import RankBadge from '../rank/RankBadge';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
 
 export default function UsersTab() {
   const [users, setUsers] = useState([]);
@@ -16,7 +17,7 @@ export default function UsersTab() {
       const res = await getUsers();
       setUsers(res.data);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to load users.');
+      setError(extractErrorMessage(err, 'Failed to load users.'));
     } finally {
       setLoading(false);
     }
@@ -30,7 +31,7 @@ export default function UsersTab() {
       const res = await banUser(userId);
       setUsers((prev) => prev.map((u) => (u.id === userId ? res.data : u)));
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to ban user.');
+      setError(extractErrorMessage(err, 'Failed to ban user.'));
     }
   }
 
@@ -39,7 +40,7 @@ export default function UsersTab() {
       const res = await unbanUser(userId);
       setUsers((prev) => prev.map((u) => (u.id === userId ? res.data : u)));
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to unban user.');
+      setError(extractErrorMessage(err, 'Failed to unban user.'));
     }
   }
 

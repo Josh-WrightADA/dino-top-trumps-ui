@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getAdminGames, deleteGame } from '../../api/adminApi';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
 
 export default function GamesTab() {
   const [games, setGames] = useState([]);
@@ -15,7 +16,7 @@ export default function GamesTab() {
       const res = await getAdminGames();
       setGames(res.data);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to load games.');
+      setError(extractErrorMessage(err, 'Failed to load games.'));
     } finally {
       setLoading(false);
     }
@@ -29,7 +30,7 @@ export default function GamesTab() {
       await deleteGame(gameId);
       setGames((prev) => prev.filter((g) => g.id !== gameId));
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to delete game.');
+      setError(extractErrorMessage(err, 'Failed to delete game.'));
     }
   }
 

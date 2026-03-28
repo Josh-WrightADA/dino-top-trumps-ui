@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { login as loginApi } from '../../api/authApi';
 import useAuth from '../../hooks/useAuth';
 import PasswordField from './PasswordField';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
 import './AuthForms.css';
 
 export default function LoginForm() {
@@ -28,7 +29,7 @@ export default function LoginForm() {
       login(res.data.accessToken);
       navigate('/');
     } catch (err) {
-      const message = err.response?.data?.detail || err.response?.data?.message || 'Login failed. Please try again.';
+      const message = extractErrorMessage(err, 'Login failed. Please try again.');
       setError(message);
     } finally {
       setLoading(false);

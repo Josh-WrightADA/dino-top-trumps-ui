@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { STAT_ORDER } from '../../constants/statOrder';
+import CardStats from './CardStats';
 import './DinoCard.css';
 
 export default function DinoCard({ card, highlightStat }) {
@@ -40,21 +40,7 @@ export default function DinoCard({ card, highlightStat }) {
       </div>
 
       <div className="dino-card__stats">
-        {STAT_ORDER.map((stat) => (
-          <div
-            key={stat}
-            className={`dino-card__stat${highlightStat === stat ? ' dino-card__stat--highlighted' : ''}`}
-          >
-            <span className="dino-card__stat-label">{stat}</span>
-            <div className="dino-card__stat-bar">
-              <div
-                className={`dino-card__stat-fill${highlightStat === stat ? ' dino-card__stat-fill--highlighted' : ''}`}
-                style={{ width: `${Math.min(card[stat], 100)}%` }}
-              />
-            </div>
-            <span className="dino-card__stat-value">{card[stat]}</span>
-          </div>
-        ))}
+        <CardStats card={card} highlightStat={highlightStat} />
       </div>
     </div>
   );

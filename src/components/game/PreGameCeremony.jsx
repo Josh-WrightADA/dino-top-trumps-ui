@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getPublicProfile } from '../../api/authApi';
 import RankBadge from '../rank/RankBadge';
+import Avatar from '../shared/Avatar';
 import '../profile/Avatar.css';
 import './PreGameCeremony.css';
 
@@ -63,7 +64,6 @@ export default function PreGameCeremony({ opponentId, currentTurnPlayerId, curre
   }, [stage, onComplete]);
 
   const opponentName = opponent?.displayName || opponent?.username || 'Opponent';
-  const opponentInitial = opponentName.charAt(0).toUpperCase();
 
   return (
     <div className="pre-game-ceremony" aria-live="polite">
@@ -71,17 +71,11 @@ export default function PreGameCeremony({ opponentId, currentTurnPlayerId, curre
         <div className="pre-game-ceremony__stage" key="stage-1">
           <p className="pre-game-ceremony__label">Your opponent is...</p>
 
-          {opponent?.avatarUrl ? (
-            <img
-              src={opponent.avatarUrl}
-              alt={`${opponentName}'s avatar`}
-              className="avatar avatar--large"
-            />
-          ) : (
-            <div className="avatar-placeholder avatar-placeholder--large">
-              {opponentInitial}
-            </div>
-          )}
+          <Avatar
+            avatarUrl={opponent?.avatarUrl}
+            name={opponentName}
+            size="large"
+          />
 
           <h2 className="pre-game-ceremony__opponent-name">{opponentName}</h2>
 

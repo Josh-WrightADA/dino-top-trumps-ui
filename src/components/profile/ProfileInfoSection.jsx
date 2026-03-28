@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { updateProfile } from '../../api/authApi';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
+import '../shared/Shared.css';
 import '../../App.css';
 import '../../pages/Profile.css';
 
@@ -20,7 +22,7 @@ export default function ProfileInfoSection({ profile, onProfileUpdated, onError,
       setEditing(false);
       onSuccess('Profile updated.');
     } catch (err) {
-      onError(err.response?.data?.detail || 'Failed to update profile.');
+      onError(extractErrorMessage(err, 'Failed to update profile.'));
     } finally {
       setSaving(false);
     }

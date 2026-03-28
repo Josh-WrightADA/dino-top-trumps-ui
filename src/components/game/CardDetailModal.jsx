@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { STAT_ORDER } from '../../constants/statOrder';
+import CardStats from './CardStats';
 import './CardDetailModal.css';
 
 export default function CardDetailModal({ card, onClose }) {
@@ -45,15 +45,7 @@ export default function CardDetailModal({ card, onClose }) {
         )}
 
         <div className="card-modal__stats">
-          {STAT_ORDER.map((stat) => (
-            <div key={stat} className="dino-card__stat">
-              <span className="dino-card__stat-label">{stat}</span>
-              <div className="dino-card__stat-bar">
-                <div className="dino-card__stat-fill" style={{ width: `${Math.min(card[stat], 100)}%` }} />
-              </div>
-              <span className="dino-card__stat-value">{card[stat]}</span>
-            </div>
-          ))}
+          <CardStats card={card} />
         </div>
       </div>
     </div>
