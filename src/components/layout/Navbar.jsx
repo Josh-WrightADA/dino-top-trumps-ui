@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import Avatar from '../shared/Avatar';
 import './Navbar.css';
 import '../profile/Avatar.css';
 import '../../pages/Profile.css';
@@ -54,13 +55,11 @@ export default function Navbar() {
               <NavLink to="/admin" className="navbar-links__item" onClick={closeMenu}>Admin</NavLink>
             )}
             <NavLink to="/profile" className="navbar-user navbar-avatar navbar-avatar--link" onClick={closeMenu}>
-              {user?.avatarUrl ? (
-                <img src={user.avatarUrl} alt={`${user.displayName || user.username} avatar`} className="avatar avatar--small" />
-              ) : (
-                <div className="avatar-placeholder avatar-placeholder--small">
-                  {(user?.username || 'U').charAt(0)}
-                </div>
-              )}
+              <Avatar
+                avatarUrl={user?.avatarUrl}
+                name={user?.displayName || user?.username}
+                size="small"
+              />
               {user?.displayName || user?.username}
               {user?.role === 'ADMIN' && (
                 <span className="profile__admin-badge">ADMIN</span>

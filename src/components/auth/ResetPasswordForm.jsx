@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { resetPassword } from '../../api/authApi';
 import useAuth from '../../hooks/useAuth';
 import PasswordField from './PasswordField';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
 import './AuthForms.css';
 
 export default function ResetPasswordForm() {
@@ -48,7 +49,7 @@ export default function ResetPasswordForm() {
       }
       setSuccess(true);
     } catch (err) {
-      setError(err.response?.data?.detail || err.response?.data?.message || 'Reset failed.');
+      setError(extractErrorMessage(err, 'Reset failed.'));
     } finally {
       setLoading(false);
     }

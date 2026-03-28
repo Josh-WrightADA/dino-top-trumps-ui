@@ -2,13 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getPublicProfile } from '../api/authApi';
 import { sendFriendRequest, reportUser } from '../api/socialApi';
-import RankBadge from '../components/rank/RankBadge';
+import PlayerStatsCard from '../components/profile/PlayerStatsCard';
+import Avatar from '../components/shared/Avatar';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
+import { formatWinRate } from '../utils/formatWinRate';
 import '../components/profile/Profile.css';
 import '../components/profile/Avatar.css';
-import { formatWinRate } from '../utils/formatWinRate';
-import '../App.css';
 import './PlayerProfile.css';
 import './Profile.css';
 
@@ -56,7 +57,7 @@ export default function PlayerProfilePage() {
       await sendFriendRequest(id);
       setFriendMessage('Friend request sent!');
     } catch (err) {
-      setFriendError(err.response?.data?.detail || 'Failed to send friend request.');
+      setFriendError(extractErrorMessage(err, 'Failed to send friend request.'));
     } finally {
       setFriendSending(false);
     }
@@ -73,7 +74,7 @@ export default function PlayerProfilePage() {
       setReportReason('');
       setReportOpen(false);
     } catch (err) {
-      setReportError(err.response?.data?.detail || 'Failed to submit report.');
+      setReportError(extractErrorMessage(err, 'Failed to submit report.'));
     } finally {
       setReportSending(false);
     }
@@ -93,40 +94,21 @@ export default function PlayerProfilePage() {
       {!loading && !error && profile && (
         <div className="profile">
           <div className="player-profile__header">
-            {profile.avatarUrl ? (
-              <img
-                src={profile.avatarUrl}
-                alt={`${profile.displayName || profile.username}'s avatar`}
-                className="avatar avatar--large avatar--glow"
-              />
-            ) : (
-              <div className="avatar-placeholder avatar-placeholder--large avatar--glow">
-                {(profile.displayName || profile.username || 'U').charAt(0)}
-              </div>
-            )}
+            <Avatar
+              avatarUrl={profile.avatarUrl}
+              name={profile.displayName || profile.username}
+              size="large"
+              className="avatar--glow"
+            />
             <h2 className="player-profile__name">{profile.displayName || profile.username}</h2>
           </div>
 
-          <div className="profile__card">
-            <div className="profile__stats">
-              <div>
-                <div className="profile__stat-label">League Points</div>
-                <div className="profile__stat-value">{profile.leaguePoints}</div>
-              </div>
-              <div>
-                <div className="profile__stat-label">Rank</div>
-                <div className="profile__stat-value"><RankBadge tierKey={profile.rankTier} size="medium" /></div>
-              </div>
-              <div>
-                <div className="profile__stat-label">Games Played</div>
-                <div className="profile__stat-value">{profile.gamesPlayed}</div>
-              </div>
-              <div>
-                <div className="profile__stat-label">Win Rate</div>
-                <div className="profile__stat-value">{winRate}</div>
-              </div>
-            </div>
-          </div>
+          <PlayerStatsCard stats={[
+            { label: 'League Points', value: profile.leaguePoints },
+            { label: 'Rank', value: profile.rankTier },
+            { label: 'Games Played', value: profile.gamesPlayed },
+            { label: 'Win Rate', value: winRate },
+          ]} />
 
           {/* Social actions */}
           <div className="player-profile__actions">

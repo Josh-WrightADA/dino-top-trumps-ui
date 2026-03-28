@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { changePassword, deleteAccount } from '../../api/authApi';
 import PasswordField from '../auth/PasswordField';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
 import '../auth/AuthForms.css';
 import '../../App.css';
 import '../../pages/Profile.css';
@@ -36,7 +37,7 @@ export default function SecuritySection({ onLogout, onError, onSuccess, onNaviga
       setConfirmPassword('');
       onSuccess('Password changed successfully.');
     } catch (err) {
-      onError(err.response?.data?.detail || err.response?.data?.message || 'Failed to change password.');
+      onError(extractErrorMessage(err, 'Failed to change password.'));
     } finally {
       setSaving(false);
     }

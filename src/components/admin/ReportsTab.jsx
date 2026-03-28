@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getReports, dismissReport } from '../../api/adminApi';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import ErrorMessage from '../shared/ErrorMessage';
+import { extractErrorMessage } from '../../utils/extractErrorMessage';
 
 export default function ReportsTab() {
   const [reports, setReports] = useState([]);
@@ -15,7 +16,7 @@ export default function ReportsTab() {
       const res = await getReports();
       setReports(res.data);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to load reports.');
+      setError(extractErrorMessage(err, 'Failed to load reports.'));
     } finally {
       setLoading(false);
     }
@@ -29,7 +30,7 @@ export default function ReportsTab() {
       const res = await dismissReport(reportId);
       setReports((prev) => prev.map((r) => (r.id === reportId ? res.data : r)));
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to dismiss report.');
+      setError(extractErrorMessage(err, 'Failed to dismiss report.'));
     }
   }
 

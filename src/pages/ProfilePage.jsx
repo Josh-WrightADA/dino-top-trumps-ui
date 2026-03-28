@@ -6,7 +6,7 @@ import AvatarSection from '../components/profile/AvatarSection';
 import ProfileInfoSection from '../components/profile/ProfileInfoSection';
 import SecuritySection from '../components/profile/SecuritySection';
 import AvatarPicker from '../components/profile/AvatarPicker';
-import RankBadge from '../components/rank/RankBadge';
+import PlayerStatsCard from '../components/profile/PlayerStatsCard';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
 import '../components/profile/Profile.css';
@@ -104,30 +104,12 @@ export default function ProfilePage() {
               onPickerOpen={() => setShowAvatarPicker(true)}
             />
 
-            <div className="profile__card">
-              <div className="profile__stats">
-                <div>
-                  <div className="profile__stat-label">League Points</div>
-                  <div className="profile__stat-value">
-                    {profile.leaguePoints != null ? profile.leaguePoints : profile.eloRating}
-                  </div>
-                </div>
-                <div>
-                  <div className="profile__stat-label">Rank</div>
-                  <div className="profile__stat-value">
-                    <RankBadge tierKey={profile.rankTier} size="medium" />
-                  </div>
-                </div>
-                <div>
-                  <div className="profile__stat-label">Games Won</div>
-                  <div className="profile__stat-value">{profile.gamesWon}</div>
-                </div>
-                <div>
-                  <div className="profile__stat-label">Win Rate</div>
-                  <div className="profile__stat-value">{winRate}</div>
-                </div>
-              </div>
-            </div>
+            <PlayerStatsCard stats={[
+              { label: 'League Points', value: profile.leaguePoints != null ? profile.leaguePoints : profile.eloRating },
+              { label: 'Rank', value: profile.rankTier },
+              { label: 'Games Won', value: profile.gamesWon },
+              { label: 'Win Rate', value: winRate },
+            ]} />
 
             <ProfileInfoSection
               profile={profile}

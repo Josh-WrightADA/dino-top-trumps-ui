@@ -8,6 +8,8 @@ import {
 import { getLeaderboard } from '../api/gameApi';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
 import ErrorMessage from '../components/shared/ErrorMessage';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
+import '../components/shared/Shared.css';
 import './Friends.css';
 
 export default function FriendsPage() {
@@ -46,7 +48,7 @@ export default function FriendsPage() {
       await sendFriendRequest(userId);
       setSearchFeedback({ userId, message: 'Request sent!', type: 'success' });
     } catch (err) {
-      const detail = err?.response?.data?.detail || 'Failed to send request.';
+      const detail = extractErrorMessage(err, 'Failed to send request.');
       setSearchFeedback({ userId, message: detail, type: 'error' });
     }
   }
@@ -64,7 +66,7 @@ export default function FriendsPage() {
       setRequests(requestsRes.data);
       setInvites(invitesRes.data);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to load friends data.');
+      setError(extractErrorMessage(err, 'Failed to load friends data.'));
     } finally {
       setLoading(false);
     }
@@ -77,7 +79,7 @@ export default function FriendsPage() {
       await acceptFriendRequest(friendshipId);
       await fetchAll();
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to accept request.');
+      setError(extractErrorMessage(err, 'Failed to accept request.'));
     }
   }
 
@@ -86,7 +88,7 @@ export default function FriendsPage() {
       await declineFriendRequest(friendshipId);
       setRequests((prev) => prev.filter((r) => r.id !== friendshipId));
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to decline request.');
+      setError(extractErrorMessage(err, 'Failed to decline request.'));
     }
   }
 
@@ -96,7 +98,7 @@ export default function FriendsPage() {
       await removeFriend(friendshipId);
       setFriends((prev) => prev.filter((f) => f.id !== friendshipId));
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to remove friend.');
+      setError(extractErrorMessage(err, 'Failed to remove friend.'));
     }
   }
 
@@ -105,7 +107,7 @@ export default function FriendsPage() {
       await acceptGameInvite(inviteId);
       navigate(`/game/${gameId}`);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to accept game invite.');
+      setError(extractErrorMessage(err, 'Failed to accept game invite.'));
     }
   }
 
@@ -114,7 +116,7 @@ export default function FriendsPage() {
       await declineGameInvite(inviteId);
       setInvites((prev) => prev.filter((i) => i.id !== inviteId));
     } catch (err) {
-      setError(err.response?.data?.detail || 'Failed to decline game invite.');
+      setError(extractErrorMessage(err, 'Failed to decline game invite.'));
     }
   }
 

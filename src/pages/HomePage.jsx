@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import { getCards } from '../api/gameApi';
+import { shuffleArray } from '../utils/shuffleArray';
 import './Home.css';
 
 const FEATURE_ITEMS = [
@@ -50,7 +51,7 @@ export default function HomePage() {
     getCards()
       .then((res) => {
         const fetched = res.data;
-        const shuffled = [...fetched].sort(() => Math.random() - 0.5);
+        const shuffled = shuffleArray(fetched);
         setHeroCards(shuffled.slice(0, 3));
         setShuffledCards(shuffled);
       })
