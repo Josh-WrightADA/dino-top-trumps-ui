@@ -191,6 +191,7 @@ export default function GameBoard() {
                   card={topCard}
                   onSelect={handleStatSelect}
                   disabled={submitting}
+                  compact
                 />
               )}
             </div>

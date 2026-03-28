@@ -43,7 +43,7 @@ describe('FriendsPage', () => {
   it('renders pending requests with accept/decline buttons', async () => {
     getFriends.mockResolvedValue({ data: [] });
     getPendingRequests.mockResolvedValue({ data: [
-      { id: 'fr-1', requesterId: 'user-2', addresseeId: 'user-1', status: 'PENDING', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-20T10:00:00Z' },
+      { id: 'fr-1', requesterId: 'user-2', requesterDisplayName: 'DinoFan', addresseeId: 'user-1', addresseeDisplayName: 'testuser', status: 'PENDING', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-20T10:00:00Z' },
     ] });
     getPendingInvites.mockResolvedValue({ data: [] });
 
@@ -57,7 +57,7 @@ describe('FriendsPage', () => {
   it('accepts a friend request', async () => {
     getFriends.mockResolvedValue({ data: [] });
     getPendingRequests.mockResolvedValue({ data: [
-      { id: 'fr-1', requesterId: 'user-2', addresseeId: 'user-1', status: 'PENDING', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-20T10:00:00Z' },
+      { id: 'fr-1', requesterId: 'user-2', requesterDisplayName: 'DinoFan', addresseeId: 'user-1', addresseeDisplayName: 'testuser', status: 'PENDING', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-20T10:00:00Z' },
     ] });
     getPendingInvites.mockResolvedValue({ data: [] });
     acceptFriendRequest.mockResolvedValue({ data: { id: 'fr-1', status: 'ACCEPTED' } });
@@ -73,7 +73,7 @@ describe('FriendsPage', () => {
   it('declines a friend request', async () => {
     getFriends.mockResolvedValue({ data: [] });
     getPendingRequests.mockResolvedValue({ data: [
-      { id: 'fr-1', requesterId: 'user-2', addresseeId: 'user-1', status: 'PENDING', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-20T10:00:00Z' },
+      { id: 'fr-1', requesterId: 'user-2', requesterDisplayName: 'DinoFan', addresseeId: 'user-1', addresseeDisplayName: 'testuser', status: 'PENDING', createdAt: '2026-03-20T10:00:00Z', updatedAt: '2026-03-20T10:00:00Z' },
     ] });
     getPendingInvites.mockResolvedValue({ data: [] });
     declineFriendRequest.mockResolvedValue({ data: { id: 'fr-1', status: 'DECLINED' } });

@@ -63,6 +63,37 @@
   font-family: var(--font-mono);
 }
 
+/* --- Compact modifier (used in GameBoard controls column) --- */
+.stat-selector--compact {
+  margin: 0;
+}
+
+.stat-selector--compact .stat-selector__title {
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+
+.stat-selector--compact .stat-selector__grid {
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+}
+
+.stat-selector--compact .stat-selector__btn {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+}
+
+.stat-selector--compact .stat-selector__btn-label {
+  font-size: var(--text-sm);
+}
+
+.stat-selector--compact .stat-selector__btn-value {
+  margin-top: 0;
+  font-size: var(--text-base);
+}
+
 @media (max-width: 480px) {
   .stat-selector__grid {
     grid-template-columns: repeat(3, 1fr);

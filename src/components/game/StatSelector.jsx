@@ -4,7 +4,7 @@ import './StatSelector.css';
 // See STAT_ORDER in src/constants/statOrder.js for the lowercase shared constant.
 const STATS = ['HEIGHT', 'WEIGHT', 'INTELLIGENCE', 'SPEED', 'STRENGTH'];
 
-export default function StatSelector({ card, onSelect, disabled }) {
+export default function StatSelector({ card, onSelect, disabled, compact = false }) {
   if (!card) return null;
 
   const statValues = {
@@ -16,7 +16,7 @@ export default function StatSelector({ card, onSelect, disabled }) {
   };
 
   return (
-    <div className="stat-selector">
+    <div className={`stat-selector${compact ? ' stat-selector--compact' : ''}`}>
       <div className="stat-selector__title">Choose Your Stat</div>
       <div className="stat-selector__grid">
         {STATS.map((stat) => (

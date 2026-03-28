@@ -10,6 +10,7 @@ import './GameBoard.css';
 export default function WaitingForOpponent({ gameId, isPlayer1 }) {
   const [friends, setFriends] = useState([]);
   const [inviteStatus, setInviteStatus] = useState({});
+  const [copied, setCopied] = useState(false);
 
   // Load friends list when the host is waiting
   useEffect(() => {
@@ -21,6 +22,12 @@ export default function WaitingForOpponent({ gameId, isPlayer1 }) {
         });
     }
   }, [isPlayer1]);
+
+  function handleCopyGameId() {
+    navigator.clipboard.writeText(gameId);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
 
   async function handleSendInvite(friendId) {
     setInviteStatus((prev) => ({ ...prev, [friendId]: 'sending' }));
@@ -42,13 +49,13 @@ export default function WaitingForOpponent({ gameId, isPlayer1 }) {
         <p className="game-board__waiting-text">
           <span
             className="game-board__game-id"
-            onClick={() => { navigator.clipboard.writeText(gameId); }}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigator.clipboard.writeText(gameId); } }}
+            onClick={handleCopyGameId}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCopyGameId(); } }}
             role="button"
             tabIndex={0}
             title="Click to copy"
           >
-            {gameId}
+            {copied ? 'Copied!' : gameId}
           </span>
         </p>
       </div>
@@ -62,7 +69,9 @@ export default function WaitingForOpponent({ gameId, isPlayer1 }) {
               const status = inviteStatus[friendId];
               return (
                 <li key={f.id} className="game-board__invite-row">
-                  <span className="game-board__invite-id">{friendId.slice(0, 12)}...</span>
+                  <span className="game-board__invite-id">
+                    {f.addresseeDisplayName || `${friendId.slice(0, 8)}...`}
+                  </span>
                   {status === 'sent' ? (
                     <span className="game-board__invite-sent">Invited</span>
                   ) : (

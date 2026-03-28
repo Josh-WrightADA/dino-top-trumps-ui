@@ -49,7 +49,7 @@ export default function ForgotPasswordForm() {
         {loading ? 'Sending...' : 'Send Reset Link'}
       </button>
       <div className="auth-links">
-        <Link to="/login">Back to Login</Link>
+        <Link to="/login" className="auth-links__link">Back to Login</Link>
       </div>
     </form>
   );

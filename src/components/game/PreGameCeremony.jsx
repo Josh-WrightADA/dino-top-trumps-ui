@@ -30,18 +30,12 @@ export default function PreGameCeremony({ opponentId, currentTurnPlayerId, curre
     return () => { cancelled = true; };
   }, [opponentId]);
 
-  // Auto-advance stage 1 -> stage 2
+  // Auto-advance stages 1 -> 2 -> 3
   useEffect(() => {
-    if (stage !== 1) return;
-    const timer = setTimeout(() => setStage(2), STAGE_DURATION_MS);
-    return () => clearTimeout(timer);
-  }, [stage]);
-
-  // Auto-advance stage 2 -> stage 3
-  useEffect(() => {
-    if (stage !== 2) return;
-    const timer = setTimeout(() => setStage(3), STAGE_DURATION_MS);
-    return () => clearTimeout(timer);
+    if (stage < 3) {
+      const timer = setTimeout(() => setStage((s) => s + 1), STAGE_DURATION_MS);
+      return () => clearTimeout(timer);
+    }
   }, [stage]);
 
   // Countdown in stage 3 then auto-dismiss

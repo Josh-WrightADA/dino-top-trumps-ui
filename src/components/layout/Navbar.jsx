@@ -4,7 +4,6 @@ import useAuth from '../../hooks/useAuth';
 import Avatar from '../shared/Avatar';
 import './Navbar.css';
 import '../profile/Avatar.css';
-import '../../pages/Profile.css';
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
@@ -25,7 +24,7 @@ export default function Navbar() {
       <Link to="/" className="navbar-brand" onClick={closeMenu}>
         <img
           src="https://res.cloudinary.com/djnj9zlw3/image/upload/v1774360272/logo_igimhm.png"
-          alt=""
+          alt="Dino Top Trumps logo"
           className="navbar-brand__logo"
         />
         Dino Top Trumps
@@ -62,7 +61,7 @@ export default function Navbar() {
               />
               {user?.displayName || user?.username}
               {user?.role === 'ADMIN' && (
-                <span className="profile__admin-badge">ADMIN</span>
+                <span className="navbar__admin-badge">ADMIN</span>
               )}
             </NavLink>
             <button onClick={handleLogout} className="navbar-logout">Logout</button>
