@@ -84,7 +84,7 @@ export default function PlayerProfilePage() {
 
   return (
     <div className="page">
-      <button className="btn--secondary player-profile__back-btn" onClick={() => navigate(-1)}>
+      <button className="btn btn--secondary player-profile__back-btn" onClick={() => navigate(-1)}>
         &larr; Back
       </button>
 
@@ -114,14 +114,14 @@ export default function PlayerProfilePage() {
           <div className="player-profile__actions">
             <div className="player-profile__action-row">
               <button
-                className="btn--primary btn--small"
+                className="btn btn--primary btn--small"
                 onClick={handleAddFriend}
                 disabled={friendSending || !!friendMessage}
               >
                 {friendSending ? 'Sending...' : 'Add Friend'}
               </button>
               <button
-                className="btn--secondary btn--small"
+                className="btn btn--secondary btn--small"
                 onClick={() => {
                   setReportOpen((prev) => !prev);
                   setReportError('');
@@ -163,7 +163,7 @@ export default function PlayerProfilePage() {
                 )}
                 <button
                   type="submit"
-                  className="btn--danger btn--small"
+                  className="btn btn--danger btn--small"
                   disabled={reportSending || reportReason.trim().length < 5}
                 >
                   {reportSending ? 'Submitting...' : 'Submit Report'}

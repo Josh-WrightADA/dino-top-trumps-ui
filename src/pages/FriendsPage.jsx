@@ -152,7 +152,7 @@ export default function FriendsPage() {
                 <span>{player.displayName || player.username}</span>
                 <div className="friends__search-result-actions">
                   <button
-                    className="btn--secondary btn--small"
+                    className="btn btn--secondary btn--small"
                     onClick={() => handleAddFriend(player.userId)}
                     disabled={searchFeedback.userId === player.userId && searchFeedback.type === 'success'}
                   >
@@ -195,13 +195,13 @@ export default function FriendsPage() {
                 </div>
                 <div className="friends-page__card-actions">
                   <button
-                    className="btn--primary btn--small"
+                    className="btn btn--primary btn--small"
                     onClick={() => handleAcceptRequest(req.id)}
                   >
                     Accept
                   </button>
                   <button
-                    className="btn--secondary btn--small"
+                    className="btn btn--secondary btn--small"
                     onClick={() => handleDeclineRequest(req.id)}
                   >
                     Decline
@@ -235,7 +235,7 @@ export default function FriendsPage() {
                 </div>
                 <div className="friends-page__card-actions">
                   <button
-                    className="btn--danger btn--small"
+                    className="btn btn--danger btn--small"
                     onClick={() => handleRemoveFriend(f.id)}
                   >
                     Remove
@@ -270,13 +270,13 @@ export default function FriendsPage() {
                 </div>
                 <div className="friends-page__card-actions">
                   <button
-                    className="btn--primary btn--small"
+                    className="btn btn--primary btn--small"
                     onClick={() => handleAcceptInvite(inv.id, inv.gameId)}
                   >
                     Accept
                   </button>
                   <button
-                    className="btn--secondary btn--small"
+                    className="btn btn--secondary btn--small"
                     onClick={() => handleDeclineInvite(inv.id)}
                   >
                     Decline
