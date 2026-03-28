@@ -345,6 +345,7 @@ I used AI-assisted development tools for the following areas. In each case I dir
 - The visual design direction (dark prehistoric theme, amber accent palette, card-as-hero principle)
 - Manually balancing all 36 dinosaur stat values for competitive gameplay
 - Curating educational fun facts for each card
+- Configuring and wiring external services (SendGrid account setup, Cloudinary account and image management, Render deployment configuration for both repos)
 - User testing with real testers on the live deployment, interpreting feedback, and prioritising fixes
 - All final decisions on architecture, features, and trade-offs documented in the Known Limitations sections
 
