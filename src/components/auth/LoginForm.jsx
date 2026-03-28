@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login as loginApi } from '../../api/authApi';
 import useAuth from '../../hooks/useAuth';
+import PasswordField from './PasswordField';
 import './AuthForms.css';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -49,26 +49,12 @@ export default function LoginForm() {
           autoComplete="username"
         />
       </label>
-      <label className="auth-form__label">
-        Password
-        <div className="auth-form__password-field">
-          <input
-            className="auth-form__input"
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-          />
-          <button
-            type="button"
-            className="auth-form__toggle-password"
-            onClick={() => setShowPassword(prev => !prev)}
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
-          >
-            {showPassword ? 'Hide' : 'Show'}
-          </button>
-        </div>
-      </label>
+      <PasswordField
+        label="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        autoComplete="current-password"
+      />
       <button className="auth-form__submit" type="submit" disabled={loading}>
         {loading ? 'Logging in...' : 'Login'}
       </button>
