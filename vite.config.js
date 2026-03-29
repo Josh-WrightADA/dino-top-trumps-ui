@@ -12,7 +12,20 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
-      include: ['src/components/**', 'src/hooks/**', 'src/context/**', 'src/pages/**'],
+      include: [
+        'src/components/**',
+        'src/hooks/**',
+        'src/context/**',
+        'src/utils/**',
+      ],
+      exclude: [
+        'src/pages/**',
+        'src/api/**',
+        'src/constants/**',
+        'src/main.jsx',
+        'src/App.jsx',
+        'src/test/**',
+      ],
     },
     server: {
       deps: {

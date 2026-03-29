@@ -351,6 +351,8 @@ All 36 card images, 5 rank badge icons, 11 profile portraits, and the brand asse
 | **No offline support** | Requires network connectivity | Service worker with cache-first for static assets |
 | **No mobile optimisation** | Desktop-focused design with responsive breakpoints at 768px and 480px | Full mobile testing and touch-optimised interactions |
 | **Lobby-based matchmaking** | Players manually create/join games from a lobby list | Automated matchmaking queue that pairs players by rank tier, similar to competitive games |
+| **Code quality gates** | ESLint for linting, Vitest coverage reporting | SonarQube or SonarCloud for static analysis, code smell detection, and coverage thresholds enforced as CI quality gates |
+| **Performance monitoring** | No client-side performance tracking | Web Vitals reporting (LCP, FID, CLS), error boundary telemetry to an observability platform (Datadog, Sentry) |
 
 ---
 
