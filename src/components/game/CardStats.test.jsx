@@ -28,7 +28,7 @@ describe('CardStats', () => {
 
   it('caps stat bar width at 100%', () => {
     const overflowCard = { ...mockCard, strength: 150 };
-    const { container } = render(<CardStats card={overflowCard} />);
+    render(<CardStats card={overflowCard} />);
 
     const strengthValue = screen.getByText('150');
     const statDiv = strengthValue.closest('.dino-card__stat');
