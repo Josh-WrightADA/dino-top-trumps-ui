@@ -79,7 +79,7 @@ I chose npm over yarn because it's what I'm familiar with and the CI uses `npm c
 
 ### Prerequisites
 
-- Node 22 (I recommend nvm for version management)
+- Node 22 (v22.x.x). **Not** Node 25+ — jsdom tests will fail. Check with `node --version`
 - npm (not yarn)
 - Backend API running locally or on Render
 
@@ -150,7 +150,7 @@ nvm install 22
 nvm use 22
 ```
 
-**Prerequisites:** Node 22 and npm. Do not use yarn — the CI pipeline uses `npm ci` for deterministic installs. All commands are the same on Linux, Mac, and Windows.
+**Prerequisites:** Node 22 (v22.x.x) and npm. **Node 25+ is not supported** — tests will fail due to jsdom compatibility. The `engines` field in `package.json` will warn if the wrong version is detected. A `.nvmrc` file is included for nvm users (`nvm use` will select the correct version). Do not use yarn — the CI pipeline uses `npm ci` for deterministic installs. All commands are the same on Linux, Mac, and Windows.
 
 ---
 
